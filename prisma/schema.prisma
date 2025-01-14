@@ -14,28 +14,43 @@ datasource db {
 }
 
 model Template {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
-  
+  domain          String    @db.VarChar(255)
 
-}
+  projectName     String?   @db.VarChar(255)
+  twitter         String?   @db.VarChar(255)
+  telegram        String?   @db.VarChar(255)
 
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+  logo            String?   @db.VarChar(255)
+  background      String?   @db.VarChar(255)
+  imagePreview    String?   @db.VarChar(255)
+
+  ticker          String?   @db.VarChar(255)
+  contractAddress String?   @db.VarChar(255)
+  description     String?   @db.VarChar(255)
+
+  jupiter        Boolean   @default(false)
+  tiktok         String?   @db.VarChar(255)
+  instagram      String?   @db.VarChar(255)
+  dexscreener    String?   @db.VarChar(255)
+  pumpFun        String?   @db.VarChar(255)
+  coinGecko      String?   @db.VarChar(255)
+  coinMarketCap  String?   @db.VarChar(255)
+  birdeye        String?   @db.VarChar(255)
+  dextools       String?   @db.VarChar(255)
+  whitepaper     String?   @db.VarChar(255)
+
+  user          User?     @relation(fields: [userId], references: [id])
+  userId        Int?
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  templates   Template[]
-  profile Profile?
+  id            Int       @id @default(autoincrement())
+  address       String    @unique
+  chainId       Int?
+  lastConnected DateTime  @default(now())
+  templates     Template[]
 }
