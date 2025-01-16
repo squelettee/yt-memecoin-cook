@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
-
+import { subdomainErrors } from '@/schemas/subdomainSchema'
 
 export async function GET(request: Request) {
   try {
@@ -9,7 +9,7 @@ export async function GET(request: Request) {
 
     if (!subdomain) {
       return NextResponse.json(
-        { error: 'Subdomain parameter is required' },
+        { error: subdomainErrors.required },
         { status: 400 }
       )
     }
@@ -17,7 +17,7 @@ export async function GET(request: Request) {
     const subdomainRegex = /^[a-z0-9-]+$/
     if (!subdomainRegex.test(subdomain)) {
       return NextResponse.json(
-        { error: 'Subdomain can only contain lowercase letters, numbers, and hyphens' },
+        { error: subdomainErrors.format },
         { status: 400 }
       )
     }
@@ -30,15 +30,19 @@ export async function GET(request: Request) {
 
     if (existingDomain) {
       return NextResponse.json(
-        { error: 'This subdomain is already taken' },
+        { error: subdomainErrors.taken },
         { status: 400 }
       )
     }
 
-    return NextResponse.json({ subdomain })
-  } catch (_error) {
+    return NextResponse.json({
+      success: true,
+      subdomain
+    })
+  } catch (error) {
+    console.error('Subdomain check error:', error)
     return NextResponse.json(
-      { error: _error },
+      { error: subdomainErrors.connection },
       { status: 500 }
     )
   }

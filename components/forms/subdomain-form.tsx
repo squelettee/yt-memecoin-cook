@@ -7,20 +7,17 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
 interface SubdomainFormProps {
   onSubmit: (data: SubdomainFormData) => Promise<void>;
-  message?: string;
 }
 
-export function SubdomainForm({ onSubmit, message }: SubdomainFormProps) {
+export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
   const form = useForm<SubdomainFormData>({
     resolver: zodResolver(subdomainSchema),
     defaultValues: {
@@ -28,27 +25,42 @@ export function SubdomainForm({ onSubmit, message }: SubdomainFormProps) {
     },
   });
 
+  const handleSubmit = async (data: SubdomainFormData) => {
+    try {
+      await onSubmit(data);
+    } catch (error) {
+      form.setError("subdomain", {
+        type: "server",
+        message: error instanceof Error ? error.message : "Une erreur est survenue"
+      });
+    }
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 w-1/4">
         <FormField
           control={form.control}
           name="subdomain"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subdomain</FormLabel>
               <FormControl>
-                <Input placeholder="your-subdomain" {...field} />
+                <div className="relative">
+                  <Input
+                    placeholder="your site"
+                    {...field}
+                    className="text-base pr-24"
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-base">
+                    .memecook.fun
+                  </span>
+                </div>
               </FormControl>
-              <FormDescription>
-                Enter your desired subdomain.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
-        {message && <p>{message}</p>}
+        <Button type="submit" className="text-base w-full">I Deploy</Button>
       </form>
     </Form>
   );

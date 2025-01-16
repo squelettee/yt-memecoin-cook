@@ -1,6 +1,9 @@
 /**
  * Actions to handle subdomain-related API calls
  */
+
+import { subdomainErrors } from "@/schemas/subdomainSchema";
+
 export const subdomainAction = {
   /**
    * Check if a subdomain is available
@@ -20,13 +23,13 @@ export const subdomainAction = {
       const data = await response.json();
 
       if (!response.ok) {
-        return { error: data.error || 'Une erreur est survenue' };
+        return { error: data.error };
       }
 
       return { subdomain: data.subdomain };
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      return { error: 'Erreur de connexion au serveur' };
+      return { error: subdomainErrors.connection };
     }
   },
 }; 
