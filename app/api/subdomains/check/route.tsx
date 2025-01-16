@@ -36,10 +36,9 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json({ subdomain })
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (_error) {
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: _error },
       { status: 500 }
     )
   }
