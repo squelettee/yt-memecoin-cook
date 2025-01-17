@@ -13,7 +13,7 @@ model Domain {
   updatedAt  DateTime @updatedAt
   name       String   @unique @db.VarChar(255)
   templateId Int      @unique
-  template   Template @relation(fields: [templateId], references: [id])
+  template   Template @relation(fields: [templateId], references: [id], onDelete: Cascade)
 }
 
 model Template {
@@ -32,7 +32,7 @@ model Template {
   instagram       String?  @db.VarChar(255)
   jupiter         Boolean  @default(false)
   logo            String?  @db.VarChar(255)
-  projectName     String?  @db.VarChar(255)
+  projectName     String   @unique @db.VarChar(255)
   pumpFun         String?  @db.VarChar(255)
   telegram        String?  @db.VarChar(255)
   ticker          String?  @db.VarChar(255)

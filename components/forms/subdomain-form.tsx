@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubdomainFormData, subdomainSchema } from "@/schemas/subdomainSchema"
-import { Button } from "@/components/ui/button";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 import {
   Form,
   FormControl,
@@ -49,7 +49,7 @@ export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
                   <Input
                     placeholder="your site"
                     {...field}
-                    className="text-base pr-24"
+                    className="text-base h-12 pr-24"
                   />
                   <span className="absolute right-3 top-1/2 -translate-y-1/2 text-base">
                     .memecook.fun
@@ -60,7 +60,7 @@ export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="text-base w-full">I Deploy</Button>
+        <RainbowButton type="submit" className="text-base w-full h-12">I Deploy</RainbowButton>
       </form>
     </Form>
   );

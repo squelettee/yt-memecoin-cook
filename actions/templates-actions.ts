@@ -28,4 +28,26 @@ export const templateActions = {
       return { error: error };
     }
   },
+
+  async getLatestTemplates() {
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+      const response = await fetch(`${baseUrl}/api/templates/latest`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: data.error || 'Une erreur est survenue' };
+      }
+
+      return { templates: data.templates };
+    } catch (error) {
+      return { error: error };
+    }
+  }
 };

@@ -28,17 +28,15 @@ export default function RootLayout({
     <>
       <html lang="en" suppressHydrationWarning>
         <head />
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-            <div className="mx-auto max-w-[1440px] p-2">
-              <Navbar />
-              {children}
-            </div>
+            <Navbar />
+            {children}
           </ThemeProvider>
         </body>
       </html>
