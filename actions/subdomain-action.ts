@@ -12,7 +12,7 @@ export const subdomainAction = {
    */
   async checkAvailability(subdomain: string) {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
       const response = await fetch(`${baseUrl}/api/subdomains/check?subdomain=${subdomain}`, {
         method: 'GET',
         headers: {

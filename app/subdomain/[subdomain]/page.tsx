@@ -13,7 +13,7 @@ export default async function SubdomainPage({ params }: SubdomainPageProps) {
   const { template, error } = await templateActions.getTemplateByDomain(subdomain);
 
   if (error || !template) {
-    redirect(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000');
+    redirect(process.env.NEXT_PUBLIC_API_URL!);
     return null;
   }
 

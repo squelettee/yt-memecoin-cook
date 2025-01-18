@@ -22,7 +22,7 @@ export default function Page() {
   };
 
   return (
-    <main className="container flex items-center justify-center flex-col">
+    <main className="w-full flex items-center justify-center flex-col">
       <div className="w-full flex flex-col items-center  pt-20">
         <SparklesText className="text-6xl font-bold w-[600px] py-20 text-center" text="Build your memesite in a minute" />
       </div>
