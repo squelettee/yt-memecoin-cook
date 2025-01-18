@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import SparklesText from "@/components/ui/sparkles-text"
 import { VelocityScroll } from "@/components/ui/scroll-based-velocity";
 import { LatestTemplates } from "@/components/latest-templates";
+import Image from "next/image";
 
 export default function Page() {
   const router = useRouter();
@@ -23,8 +24,9 @@ export default function Page() {
 
   return (
     <main className="w-full flex items-center justify-center flex-col">
-      <div className="w-full flex flex-col items-center  pt-20">
-        <SparklesText className="text-6xl font-bold w-[600px] py-20 text-center" text="Build your memesite in a minute" />
+      <div className="w-full flex flex-col items-center  pt-10">
+        <Image src={"/pepechef.png"} width={140} height={140} alt='pepe the chef' />
+        <SparklesText className="text-6xl font-bold w-[600px] py-10 text-center" text="Build your memesite in a minute" />
       </div>
 
       <SubdomainForm onSubmit={handleSubmit} />

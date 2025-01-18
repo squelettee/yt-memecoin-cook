@@ -48,7 +48,7 @@ export function LatestTemplates() {
       {templates.map((template) =>
       (
         <Link
-          href={`https://${template.domain.name}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`}
+          href={`http://${template.domain.name}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`}
           key={template.id}
           className="border p-4 rounded hover:bg-gray-50 transition-colors cursor-pointer"
         >
