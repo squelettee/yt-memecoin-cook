@@ -12,6 +12,9 @@ export default async function SubdomainPage({ params }: SubdomainPageProps) {
   const { subdomain } = await params;
   const { template, error } = await templateActions.getTemplateByDomain(subdomain);
 
+  console.log(subdomain)
+  console.log(template)
+
   if (error || !template) {
     redirect(process.env.NEXT_PUBLIC_API_URL!);
     return null;
