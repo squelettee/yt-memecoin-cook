@@ -9,8 +9,7 @@ export const templateActions = {
    */
   async getTemplateByDomain(domain: string) {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-      const response = await fetch(`${baseUrl}/api/templates/get?domain=${domain}`, {
+      const response = await fetch(`/api/templates/get?domain=${domain}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +30,7 @@ export const templateActions = {
 
   async getLatestTemplates() {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/templates/latest`, {
+      const response = await fetch(`/api/templates/latest`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

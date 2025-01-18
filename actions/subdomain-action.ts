@@ -12,8 +12,7 @@ export const subdomainAction = {
    */
   async checkAvailability(subdomain: string) {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-      const response = await fetch(`${baseUrl}/api/subdomains/check?subdomain=${subdomain}`, {
+      const response = await fetch(`/api/subdomains/check?subdomain=${subdomain}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
