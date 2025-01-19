@@ -36,8 +36,6 @@ export default function RootLayout({
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center`}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
             disableTransitionOnChange
           >
             <Navbar />
