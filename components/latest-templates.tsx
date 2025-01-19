@@ -21,7 +21,6 @@ export function LatestTemplates() {
     const fetchTemplates = async () => {
       try {
         const { templates, error } = await templateActions.getLatestTemplates()
-        console.log(templates)
         if (error) {
           setError(error)
         } else {

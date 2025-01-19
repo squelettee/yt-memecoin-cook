@@ -38,7 +38,19 @@ export async function POST(request: Request) {
       },
     })
 
-    return NextResponse.json({ template }, { status: 201 })
+    // Create associated domain
+    const domain = await prisma.domain.create({
+      data: {
+        name: data.projectName.toLowerCase(),
+        template: {
+          connect: {
+            projectName: template.projectName,
+          },
+        },
+      },
+    })
+
+    return NextResponse.json({ template, domain }, { status: 201 })
   } catch (error) {
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Internal Server Error' },

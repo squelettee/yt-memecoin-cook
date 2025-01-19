@@ -1,15 +1,19 @@
+'use client'
+
+import { use } from 'react'
+import { TemplateForm } from "@/components/forms/template-form";
+
 interface CreateTemplatePageProps {
-  params: Promise<{
-    subdomain: string
-  }>
+  params: Promise<{ subdomain: string }>,
 }
 
-export default async function CreateTemplatePage({ params }: CreateTemplatePageProps) {
-  const { subdomain } = await params;
+export default function CreateTemplatePage({ params }: CreateTemplatePageProps) {
+  const { subdomain } = use(params)
 
   return (
-    <div>
-      <h1>Subdomain: {subdomain}</h1>
+    <div className="container mx-auto py-8">
+      <h1 className="text-2xl font-bold mb-6">Create Template for: {subdomain}</h1>
+      <TemplateForm />
     </div>
   )
 }
