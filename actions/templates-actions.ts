@@ -9,7 +9,8 @@ export const templateActions = {
    */
   async getTemplateByDomain(domain: string) {
     try {
-      const response = await fetch(`/api/templates/get?domain=${domain}`, {
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/templates/get?domain=${domain}`;
+      const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -24,6 +25,7 @@ export const templateActions = {
 
       return { template: data.template };
     } catch (error) {
+      console.error('Fetch error:', error);
       return { error: error };
     }
   },
