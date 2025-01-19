@@ -2,18 +2,8 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  // Autoriser les requêtes OPTIONS (CORS preflight)
-  if (request.method === 'OPTIONS') {
-    return NextResponse.next()
-  }
-
   // Vérifier si nous sommes déjà sur la route /subdomain pour éviter la boucle
   if (request.nextUrl.pathname.startsWith('/subdomain')) {
-    return NextResponse.next()
-  }
-
-  // Autoriser les requêtes API
-  if (request.nextUrl.pathname.startsWith('/api')) {
     return NextResponse.next()
   }
 
@@ -34,9 +24,10 @@ export function middleware(request: NextRequest) {
   return NextResponse.next()
 }
 
-// Mettre à jour le matcher pour exclure explicitement les routes API
+// Spécifier les chemins sur lesquels le middleware doit s'exécuter
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico).*)',
+    // Exclure les fichiers statiques et API routes
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 }
