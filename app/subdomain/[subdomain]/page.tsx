@@ -1,4 +1,4 @@
-import { templateActions } from "@/actions/templates-actions";
+import { getTemplateByDomain } from "@/actions/templates-actions";
 import Image from "next/image";
 import { redirect } from 'next/navigation';
 
@@ -10,7 +10,7 @@ interface SubdomainPageProps {
 
 export default async function SubdomainPage({ params }: SubdomainPageProps) {
   const { subdomain } = await params;
-  const { template, error } = await templateActions.getTemplateByDomain(subdomain);
+  const { template, error } = await getTemplateByDomain(subdomain);
 
   if (error || !template) {
     redirect(process.env.NEXT_PUBLIC_API_URL!);

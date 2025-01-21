@@ -1,6 +1,6 @@
 'use client'
 
-import { subdomainAction } from "@/actions/subdomain-action";
+import { checkAvailability } from "@/actions/subdomain-action";
 import { SubdomainForm } from "@/components/forms/subdomain-form";
 import { SubdomainFormData } from "@/schemas/subdomainSchema";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ export default function Page() {
   const router = useRouter();
 
   const handleSubmit = async (values: SubdomainFormData) => {
-    const result = await subdomainAction.checkAvailability(values.subdomain);
+    const result = await checkAvailability(values.subdomain);
     if (result.error) {
       throw new Error(result.error);
     } else {

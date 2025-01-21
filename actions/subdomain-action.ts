@@ -1,34 +1,32 @@
-/**
- * Actions to handle subdomain-related API calls
- */
+'use server'
 
-import { subdomainErrors } from "@/schemas/subdomainSchema";
+import { prisma } from '@/lib/prisma'
+import { subdomainErrors } from "@/schemas/subdomainSchema"
 
-export const subdomainAction = {
-  /**
-   * Check if a subdomain is available
-   * @param subdomain - The subdomain to check
-   * @returns Promise<{ error?: string, subdomain?: string }>
-   */
-  async checkAvailability(subdomain: string) {
-    try {
-      const response = await fetch(`/api/subdomains/check?subdomain=${subdomain}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        return { error: data.error };
-      }
-
-      return { subdomain: data.subdomain };
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      return { error: subdomainErrors.connection };
+export async function checkAvailability(subdomain: string) {
+  try {
+    if (!subdomain) {
+      return { error: subdomainErrors.required }
     }
-  },
-}; 
+
+    const subdomainRegex = /^[a-z0-9-]+$/
+    if (!subdomainRegex.test(subdomain)) {
+      return { error: subdomainErrors.format }
+    }
+
+    const existingDomain = await prisma.domain.findUnique({
+      where: {
+        name: subdomain
+      }
+    })
+
+    if (existingDomain) {
+      return { error: subdomainErrors.taken }
+    }
+
+    return { subdomain }
+  } catch (error) {
+    console.error('Subdomain check error:', error)
+    return { error: subdomainErrors.connection }
+  }
+}
