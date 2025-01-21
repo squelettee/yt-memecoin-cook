@@ -9,7 +9,7 @@ export async function checkAvailability(subdomain: string) {
       return { error: subdomainErrors.required }
     }
 
-    const subdomainRegex = /^[a-z0-9-]+$/
+    const subdomainRegex = /^[a-zA-Z0-9-]+$/
     if (!subdomainRegex.test(subdomain)) {
       return { error: subdomainErrors.format }
     }

@@ -21,7 +21,7 @@ async function main() {
     // Crée un domaine pour chaque template
     const domain = await prisma.domain.create({
       data: {
-        name: `${randomName.toLowerCase()}`,
+        name: randomName,
         template: {
           connect: {
             projectName: template.projectName,
