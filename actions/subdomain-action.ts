@@ -16,7 +16,7 @@ export async function checkAvailability(subdomain: string) {
 
     const existingDomain = await prisma.domain.findUnique({
       where: {
-        name: subdomain
+        name: subdomain.toLowerCase()
       }
     })
 
