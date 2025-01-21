@@ -40,7 +40,7 @@ model Template {
   twitter         String?  @db.VarChar(255)
   userId          Int?
   whitepaper      String?  @db.VarChar(255)
-  domain          Domain?
+  domain          Domain
   user            User?    @relation(fields: [userId], references: [id])
 }
 

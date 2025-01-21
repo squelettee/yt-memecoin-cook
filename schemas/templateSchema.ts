@@ -1,5 +1,4 @@
 import { z } from "zod";
-import type { Domain, User } from "@/types/template";
 
 // Match schema.prisma Template model
 export const templateSchema = z.object({
@@ -26,8 +25,48 @@ export const templateSchema = z.object({
   twitter: z.string().max(255).optional(),
   userId: z.number().optional(),
   whitepaper: z.string().max(255).optional(),
-  domain: z.custom<Domain>().optional(),
-  user: z.custom<User>().optional()
+  domain: z.custom<DomainType>().optional(),
+  user: z.custom<UserType>().optional()
 });
 
 export type TemplateFormData = z.infer<typeof templateSchema>;
+
+export const domainSchema = z.object({
+  id: z.number(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  name: z.string().max(255),
+  templateId: z.number(),
+  template: z.lazy(() => templateSchema).optional()
+});
+
+export const userSchema = z.object({
+  id: z.number(),
+  address: z.string(),
+  chainId: z.number().optional(),
+  lastConnected: z.date(),
+  templates: z.array(z.lazy(() => templateSchema))
+});
+
+// Define interfaces first to break circular dependency
+interface DomainType {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  templateId: number;
+  template?: Template;
+}
+
+interface UserType {
+  id: number;
+  address: string;
+  chainId?: number;
+  lastConnected: Date;
+  templates: Template[];
+}
+
+// Vous pouvez ensuite générer les types à partir des schemas
+export type Template = z.infer<typeof templateSchema>;
+export type Domain = z.infer<typeof domainSchema>;
+export type User = z.infer<typeof userSchema>;

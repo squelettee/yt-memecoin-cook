@@ -46,49 +46,66 @@ export async function getMostRecentTemplates() {
 
 export async function createTemplate(templateData: TemplateFormData) {
   try {
-
-    // Create template data object with null checks
-    const templateCreateData = {
-      projectName: templateData.projectName,
-      background: templateData.background || null,
-      birdeye: templateData.birdeye || null,
-      coinGecko: templateData.coinGecko || null,
-      coinMarketCap: templateData.coinMarketCap || null,
-      contractAddress: templateData.contractAddress || null,
-      description: templateData.description || null,
-      dexscreener: templateData.dexscreener || null,
-      dextools: templateData.dextools || null,
-      imagePreview: templateData.imagePreview || null,
-      instagram: templateData.instagram || null,
-      jupiter: templateData.jupiter ?? false,
-      logo: templateData.logo || null,
-      pumpFun: templateData.pumpFun || null,
-      telegram: templateData.telegram || null,
-      ticker: templateData.ticker || null,
-      tiktok: templateData.tiktok || null,
-      twitter: templateData.twitter || null,
-      userId: templateData.userId || null,
-      whitepaper: templateData.whitepaper || null,
+    if (!templateData.domain?.name) {
+      return { error: 'Domain name is required' };
     }
 
+    if (!templateData.projectName) {
+      return { error: 'Project name is required' };
+    }
+
+    const existingDomain = await prisma.domain.findUnique({
+      where: {
+        name: templateData.domain.name
+      }
+    });
+
+    if (existingDomain) {
+      return { error: 'Domain name already exists' };
+    }
+
+    // Create template data object with validated fields
+    const templateCreateData = {
+      projectName: templateData.projectName,
+      background: templateData.background ?? null,
+      birdeye: templateData.birdeye ?? null,
+      coinGecko: templateData.coinGecko ?? null,
+      coinMarketCap: templateData.coinMarketCap ?? null,
+      contractAddress: templateData.contractAddress ?? null,
+      description: templateData.description ?? null,
+      dexscreener: templateData.dexscreener ?? null,
+      dextools: templateData.dextools ?? null,
+      imagePreview: templateData.imagePreview ?? null,
+      instagram: templateData.instagram ?? null,
+      jupiter: templateData.jupiter ?? false,
+      logo: templateData.logo ?? null,
+      pumpFun: templateData.pumpFun ?? null,
+      telegram: templateData.telegram ?? null,
+      ticker: templateData.ticker ?? null,
+      tiktok: templateData.tiktok ?? null,
+      twitter: templateData.twitter ?? null,
+      userId: templateData.userId ?? null,
+      whitepaper: templateData.whitepaper ?? null,
+      domain: {
+        create: {
+          name: templateData.domain.name,
+        }
+      }
+    };
+
     const template = await prisma.template.create({
-      data: templateCreateData
-    })
+      data: templateCreateData,
+      include: {
+        domain: true
+      }
+    });
 
-    const domain = await prisma.domain.create({
-      data: {
-        name: templateData.projectName.toLowerCase(),
-        template: {
-          connect: {
-            projectName: template.projectName,
-          },
-        },
-      },
-    })
-
-    return { template, domain }
+    return { template };
   } catch (error) {
-    console.error('Create template error:', error)
-    return { error }
+    console.error('Create template error:', error);
+    if (error instanceof Error) {
+      return { error: error.message };
+    }
+    return { error: 'An unexpected error occurred' };
   }
 }

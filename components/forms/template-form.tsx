@@ -10,7 +10,11 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 
-export function TemplateForm() {
+interface TemplateFormProps {
+  subdomain: string;
+}
+
+export function TemplateForm({ subdomain }: TemplateFormProps) {
   const router = useRouter();
   // 1. Define your form.
   const form = useForm<TemplateFormData>({
@@ -34,37 +38,29 @@ export function TemplateForm() {
       ticker: "",
       tiktok: "",
       twitter: "",
-      whitepaper: ""
+      whitepaper: "",
+      domain: {
+        name: subdomain,
+      }
     },
   })
 
-  // 2. Define a submit handler.
   async function onSubmit(values: TemplateFormData) {
     try {
       if (!values) {
         throw new Error("Form values are required");
       }
 
-      const response = await createTemplate(values);
-
-      if (!response) {
-        throw new Error("Failed to create template");
-      }
-
-      console.log('Template created successfully:', response);
-      const url = process.env.NEXT_PUBLIC_BASE_DOMAIN;
-      if (!url) {
-        throw new Error("NEXT_PUBLIC_BASE_DOMAIN is not defined");
-      }
-
-      const redirectUrl = `http://${values.projectName}.${url}`;
-      console.log('Attempting to redirect to:', redirectUrl);
+      const { template } = await createTemplate(values);
 
       await new Promise(resolve => setTimeout(resolve, 1500));
-      router.push(redirectUrl);
+
+      const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
+      if (baseDomain && template?.domain?.name) {
+        router.push(`http://${template.domain.name}.${baseDomain}`);
+      }
     } catch (error) {
       console.error('Error in form submission:', error);
-      // Vous pourriez également ajouter ici un état pour afficher l'erreur à l'utilisateur
     }
   }
 

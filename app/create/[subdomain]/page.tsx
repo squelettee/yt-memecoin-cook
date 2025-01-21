@@ -13,7 +13,7 @@ export default function CreateTemplatePage({ params }: CreateTemplatePageProps) 
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-2xl font-bold mb-6">Create Template for: {subdomain}</h1>
-      <TemplateForm />
+      <TemplateForm subdomain={subdomain} />
     </div>
   )
 }
