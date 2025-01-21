@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { getMostRecentTemplates } from '@/actions/templates-actions'
-import { Template } from '@/types/template'
 import Link from 'next/link'
 import { format } from 'timeago.js'
+import { Template } from '@/schemas/templateSchema'
 
 
 export function LatestTemplates() {
@@ -14,11 +14,11 @@ export function LatestTemplates() {
   useEffect(() => {
     const fetchTemplates = async () => {
       try {
-        const { templates, error } = await getMostRecentTemplates()
+        const { templates: fetchedTemplates, error } = await getMostRecentTemplates()
         if (error) {
           setError(error instanceof Error ? error.message : String(error))
-        } else {
-          setTemplates(templates || [])
+        } else if (fetchedTemplates) {
+          setTemplates(fetchedTemplates as Template[])
         }
       } catch (error) {
         setError(error instanceof Error ? error.message : 'An unexpected error occurred')
@@ -32,7 +32,7 @@ export function LatestTemplates() {
     return <div>Error loading templates</div>
   }
 
-  if (!templates?.length) {
+  if (!templates.length) {
     return <div>No templates found</div>
   }
 

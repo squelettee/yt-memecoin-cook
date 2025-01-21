@@ -38,7 +38,7 @@ export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 w-1/4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="subdomain"
