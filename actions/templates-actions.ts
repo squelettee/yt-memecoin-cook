@@ -56,7 +56,7 @@ export async function createTemplate(templateData: TemplateFormData) {
 
     const existingDomain = await prisma.domain.findUnique({
       where: {
-        name: templateData.domain.name
+        name: templateData.domain.name.toLowerCase()
       }
     });
 
@@ -88,7 +88,7 @@ export async function createTemplate(templateData: TemplateFormData) {
       whitepaper: templateData.whitepaper ?? null,
       domain: {
         create: {
-          name: templateData.domain.name,
+          name: templateData.domain.name.toLowerCase(),
         }
       }
     };

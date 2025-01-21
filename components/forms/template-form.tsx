@@ -40,7 +40,7 @@ export function TemplateForm({ subdomain }: TemplateFormProps) {
       twitter: "",
       whitepaper: "",
       domain: {
-        name: subdomain,
+        name: subdomain.toLowerCase(),
       }
     },
   })
