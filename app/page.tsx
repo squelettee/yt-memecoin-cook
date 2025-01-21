@@ -17,7 +17,7 @@ export default function Page() {
     if (result.error) {
       throw new Error(result.error);
     } else {
-      router.push(`/create/${values.subdomain}`);
+      router.push(`/create/${values.subdomain.toLowerCase()}`);
     }
   };
 
