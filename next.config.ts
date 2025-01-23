@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    domains: ['s3.us-east-1.amazonaws.com', 'memecook-storage.s3.us-east-1.amazonaws.com'],
+  },
   async headers() {
     return [
       {

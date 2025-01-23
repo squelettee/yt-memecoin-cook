@@ -3,9 +3,11 @@ import { z } from "zod";
 // Match schema.prisma Template model
 export const templateSchema = z.object({
   id: z.number().optional(), // @id @default(autoincrement())
-  createdAt: z.date().optional(), // @default(now())
-  updatedAt: z.date().optional(), // @updatedAt
-  background: z.string().max(255).optional(), // String? @db.VarChar(255)
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+  background: z.string().max(255).optional(),
+  imagePreview: z.string().max(255).optional(),
+  logo: z.string().max(255).optional(),
   birdeye: z.string().max(255).optional(),
   coinGecko: z.string().max(255).optional(),
   coinMarketCap: z.string().max(255).optional(),
@@ -13,11 +15,9 @@ export const templateSchema = z.object({
   description: z.string().max(255).optional(),
   dexscreener: z.string().max(255).optional(),
   dextools: z.string().max(255).optional(),
-  imagePreview: z.string().max(255).optional(),
   instagram: z.string().max(255).optional(),
-  jupiter: z.boolean().default(false), // Boolean @default(false)
-  logo: z.string().max(255).optional(),
-  projectName: z.string().min(1).max(255), // String @unique @db.VarChar(255)
+  jupiter: z.boolean().default(false),
+  projectName: z.string().min(1).max(255),
   pumpFun: z.string().max(255).optional(),
   telegram: z.string().max(255).optional(),
   ticker: z.string().max(255).optional(),
@@ -26,7 +26,10 @@ export const templateSchema = z.object({
   userId: z.number().optional(),
   whitepaper: z.string().max(255).optional(),
   domain: z.custom<DomainType>().optional(),
-  user: z.custom<UserType>().optional()
+  user: z.custom<UserType>().optional(),
+  imagePreviewFile: z.instanceof(File).nullable().optional(),
+  logoFile: z.instanceof(File).nullable().optional(),
+  backgroundFile: z.instanceof(File).nullable().optional(),
 });
 
 export type TemplateFormData = z.infer<typeof templateSchema>;

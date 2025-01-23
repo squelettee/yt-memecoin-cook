@@ -8,14 +8,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
 
 interface TemplateFormProps {
   subdomain: string;
 }
 
 export function TemplateForm({ subdomain }: TemplateFormProps) {
-  const router = useRouter();
   // 1. Define your form.
   const form = useForm<TemplateFormData>({
     resolver: zodResolver(templateSchema),
@@ -41,7 +39,10 @@ export function TemplateForm({ subdomain }: TemplateFormProps) {
       whitepaper: "",
       domain: {
         name: subdomain.toLowerCase(),
-      }
+      },
+      imagePreviewFile: null,
+      logoFile: null,
+      backgroundFile: null,
     },
   })
 
@@ -57,7 +58,7 @@ export function TemplateForm({ subdomain }: TemplateFormProps) {
 
       const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
       if (baseDomain && template?.domain?.name) {
-        router.push(`http://${template.domain.name}.${baseDomain}`);
+        window.location.href = `http://${template.domain.name}.${baseDomain}`;
       }
     } catch (error) {
       console.error('Error in form submission:', error);
@@ -234,6 +235,78 @@ export function TemplateForm({ subdomain }: TemplateFormProps) {
             </FormItem>
           )}
         />
+
+        <div className="space-y-4">
+          <FormField
+            control={form.control}
+            name="imagePreviewFile"
+            render={({ field: { onChange, ...field } }) => (
+              <FormItem>
+                <FormLabel>Image de prévisualisation</FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0] || null;
+                      onChange(file);
+                    }}
+                    {...field}
+                    value={undefined}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="logoFile"
+            render={({ field: { onChange, ...field } }) => (
+              <FormItem>
+                <FormLabel>Logo</FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0] || null;
+                      onChange(file);
+                    }}
+                    {...field}
+                    value={undefined}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="backgroundFile"
+            render={({ field: { onChange, ...field } }) => (
+              <FormItem>
+                <FormLabel>Image darrière-plan</FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0] || null;
+                      onChange(file);
+                    }}
+                    {...field}
+                    value={undefined}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <Button type="submit">Create Template</Button>
       </form>
     </Form>

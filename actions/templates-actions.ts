@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma'
 import { TemplateFormData } from "@/schemas/templateSchema"
+import { uploadDocument } from './uploadfile-action'
 
 export async function getTemplateByDomain(domain: string) {
   try {
@@ -64,7 +65,42 @@ export async function createTemplate(templateData: TemplateFormData) {
       return { error: 'Domain name already exists' };
     }
 
-    // Create template data object with validated fields
+    // Upload des fichiers vers S3 et mise à jour des URLs
+    const fileFieldMappings = {
+      backgroundFile: 'background',
+      imagePreviewFile: 'imagePreview',
+      logoFile: 'logo'
+    } as const;
+
+    const filesToUpload = Object.entries(fileFieldMappings)
+      .filter(([fileField]) => templateData[fileField as keyof typeof templateData])
+      .map(([fileField]) => ({
+        file: templateData[fileField as keyof typeof templateData] as File,
+        field: fileFieldMappings[fileField as keyof typeof fileFieldMappings]
+      }))
+      .filter(({ file }) => file instanceof File);
+
+    if (filesToUpload.length > 0) {
+      const formData = new FormData();
+      filesToUpload.forEach(({ file }) => {
+        if (file) {
+          formData.append('file', file);
+        }
+      });
+
+      const uploadResult = await uploadDocument(formData);
+
+      if (Array.isArray(uploadResult)) {
+        uploadResult.forEach((result, index) => {
+          if (result?.status === 'success' && result?.url && filesToUpload[index]) {
+            const field = filesToUpload[index].field;
+            templateData[field] = result.url;
+          }
+        });
+      }
+    }
+
+    // Vérification des données avant création
     const templateCreateData = {
       projectName: templateData.projectName,
       background: templateData.background ?? null,

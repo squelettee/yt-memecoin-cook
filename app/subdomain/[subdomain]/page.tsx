@@ -21,9 +21,9 @@ export default async function SubdomainPage({ params }: SubdomainPageProps) {
     <div>
       <h1>Project: {template.projectName}</h1>
       {template.description && <p>{template.description}</p>}
-      {template.logo && <Image src={`/${template.logo}`} alt="Logo" width={10} height={10} />}
-      {template.background && <Image src={`/${template.background}`} alt="Background" width={10} height={10} />}
-      {template.imagePreview && <Image src={`/${template.imagePreview}`} alt="Preview" width={10} height={10} />}
+      {template.logo && <Image src={template.logo} alt="Logo" width={100} height={100} priority={true} unoptimized />}
+      {/* {template.background && <Image src={`/${template.background}`} alt="Background" width={10} height={10} loading="lazy" unoptimized />}
+      {template.imagePreview && <Image src={`/${template.imagePreview}`} alt="Preview" width={10} height={10} loading="lazy" unoptimized />} */}
 
       <h2>Token Information</h2>
       {template.ticker && <p>Ticker: {template.ticker}</p>}
