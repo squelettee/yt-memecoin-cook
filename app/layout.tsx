@@ -39,8 +39,9 @@ export default function RootLayout({
         <head />
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center`}>
           <ThemeProvider
-            defaultTheme="light"
             attribute="class"
+            enableSystem={false}
+            forcedTheme="light"
             disableTransitionOnChange
           >
             <Wallet>
