@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "lucide-react";
+import { LineShadowText } from "../magicui/line-shadow-text";
 
 interface SubdomainFormProps {
   onSubmit: (data: SubdomainFormData) => Promise<void>;
@@ -61,7 +62,9 @@ export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="text-base w-full h-12">I Deploy <ArrowRightIcon className="w-4 h-4" /></Button>
+        <Button type="submit" className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg">
+          <LineShadowText className="italic" shadowColor={"#ffff"}>I Deploy</LineShadowText> <ArrowRightIcon className="w-5 h-5 ml-2" />
+        </Button>
       </form>
     </Form>
   );

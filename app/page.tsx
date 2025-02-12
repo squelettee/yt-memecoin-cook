@@ -29,17 +29,21 @@ export default function Page() {
   return (
     <>
       <Navbar />
+
       <main className="w-full flex items-center justify-center flex-col">
-        <div className="w-full flex flex-col items-center gap-5 pb-5 pt-10 sm:pt-20 sm:pb-10">
+        <div className="w-full flex flex-col items-center gap-8 pb-10 pt-16 sm:pt-28 sm:pb-16">
           <h1 className="text-balance text-center text-5xl font-semibold leading-none tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl">
-            Ship <AuroraText>beautiful</AuroraText> memesites <br /> in <LineShadowText className="italic" shadowColor={shadowColor}>half</LineShadowText> the time
+            Cook <AuroraText>beautiful</AuroraText> memesites <br /> in <LineShadowText className="italic" shadowColor={shadowColor}>no</LineShadowText> time
           </h1>
+
           <p className="max-w-[64rem] text-center text-balance text-sm tracking-tight text-muted-foreground md:text-xl">
             Create your <strong>memecoin website</strong> in <strong>minutes</strong> by choosing a <strong>template</strong>, customizing it to your liking, and launching your project <strong>instantly</strong> with quick and easy payment in <strong>$SOL</strong>.
           </p>
         </div>
 
-        <SubdomainForm onSubmit={handleSubmit} />
+        <div className="mb-12">
+          <SubdomainForm onSubmit={handleSubmit} />
+        </div>
 
         <div className="w-full pt-12 sm:pt-24">
           <VelocityScroll defaultVelocity={1}>
@@ -51,8 +55,12 @@ export default function Page() {
             ]}
           </VelocityScroll>
         </div>
-        <LatestTemplates />
+
+        <div className="my-16 w-full">
+          <LatestTemplates />
+        </div>
       </main>
+
       <Footer />
     </>
   )

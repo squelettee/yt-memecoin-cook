@@ -40,7 +40,14 @@ import {
 } from "@/components/ui/tooltip"
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana/web3.js'
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import dynamic from 'next/dynamic'
+const WalletMultiButtonDynamic = dynamic(
+  async () =>
+    (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
+  {
+    ssr: false
+  }
+)
 
 interface TemplateFormProps {
   subdomain: string;
@@ -55,89 +62,90 @@ type Template = {
 };
 
 const templates: Template[] = [
+  // {
+  //   id: "minimal",
+  //   name: "Minimal Template",
+  //   fields: ["telegram", "twitter", "pumpFun", "instagram", "tiktok", "logoFile", "contractAddress", "ticker", "description", "backgroundFile"]
+  // },
+  // {
+  //   id: "basic",
+  //   name: "Basic Template",
+  //   fields: [
+  //     "projectName",
+  //     "ticker",
+  //     "description",
+  //     "telegram",
+  //     "twitter",
+  //     "logoFile"
+  //   ]
+  // },
+  // {
+  //   id: "standard",
+  //   name: "Standard Template",
+  //   fields: [
+  //     // Basic Information
+  //     "projectName", "ticker", "description",
+  //     // Social Networks
+  //     "telegram", "twitter", "instagram",
+  //     // Trading
+  //     "dextools", "dexscreener",
+  //     // Media
+  //     "logoFile", "backgroundFile",
+  //     // Appearance
+  //     "headingColor"
+  //   ]
+  // },
+  // {
+  //   id: "pro",
+  //   name: "Pro Template",
+  //   fields: [
+  //     // Basic Information
+  //     "projectName", "ticker", "description", "contractAddress",
+  //     // Documents
+  //     "whitepaper", "coinGecko",
+  //     // Social Networks
+  //     "telegram", "twitter", "instagram", "tiktok",
+  //     // Trading
+  //     "dextools", "dexscreener", "birdeye",
+  //     // Media
+  //     "imagePreviewFile", "logoFile", "backgroundFile",
+  //     // Appearance
+  //     "headingFont", "bodyFont", "headingColor"
+  //   ]
+  // },
+  // {
+  //   id: "complet",
+  //   name: "Complete Template",
+  //   fields: [
+  //     // Basic Information
+  //     "projectName", "ticker", "description", "contractAddress",
+  //     // Documents
+  //     "whitepaper", "coinGecko", "coinMarketCap",
+  //     // Social Networks
+  //     "telegram", "twitter", "instagram", "tiktok",
+  //     // Trading
+  //     "dextools", "dexscreener", "birdeye", "jupiter",
+  //     // Media
+  //     "imagePreviewFile", "logoFile", "backgroundFile",
+  //     // Appearance
+  //     "headingFont", "bodyFont", "headingColor"
+  //   ]
+  // },
   {
-    id: "minimal",
-    name: "Minimal Template",
-    fields: ["telegram", "twitter", "pumpFun", "instagram", "tiktok", "logoFile", "contractAddress", "ticker", "description", "backgroundFile"]
-  },
-  {
-    id: "basic",
-    name: "Basic Template",
+    id: "terminal",
+    name: "Terminal Template",
     fields: [
-      "projectName",
-      "ticker",
-      "description",
-      "telegram",
-      "twitter",
-      "logoFile"
-    ]
-  },
-  {
-    id: "standard",
-    name: "Standard Template",
-    fields: [
-      // Basic Information
-      "projectName", "ticker", "description",
-      // Social Networks
-      "telegram", "twitter", "instagram",
-      // Trading
-      "dextools", "dexscreener",
-      // Media
+      "ticker", "description", "contractAddress",
+
+      "telegram", "twitter", "instagram", "tiktok",
+
       "logoFile", "backgroundFile",
-      // Appearance
-      "headingColor"
-    ]
-  },
-  {
-    id: "pro",
-    name: "Pro Template",
-    fields: [
-      // Basic Information
-      "projectName", "ticker", "description", "contractAddress",
-      // Documents
-      "whitepaper", "coinGecko",
-      // Social Networks
-      "telegram", "twitter", "instagram", "tiktok",
-      // Trading
-      "dextools", "dexscreener", "birdeye",
-      // Media
-      "imagePreviewFile", "logoFile", "backgroundFile",
-      // Appearance
-      "headingFont", "bodyFont", "headingColor"
-    ]
-  },
-  {
-    id: "complete",
-    name: "Complete Template",
-    fields: [
-      // Basic Information
-      "projectName", "ticker", "description", "contractAddress",
-      // Documents
-      "whitepaper", "coinGecko", "coinMarketCap",
-      // Social Networks
-      "telegram", "twitter", "instagram", "tiktok",
-      // Trading
-      "dextools", "dexscreener", "birdeye", "jupiter",
-      // Media
-      "imagePreviewFile", "logoFile", "backgroundFile",
-      // Appearance
-      "headingFont", "bodyFont", "headingColor"
     ]
   }
 ];
 
-// Add validation helpers
-const isValidUrl = (url: string) => {
-  try {
-    new URL(url);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState<string>("minimal")
+  const [selectedTemplate, setSelectedTemplate] = useState<string>("terminal")
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { connection } = useConnection()
@@ -176,7 +184,7 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       imagePreviewFile: null,
       logoFile: null,
       backgroundFile: null,
-      type: "minimal",
+      type: "terminal",
       headingFont: "geist",
       bodyFont: "geist",
     },
@@ -263,13 +271,20 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
     return sectionFields.some(field => shouldShowField(field));
   };
 
+  // Ajout d'une fonction pour empêcher la soumission par défaut
+  const handleFormKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
+
   return (
     <div className="flex flex-col h-full">
       <Tabs defaultValue="template" className="w-full md:w-[400px] border-r flex flex-col h-full">
         {/* Fixed Header */}
         <div className="px-4 border-b bg-background w-full">
           <h1 className="font-bold text-center pt-5 text-lg sm:text-xl md:text-2xl lg:text-3xl ">
-            <Link href={process.env.NEXT_PUBLIC_API_URL!}>Memecook</Link>
+            <Link href={process.env.NEXT_PUBLIC_API_URL!}>Memecook 🍳</Link>
           </h1>
           <Separator className="my-4" />
           <TabsList className="grid w-full grid-cols-2 mb-4">
@@ -299,7 +314,11 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
 
           <TabsContent value="edits" className="mt-4">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pb-6 px-4">
+              <form
+                onSubmit={(e) => e.preventDefault()}
+                onKeyPress={handleFormKeyPress}
+                className="space-y-4 pb-6 px-4"
+              >
                 <Accordion type="single" collapsible className="w-full">
                   {/* Project Info */}
                   {hasFieldsInSection(["projectName", "ticker", "description", "contractAddress"]) && (
@@ -461,19 +480,7 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>Telegram</FormLabel>
                                 <FormControl>
-                                  <Input
-                                    placeholder="https://t.me/your-group"
-                                    {...field}
-                                    onChange={(e) => {
-                                      field.onChange(e);
-                                      if (!isValidUrl(e.target.value)) {
-                                        form.setError('telegram', {
-                                          type: 'manual',
-                                          message: 'Please enter a valid URL'
-                                        });
-                                      }
-                                    }}
-                                  />
+                                  <Input placeholder="https://t.me/your-group" {...field} />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -797,14 +804,14 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
               <p className="text-sm text-muted-foreground text-center">
                 Connect your wallet to create your template
               </p>
-              <WalletMultiButton className="w-full px-6 py-6" />
+              <WalletMultiButtonDynamic className="w-full px-6 py-6" />
             </div>
           ) : (
             <Button
               className="w-full px-6 py-6 bg-secondary-foreground"
-              type="submit"
+              type="button"
               disabled={isSubmitting}
-              onClick={form.handleSubmit(onSubmit)}
+              onClick={() => form.handleSubmit(onSubmit)()}
             >
               {isSubmitting ? (
                 <>

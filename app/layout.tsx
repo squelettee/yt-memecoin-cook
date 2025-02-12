@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Memecook",
-  description: "Ship beautiful memesites in half the time",
+  description: "Cook beautiful memesites in no time",
   icons: {
     icon: [
       {

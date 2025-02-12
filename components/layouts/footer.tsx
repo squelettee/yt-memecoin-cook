@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer className='w-full min-h-[8vh] px-4 sm:px-8 md:px-12 lg:px-20 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 py-4 sm:py-0 bg-sidebar-accent'>
       <Link href={process.env.NEXT_PUBLIC_API_URL!}>
-        <span className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold">Memecook</span>
+        <span className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold">Memecook 🍳</span>
       </Link>
       <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
         <div className="flex gap-4">
