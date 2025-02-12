@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider"
-import "./globals.css";
-import { Navbar } from "@/components/layouts/navbar";
+import { Wallet } from "@/components/providers/wallet-provider";
+import "@/app/globals.css"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,12 +14,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata: Metadata = {
   title: "Memecook",
-  description: "Build your memesite in a minute",
+  description: "Ship beautiful memesites in half the time",
   icons: {
     icon: [
-      { url: '/pepechef.png', sizes: '32x32' },
+      {
+        url: "/pepechef.png",
+        href: "/pepechef.png"
+      }
     ],
   },
 };
@@ -35,14 +39,16 @@ export default function RootLayout({
         <head />
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center`}>
           <ThemeProvider
+            defaultTheme="light"
             attribute="class"
             disableTransitionOnChange
           >
-            <Navbar />
-            {children}
+            <Wallet>
+              {children}
+            </Wallet>
           </ThemeProvider>
         </body>
-      </html>
+      </html >
     </>
   );
 }

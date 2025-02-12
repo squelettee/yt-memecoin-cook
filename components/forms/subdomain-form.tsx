@@ -3,7 +3,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubdomainFormData, subdomainSchema } from "@/schemas/subdomainSchema"
-import { RainbowButton } from "@/components/ui/rainbow-button";
 import {
   Form,
   FormControl,
@@ -12,6 +11,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ArrowRightIcon } from "lucide-react";
 
 interface SubdomainFormProps {
   onSubmit: (data: SubdomainFormData) => Promise<void>;
@@ -38,7 +39,7 @@ export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-2 w-64">
         <FormField
           control={form.control}
           name="subdomain"
@@ -49,9 +50,9 @@ export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
                   <Input
                     placeholder="your site"
                     {...field}
-                    className="text-base h-12 pr-24"
+                    className="text-base font-medium h-12 pr-24"
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-base">
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-base font-semibold">
                     .memecook.fun
                   </span>
                 </div>
@@ -60,7 +61,7 @@ export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
             </FormItem>
           )}
         />
-        <RainbowButton type="submit" className="text-base w-full h-12">I Deploy</RainbowButton>
+        <Button type="submit" className="text-base w-full h-12">I Deploy <ArrowRightIcon className="w-4 h-4" /></Button>
       </form>
     </Form>
   );

@@ -17,7 +17,7 @@ export const templateSchema = z.object({
   dextools: z.string().max(255).optional(),
   instagram: z.string().max(255).optional(),
   jupiter: z.boolean().default(false),
-  projectName: z.string().min(1).max(255),
+  projectName: z.string().optional(),
   pumpFun: z.string().max(255).optional(),
   telegram: z.string().max(255).optional(),
   ticker: z.string().max(255).optional(),
@@ -30,6 +30,10 @@ export const templateSchema = z.object({
   imagePreviewFile: z.instanceof(File).nullable().optional(),
   logoFile: z.instanceof(File).nullable().optional(),
   backgroundFile: z.instanceof(File).nullable().optional(),
+  type: z.string(),
+  headingFont: z.string(),
+  bodyFont: z.string(),
+  headingColor: z.string(),
 });
 
 export type TemplateFormData = z.infer<typeof templateSchema>;

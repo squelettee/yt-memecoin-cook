@@ -47,6 +47,7 @@ body {
     --color-4: 195 100% 63%;
     --color-5: 90 100% 63%;
   }
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -92,6 +93,7 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

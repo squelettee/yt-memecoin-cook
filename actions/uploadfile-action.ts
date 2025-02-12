@@ -1,11 +1,11 @@
-"use server"
+'use server'
 
 import { S3Client, ListObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 
 
-const Bucket = process.env.NEXT_PUBLIC_AWS_BUCKET;
+const Bucket = process.env.AWS_BUCKET;
 const s3 = new S3Client({
-  region: process.env.NEXT_PUBLIC_AWS_S3_REGION,
+  region: process.env.AWS_S3_REGION,
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
@@ -51,7 +51,7 @@ export async function uploadDocument(formData: FormData) {
               `Error uploading file, with status: ${meta.httpStatusCode}`
             );
 
-          const fileUrl = `https://s3.${process.env.NEXT_PUBLIC_AWS_S3_REGION}.amazonaws.com/${Bucket}/${file.name}`;
+          const fileUrl = `https://s3.${process.env.AWS_S3_REGION}.amazonaws.com/${Bucket}/${file.name}`;
           return {
             name: file.name,
             status: "success",

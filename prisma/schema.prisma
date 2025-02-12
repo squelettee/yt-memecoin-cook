@@ -20,6 +20,7 @@ model Template {
   id              Int      @id @default(autoincrement())
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  type            String   @default("minimal") @db.VarChar(255)
   background      String?  @db.VarChar(255)
   birdeye         String?  @db.VarChar(255)
   coinGecko       String?  @db.VarChar(255)
@@ -32,7 +33,7 @@ model Template {
   instagram       String?  @db.VarChar(255)
   jupiter         Boolean  @default(false)
   logo            String?  @db.VarChar(255)
-  projectName     String   @unique @db.VarChar(255)
+  projectName     String?  @db.VarChar(255)
   pumpFun         String?  @db.VarChar(255)
   telegram        String?  @db.VarChar(255)
   ticker          String?  @db.VarChar(255)
@@ -42,6 +43,10 @@ model Template {
   whitepaper      String?  @db.VarChar(255)
   domain          Domain?
   user            User?    @relation(fields: [userId], references: [id])
+  headingFont     String   @default("geist") @db.VarChar(255)
+  bodyFont        String   @default("geist") @db.VarChar(255)
+  headingColor    String   @default("#ffffff") @db.VarChar(255)
+  backgroundColor String   @default("#000000") @db.VarChar(255)
 }
 
 model User {

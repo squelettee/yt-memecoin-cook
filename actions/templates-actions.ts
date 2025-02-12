@@ -51,10 +51,6 @@ export async function createTemplate(templateData: TemplateFormData) {
       return { error: 'Domain name is required' };
     }
 
-    if (!templateData.projectName) {
-      return { error: 'Project name is required' };
-    }
-
     const existingDomain = await prisma.domain.findUnique({
       where: {
         name: templateData.domain.name
@@ -102,7 +98,7 @@ export async function createTemplate(templateData: TemplateFormData) {
 
     // Vérification des données avant création
     const templateCreateData = {
-      projectName: templateData.projectName,
+      projectName: templateData.projectName ?? null,
       background: templateData.background ?? null,
       birdeye: templateData.birdeye ?? null,
       coinGecko: templateData.coinGecko ?? null,
