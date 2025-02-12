@@ -40,6 +40,7 @@ import {
 } from "@/components/ui/tooltip"
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana/web3.js'
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 
 interface TemplateFormProps {
   subdomain: string;
@@ -142,6 +143,8 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
   const { connection } = useConnection()
   const { publicKey, sendTransaction } = useWallet()
 
+  // Ajout de la vérification du wallet connecté
+  const isWalletConnected = !!publicKey;
 
   // 1. Define your form.
   const form = useForm<TemplateFormData>({
@@ -786,24 +789,33 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
         </div>
       </Tabs>
 
-      {/* Fixed Footer */}
+      {/* Fixed Footer - Modification du footer */}
       <div className="w-full md:w-[400px] border-r px-4 py-4 border-t bg-background">
         <div className="flex flex-col gap-4 items-center">
-          <Button
-            className="w-full px-6 py-6 bg-secondary-foreground"
-            type="submit"
-            disabled={isSubmitting}
-            onClick={form.handleSubmit(onSubmit)}
-          >
-            {isSubmitting ? (
-              <>
-                <span className="loading loading-spinner"></span>
-                Creating...
-              </>
-            ) : (
-              'Create Template'
-            )}
-          </Button>
+          {!isWalletConnected ? (
+            <div className="w-full flex flex-col gap-2 items-center">
+              <p className="text-sm text-muted-foreground text-center">
+                Connect your wallet to create your template
+              </p>
+              <WalletMultiButton className="w-full px-6 py-6" />
+            </div>
+          ) : (
+            <Button
+              className="w-full px-6 py-6 bg-secondary-foreground"
+              type="submit"
+              disabled={isSubmitting}
+              onClick={form.handleSubmit(onSubmit)}
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="loading loading-spinner"></span>
+                  Creating...
+                </>
+              ) : (
+                'Create Template'
+              )}
+            </Button>
+          )}
         </div>
       </div>
     </div>

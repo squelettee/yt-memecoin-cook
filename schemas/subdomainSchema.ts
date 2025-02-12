@@ -1,11 +1,10 @@
 import { z } from "zod";
-
 export const subdomainErrors = {
-  required: "Le sous-domaine est requis.",
-  maxLength: "Le sous-domaine ne peut pas dépasser 10 caractères.",
-  format: "Le sous-domaine ne peut contenir que des lettres, des chiffres et des tirets.",
-  taken: "Ce sous-domaine est déjà pris.",
-  connection: "Erreur de connexion. Veuillez réessayer."
+  required: "Subdomain is required.",
+  maxLength: "Subdomain cannot exceed 10 characters.",
+  format: "Subdomain can only contain letters, numbers and hyphens.",
+  taken: "This subdomain is already taken.",
+  connection: "Connection error. Please try again."
 } as const;
 
 export const subdomainSchema = z.object({
