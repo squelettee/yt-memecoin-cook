@@ -1,25 +1,25 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getMostRecentTemplates } from '@/actions/templates-actions'
+import { getTemplates } from '@/actions/template/getTemplates'
 import Link from 'next/link'
 import { format } from 'timeago.js'
-import { Template } from '@/schemas/templateSchema'
+import { TemplateType } from '@/schemas/templateSchema'
 import { Card, CardFooter, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import Image from 'next/image'
 
 export function LatestTemplates() {
-  const [templates, setTemplates] = useState<Template[]>([])
+  const [templates, setTemplates] = useState<TemplateType[]>([])
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchTemplates = async () => {
       try {
-        const { templates: fetchedTemplates, error } = await getMostRecentTemplates()
+        const { templates: fetchedTemplates, error } = await getTemplates()
         if (error) {
-          setError(error instanceof Error ? error.message : String(error))
+          setError(String(error))
         } else if (fetchedTemplates) {
-          setTemplates(fetchedTemplates as Template[])
+          setTemplates(fetchedTemplates as TemplateType[])
         }
       } catch (error) {
         setError(error instanceof Error ? error.message : 'An unexpected error occurred')
@@ -46,7 +46,7 @@ export function LatestTemplates() {
   }
 
   return (
-    <div className="grid max-w-6xl w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-12 mx-auto px-4">
+    <div className="grid max-w-8xl w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 my-12 mx-auto px-4">
       {templates.map((template) => (
         <Card
           key={template.id}

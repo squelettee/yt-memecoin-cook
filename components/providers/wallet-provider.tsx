@@ -6,7 +6,7 @@ import {
 } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { FC, useMemo, useState, useEffect } from 'react';
-import { getRpcEndpoint } from '@/actions/rpc-action'
+import { getRpcEndpoint } from '@/actions/rpc-actions'
 
 import '@solana/wallet-adapter-react-ui/styles.css';
 

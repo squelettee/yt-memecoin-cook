@@ -1,6 +1,6 @@
 'use client'
 
-import { checkAvailability } from "@/actions/subdomain-action";
+import { checkAvailability } from "@/actions/domain/checkAvailability";
 import { SubdomainForm } from "@/components/forms/subdomain-form";
 import { SubdomainFormData } from "@/schemas/subdomainSchema";
 import { useRouter } from "next/navigation";
@@ -10,12 +10,10 @@ import { Navbar } from "@/components/layouts/navbar";
 import { Footer } from "@/components/layouts/footer";
 import { LineShadowText } from "@/components/magicui/line-shadow-text";
 import { AuroraText } from "@/components/magicui/aurora-text";
-import { useTheme } from "next-themes";
 
 export default function Page() {
   const router = useRouter();
-  const theme = useTheme();
-  const shadowColor = theme.resolvedTheme === "dark" ? "white" : "black";
+  const shadowColor = "white"
 
   const handleSubmit = async (values: SubdomainFormData) => {
     const result = await checkAvailability(values.subdomain);

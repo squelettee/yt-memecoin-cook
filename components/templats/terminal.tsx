@@ -1,24 +1,25 @@
 "use client"
 
 import { TemplateFormData } from "@/schemas/templateSchema";
-import {
-  AnimatedSpan,
-  Terminal,
-  TypingAnimation,
-} from "@/components/magicui/terminal";
-import { Copy, Link } from "lucide-react";
-import Image from "next/image";
+// import {
+//   AnimatedSpan,
+//   Terminal,
+//   TypingAnimation,
+// } from "@/components/magicui/terminal";
+// import { Copy, Link } from "lucide-react";
+// import Image from "next/image";
 
 export default function TerminalTemplate({ templateData }: { templateData: TemplateFormData }) {
-  const handleCopyAddress = () => {
-    if (templateData.contractAddress) {
-      navigator.clipboard.writeText(templateData.contractAddress);
-    }
-  };
+  console.log('templateData', templateData)
+  // const handleCopyAddress = () => {
+  //   if (templateData.contractAddress) {
+  //     navigator.clipboard.writeText(templateData.contractAddress);
+  //   }
+  // };
 
   return (
     <main className="w-full min-h-[100vh] bg-slate-100 flex items-center justify-center relative">
-      <div
+      {/* <div
         className="absolute inset-0 blur-sm"
         style={{
           backgroundImage: templateData.backgroundFile ? `url(${URL.createObjectURL(templateData.backgroundFile)})` : templateData.background ? `url(${templateData.background})` : `url(/assets/illustration.avif)`,
@@ -115,7 +116,7 @@ export default function TerminalTemplate({ templateData }: { templateData: Templ
           <span>Made with</span>
           <span className="font-bold">Memecook 🍳</span>
         </Link>
-      </div>
+      </div> */}
     </main>
   )
 }

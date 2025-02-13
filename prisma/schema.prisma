@@ -52,7 +52,6 @@ model Template {
 model User {
   id            Int        @id @default(autoincrement())
   address       String     @unique
-  chainId       Int?
   lastConnected DateTime   @default(now())
   templates     Template[]
 }

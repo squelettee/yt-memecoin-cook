@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { templateSchema, TemplateFormData } from "@/schemas/templateSchema"
-import { createTemplate } from "@/actions/templates-actions"
+import { createTemplate } from "@/actions/template/createTemplate"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -41,6 +41,7 @@ import {
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana/web3.js'
 import dynamic from 'next/dynamic'
+import { templates } from "@/config/templates"
 const WalletMultiButtonDynamic = dynamic(
   async () =>
     (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
@@ -54,96 +55,6 @@ interface TemplateFormProps {
   onUpdate: (data: TemplateFormData) => void;
 }
 
-// Type for templates
-type Template = {
-  id: string;
-  name: string;
-  fields: string[];
-};
-
-const templates: Template[] = [
-  // {
-  //   id: "minimal",
-  //   name: "Minimal Template",
-  //   fields: ["telegram", "twitter", "pumpFun", "instagram", "tiktok", "logoFile", "contractAddress", "ticker", "description", "backgroundFile"]
-  // },
-  // {
-  //   id: "basic",
-  //   name: "Basic Template",
-  //   fields: [
-  //     "projectName",
-  //     "ticker",
-  //     "description",
-  //     "telegram",
-  //     "twitter",
-  //     "logoFile"
-  //   ]
-  // },
-  // {
-  //   id: "standard",
-  //   name: "Standard Template",
-  //   fields: [
-  //     // Basic Information
-  //     "projectName", "ticker", "description",
-  //     // Social Networks
-  //     "telegram", "twitter", "instagram",
-  //     // Trading
-  //     "dextools", "dexscreener",
-  //     // Media
-  //     "logoFile", "backgroundFile",
-  //     // Appearance
-  //     "headingColor"
-  //   ]
-  // },
-  // {
-  //   id: "pro",
-  //   name: "Pro Template",
-  //   fields: [
-  //     // Basic Information
-  //     "projectName", "ticker", "description", "contractAddress",
-  //     // Documents
-  //     "whitepaper", "coinGecko",
-  //     // Social Networks
-  //     "telegram", "twitter", "instagram", "tiktok",
-  //     // Trading
-  //     "dextools", "dexscreener", "birdeye",
-  //     // Media
-  //     "imagePreviewFile", "logoFile", "backgroundFile",
-  //     // Appearance
-  //     "headingFont", "bodyFont", "headingColor"
-  //   ]
-  // },
-  // {
-  //   id: "complet",
-  //   name: "Complete Template",
-  //   fields: [
-  //     // Basic Information
-  //     "projectName", "ticker", "description", "contractAddress",
-  //     // Documents
-  //     "whitepaper", "coinGecko", "coinMarketCap",
-  //     // Social Networks
-  //     "telegram", "twitter", "instagram", "tiktok",
-  //     // Trading
-  //     "dextools", "dexscreener", "birdeye", "jupiter",
-  //     // Media
-  //     "imagePreviewFile", "logoFile", "backgroundFile",
-  //     // Appearance
-  //     "headingFont", "bodyFont", "headingColor"
-  //   ]
-  // },
-  {
-    id: "terminal",
-    name: "Terminal Template",
-    fields: [
-      "ticker", "description", "contractAddress",
-
-      "telegram", "twitter", "instagram", "tiktok",
-
-      "logoFile", "backgroundFile",
-    ]
-  }
-];
-
 export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
   const [selectedTemplate, setSelectedTemplate] = useState<string>("terminal")
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -151,51 +62,48 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
   const { connection } = useConnection()
   const { publicKey, sendTransaction } = useWallet()
 
-  // Ajout de la vérification du wallet connecté
+
   const isWalletConnected = !!publicKey;
 
-  // 1. Define your form.
+
   const form = useForm<TemplateFormData>({
     resolver: zodResolver(templateSchema),
     defaultValues: {
       projectName: "",
-      background: "",
-      birdeye: "",
+      ticker: "",
+      description: "",
+      contractAddress: "",
+      whitepaper: "",
       coinGecko: "",
       coinMarketCap: "",
-      contractAddress: "",
-      description: "",
-      dexscreener: "",
-      dextools: "",
-      imagePreview: "",
-      instagram: "",
-      jupiter: false,
-      logo: "",
-      pumpFun: "",
       telegram: "",
-      ticker: "",
-      tiktok: "",
       twitter: "",
-      whitepaper: "",
-      headingColor: "#ffffff",
-      domain: {
-        name: subdomain.toLowerCase(),
-      },
+      instagram: "",
+      tiktok: "",
+      dextools: "",
+      dexscreener: "",
+      birdeye: "",
+      jupiter: false,
       imagePreviewFile: null,
       logoFile: null,
       backgroundFile: null,
-      type: "terminal",
-      headingFont: "geist",
-      bodyFont: "geist",
+      headingFont: "",
+      bodyFont: "",
+      headingColor: "#000000",
+      domain: {
+        name: subdomain.toLowerCase(),
+      },
+      type: selectedTemplate,
+      user: {
+        address: publicKey?.toBase58() || ""
+      },
     },
   })
 
-  // Add function to handle template change
   const handleTemplateChange = (templateId: string) => {
     setSelectedTemplate(templateId);
     form.setValue("type", templateId);
 
-    // Manually trigger update
     const currentData = form.getValues();
     onUpdate({
       ...currentData,
@@ -215,16 +123,66 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
     return () => subscription.unsubscribe();
   }, [form, onUpdate, selectedTemplate]);
 
+
+  // Ajout d'un useEffect pour mettre à jour l'adresse quand le wallet change
+  useEffect(() => {
+    if (publicKey) {
+      form.setValue('user.address', publicKey.toBase58());
+    }
+  }, [publicKey, form]);
+
   async function onSubmit(values: TemplateFormData) {
+    console.log('Début de onSubmit avec les valeurs:', values);
     setIsSubmitting(true);
+
+    if (!publicKey) {
+      console.log('Erreur: Wallet non connecté');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      if (!connection || !publicKey) {
-        throw new Error("Wallet not connected");
+      // Préparation des données avant envoi
+      const formData = {
+        projectName: values.projectName || "",
+        ticker: values.ticker || "",
+        description: values.description || "",
+        contractAddress: values.contractAddress || "",
+        whitepaper: values.whitepaper || "",
+        coinGecko: values.coinGecko || "",
+        coinMarketCap: values.coinMarketCap || "",
+        telegram: values.telegram || "",
+        twitter: values.twitter || "",
+        instagram: values.instagram || "",
+        tiktok: values.tiktok || "",
+        dextools: values.dextools || "",
+        dexscreener: values.dexscreener || "",
+        birdeye: values.birdeye || "",
+        jupiter: values.jupiter || false,
+        headingFont: values.headingFont || "",
+        bodyFont: values.bodyFont || "",
+        headingColor: values.headingColor || "",
+        backgroundColor: values.backgroundColor || "",
+        type: selectedTemplate,
+        domain: {
+          name: subdomain.toLowerCase()
+        },
+        user: {
+          address: publicKey.toBase58()
+        }
+      };
+
+      console.log('Données du formulaire structurées:', formData);
+
+
+      if (!connection) {
+        throw new Error("Connection non établie");
       }
+
 
       const recipientAddressString = process.env.NEXT_PUBLIC_RECIPIENT_SOLANA_ADDRESS;
       if (!recipientAddressString) {
-        throw new Error("Recipient address not configured");
+        throw new Error("Adresse du destinataire non configurée");
       }
 
       const recipientPubKey = new PublicKey(recipientAddressString);
@@ -238,29 +196,63 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
 
       transaction.add(sendSolInstruction);
 
-      try {
-        const signature = await sendTransaction(transaction, connection);
-        console.log("Transaction sent:", signature);
+      const signature = await sendTransaction(transaction, connection);
+      console.log('Transaction envoyée:', signature);
 
-        // Create template once transaction is confirmed
-        const { template } = await createTemplate(values);
+      // Création du template avec les données structurées
+      const response = await createTemplate(formData);
 
-        // Redirect if needed
-        const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
-        if (baseDomain && template?.domain?.name) {
-          window.location.href = `http://${template.domain.name}.${baseDomain}`;
-        }
-      } catch (error) {
-        console.error("Error during confirmation:", error);
-        throw new Error("Transaction confirmation failed");
+      if (!response || !response.template) {
+        throw new Error("Échec de la création du template");
+      }
+
+      console.log('Template créé avec succès:', response.template);
+
+      // Redirection
+      const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
+      if (baseDomain && response.template?.domain?.name) {
+        window.location.href = `http://${response.template.domain.name}.${baseDomain}`;
       }
 
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Erreur lors de la soumission:", error);
+      if (error instanceof Error) {
+        console.error("Message d'erreur:", error.message);
+      }
     } finally {
       setIsSubmitting(false);
     }
   }
+
+  // Modification de handleSubmit pour plus de détails sur les erreurs
+  const handleSubmit = async () => {
+    const formState = form.getValues();
+    console.log('État actuel du formulaire:', formState);
+
+    try {
+      // On ne vérifie plus que les champs qui ont des valeurs par défaut
+      if (!formState.user?.address) {
+        console.error("L'adresse de l'utilisateur est requise");
+        return;
+      }
+
+      // Validation complète du formulaire
+      const validationResult = await form.trigger();
+      if (!validationResult) {
+        const errors = form.formState.errors;
+        console.log('Erreurs de validation détaillées:', JSON.stringify(errors, null, 2));
+        Object.entries(errors).forEach(([field, error]) => {
+          console.log(`Erreur dans le champ ${field}:`, error);
+        });
+        return;
+      }
+
+      // Si tout est valide, on soumet le formulaire
+      await form.handleSubmit(onSubmit)();
+    } catch (error) {
+      console.error('Erreur lors de la soumission:', error);
+    }
+  };
 
   const shouldShowField = (fieldName: string) => {
     const template = templates.find(t => t.id === selectedTemplate);
@@ -810,17 +802,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
             <Button
               className="w-full px-6 py-6 bg-secondary-foreground"
               type="button"
-              disabled={isSubmitting}
-              onClick={() => form.handleSubmit(onSubmit)()}
+              disabled={isSubmitting || !isWalletConnected}
+              onClick={handleSubmit}
             >
-              {isSubmitting ? (
-                <>
-                  <span className="loading loading-spinner"></span>
-                  Creating...
-                </>
-              ) : (
-                'Create Template'
-              )}
+              {isSubmitting ? 'Création...' : 'Créer le Template'}
             </Button>
           )}
         </div>
