@@ -10,7 +10,7 @@ import { TemplateFormData } from "@/schemas/templateSchema";
 // import Image from "next/image";
 
 export default function TerminalTemplate({ templateData }: { templateData: TemplateFormData }) {
-  console.log('templateData', templateData)
+  console.log(templateData)
   // const handleCopyAddress = () => {
   //   if (templateData.contractAddress) {
   //     navigator.clipboard.writeText(templateData.contractAddress);

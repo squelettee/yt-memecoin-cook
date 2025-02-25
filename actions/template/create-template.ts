@@ -2,12 +2,11 @@
 
 import { prisma } from "@/lib/prisma";
 import { TemplateFormData, templateSchema } from "@/schemas/templateSchema";
-import { getOrCreateUser } from "../user/getOrCreateUser";
+import { getOrCreateUser } from "../user/get-or-create-user";
+import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js'
 
 export async function createTemplate(templateData: TemplateFormData) {
   try {
-    console.log('Données reçues dans createTemplate:', templateData); // Debug
-
     const validationResult = templateSchema.safeParse(templateData);
 
     if (!validationResult.success) {
@@ -28,6 +27,32 @@ export async function createTemplate(templateData: TemplateFormData) {
     if (existingDomain) {
       return { error: 'Ce nom de domaine existe déjà' };
     }
+
+    // Vérification du paiement
+    const connection = new Connection(process.env.SOLANA_RPC_URL!)
+    const recipientAddress = new PublicKey(process.env.RECIPIENT_SOLANA_ADDRESS!)
+    const senderAddress = new PublicKey(validatedData.user.address)
+
+    // Vérifier le solde
+    const balance = await connection.getBalance(senderAddress)
+    const paymentAmount = 0.001 * LAMPORTS_PER_SOL
+
+    if (balance < paymentAmount) {
+      return { error: 'Solde insuffisant' }
+    }
+
+    // Créer et envoyer la transaction
+    const transaction = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey: senderAddress,
+        toPubkey: recipientAddress,
+        lamports: paymentAmount
+      })
+    )
+
+    // Vérifier que la transaction est confirmée
+    const signature = await connection.sendTransaction(transaction, [])
+    await connection.confirmTransaction(signature)
 
     // Récupération ou création de l'utilisateur
     const user = await getOrCreateUser(validatedData.user.address);

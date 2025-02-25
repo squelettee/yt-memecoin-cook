@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { templateSchema, TemplateFormData } from "@/schemas/templateSchema"
-import { createTemplate } from "@/actions/template/createTemplate"
+import { createTemplate } from "@/actions/template/create-template"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -38,8 +38,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { useConnection, useWallet } from '@solana/wallet-adapter-react'
-import { LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana/web3.js'
+import { useWallet } from '@solana/wallet-adapter-react'
 import dynamic from 'next/dynamic'
 import { templates } from "@/config/templates"
 const WalletMultiButtonDynamic = dynamic(
@@ -59,9 +58,7 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
   const [selectedTemplate, setSelectedTemplate] = useState<string>("terminal")
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { connection } = useConnection()
-  const { publicKey, sendTransaction } = useWallet()
-
+  const { publicKey } = useWallet()
 
   const isWalletConnected = !!publicKey;
 
@@ -142,7 +139,7 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
     }
 
     try {
-      // Préparation des données avant envoi
+      // Préparation des données
       const formData = {
         projectName: values.projectName || "",
         ticker: values.ticker || "",
@@ -172,38 +169,11 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
         }
       };
 
-      console.log('Données du formulaire structurées:', formData);
-
-
-      if (!connection) {
-        throw new Error("Connection non établie");
-      }
-
-
-      const recipientAddressString = process.env.NEXT_PUBLIC_RECIPIENT_SOLANA_ADDRESS;
-      if (!recipientAddressString) {
-        throw new Error("Adresse du destinataire non configurée");
-      }
-
-      const recipientPubKey = new PublicKey(recipientAddressString);
-      const transaction = new Transaction();
-
-      const sendSolInstruction = SystemProgram.transfer({
-        fromPubkey: publicKey,
-        toPubkey: recipientPubKey,
-        lamports: 0.001 * LAMPORTS_PER_SOL
-      });
-
-      transaction.add(sendSolInstruction);
-
-      const signature = await sendTransaction(transaction, connection);
-      console.log('Transaction envoyée:', signature);
-
-      // Création du template avec les données structurées
+      // Création du template
       const response = await createTemplate(formData);
 
-      if (!response || !response.template) {
-        throw new Error("Échec de la création du template");
+      if (!response.success) {
+        throw new Error(response.error || "Échec de la création du template");
       }
 
       console.log('Template créé avec succès:', response.template);
@@ -211,14 +181,12 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       // Redirection
       const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
       if (baseDomain && response.template?.domain?.name) {
-        window.location.href = `http://${response.template.domain.name}.${baseDomain}`;
+        window.location.href = `https://${response.template.domain.name}.${baseDomain}`;
       }
 
     } catch (error) {
       console.error("Erreur lors de la soumission:", error);
-      if (error instanceof Error) {
-        console.error("Message d'erreur:", error.message);
-      }
+      // Gérer l'erreur (afficher un message à l'utilisateur, etc.)
     } finally {
       setIsSubmitting(false);
     }

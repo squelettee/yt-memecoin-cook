@@ -1,41 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { getTemplates } from '@/actions/template/getTemplates'
 import Link from 'next/link'
 import { format } from 'timeago.js'
 import { TemplateType } from '@/schemas/templateSchema'
-import { Card, CardFooter, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
+import { Card, CardFooter, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Image from 'next/image'
 
-export function LatestTemplates() {
-  const [templates, setTemplates] = useState<TemplateType[]>([])
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    const fetchTemplates = async () => {
-      try {
-        const { templates: fetchedTemplates, error } = await getTemplates()
-        if (error) {
-          setError(String(error))
-        } else if (fetchedTemplates) {
-          setTemplates(fetchedTemplates as TemplateType[])
-        }
-      } catch (error) {
-        setError(error instanceof Error ? error.message : 'An unexpected error occurred')
-      }
-    }
-
-    fetchTemplates()
-  }, [])
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center p-8 text-muted-foreground">
-        An error occurred while loading templates
-      </div>
-    )
-  }
+export function LatestTemplates({ templates }: { templates: TemplateType[] }) {
 
   if (!templates.length) {
     return (
@@ -61,7 +32,7 @@ export function LatestTemplates() {
             }}
           />
           <div className="relative z-10 bg-background/80 backdrop-blur-sm rounded-lg">
-            <Link href={`http://${template.domain?.name}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`} className="block">
+            <Link href={`https://${template.domain?.name}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`} className="block">
               <CardHeader className="pb-2">
                 <CardDescription className="flex items-center justify-center">
                   <Image

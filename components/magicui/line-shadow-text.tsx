@@ -3,7 +3,7 @@ import { motion, MotionProps } from "motion/react";
 
 interface LineShadowTextProps
   extends Omit<React.HTMLAttributes<HTMLElement>, keyof MotionProps>,
-  MotionProps {
+    MotionProps {
   shadowColor?: string;
   as?: React.ElementType;
 }

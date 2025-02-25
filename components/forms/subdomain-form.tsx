@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "lucide-react";
-import { LineShadowText } from "../magicui/line-shadow-text";
+import { LineShadowText } from "@/components/magicui/line-shadow-text";
 
 interface SubdomainFormProps {
   onSubmit: (data: SubdomainFormData) => Promise<void>;
