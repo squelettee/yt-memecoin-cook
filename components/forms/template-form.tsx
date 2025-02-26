@@ -55,7 +55,7 @@ interface TemplateFormProps {
 }
 
 export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState<string>("minimal")
+  const [selectedTemplate, setSelectedTemplate] = useState<string>("basic")
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { publicKey } = useWallet()
@@ -762,7 +762,7 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
               disabled={isSubmitting || !isWalletConnected}
               onClick={handleSubmit}
             >
-              {isSubmitting ? 'Création...' : 'Créer le Template'}
+              {isSubmitting ? 'Creating...' : 'Create Template'}
             </Button>
           )}
         </div>

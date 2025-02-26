@@ -2,11 +2,11 @@ import { TemplateFormData } from '@/schemas/templateSchema';
 import dynamic from 'next/dynamic';
 
 const templates = {
-  minimal: dynamic(() => import('@/components/templats/minimal')),
-  pro: dynamic(() => import('@/components/templats/pro')),
-  basic: dynamic(() => import('@/components/templats/basic')),
-  standard: dynamic(() => import('@/components/templats/standard')),
-  complet: dynamic(() => import('@/components/templats/complet')),
+  minimal: dynamic(() => import('@/components/templats/minimal/minimal')),
+  pro: dynamic(() => import('@/components/templats/pro/pro')),
+  basic: dynamic(() => import('@/components/templats/basic/basic')),
+  standard: dynamic(() => import('@/components/templats/standard/standard')),
+  complet: dynamic(() => import('@/components/templats/complet/complet')),
 } as const;
 
 type TemplateType = keyof typeof templates;

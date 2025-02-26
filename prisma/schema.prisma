@@ -20,7 +20,7 @@ model Template {
   id              Int      @id @default(autoincrement())
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  type            String   @default("minimal") @db.VarChar(255)
+  type            String   @default("basic") @db.VarChar(255)
   background      String?  @db.VarChar(255)
   birdeye         String?  @db.VarChar(255)
   coinGecko       String?  @db.VarChar(255)

@@ -13,7 +13,9 @@ export const templates = [
       "description",
       "telegram",
       "twitter",
-      "logoFile"
+      "logoFile",
+      "contractAddress",
+      "backgroundFile"
     ]
   },
   {
