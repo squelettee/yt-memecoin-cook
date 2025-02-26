@@ -170,8 +170,14 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       // Création du template
       const response = await createTemplate(formData);
 
+      // Check if response has error property first
+      if ('error' in response) {
+        throw new Error(response.error);
+      }
+
+      // At this point TypeScript knows response has success property
       if (!response.success) {
-        throw new Error(response.error || "Échec de la création du template");
+        throw new Error("Failed to create template");
       }
 
       // Redirection
@@ -181,8 +187,8 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       }
 
     } catch (error) {
-      console.error("Erreur lors de la soumission:", error);
-      // Gérer l'erreur (afficher un message à l'utilisateur, etc.)
+      console.error("Error during submission:", error);
+      // Handle error (display message to user, etc.)
     } finally {
       setIsSubmitting(false);
     }
