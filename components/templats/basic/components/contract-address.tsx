@@ -19,7 +19,6 @@ export function ContractAddress({ templateData }: { templateData: TemplateFormDa
   return (
     <section className="w-full max-w-2xl mx-auto px-4">
       <div className="flex flex-col gap-3 items-center bg-background/40 backdrop-blur-sm p-6 rounded-xl">
-        <h2 className="text-lg font-medium text-foreground/80">Contract Address</h2>
         <div className="w-full flex flex-col sm:flex-row gap-2 items-center p-4 rounded-lg border bg-background/60">
           <code className="text-sm flex-1 truncate text-center sm:text-left px-2 text-foreground/90">
             {templateData.contractAddress || "Contract address not set"}
