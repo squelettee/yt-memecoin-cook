@@ -1,22 +1,8 @@
 import { redirect } from 'next/navigation';
 import { TemplateFormData } from "@/schemas/templateSchema";
-import { TemplatePreview } from "@/components/template-preview";
-import { prisma } from "@/lib/prisma";
-
-
-async function getTemplate(subdomain: string) {
-  if (!subdomain) throw new Error("Subdomain is required");
-
-  const domainRecord = await prisma.domain.findFirst({
-    where: {
-      name: subdomain.toLowerCase()
-    },
-    include: { template: true }
-  });
-
-  if (!domainRecord?.template) return null;
-  return domainRecord.template;
-}
+import { TemplateViews } from "@/components/template-views";
+import { getTemplate } from "@/lib/queries/get-template";
+import { TemplateType } from '@/config/templates';
 
 interface SubdomainPageProps {
   params: Promise<{
@@ -26,6 +12,7 @@ interface SubdomainPageProps {
 
 export default async function SubdomainPage({ params }: SubdomainPageProps) {
   const { subdomain } = await params;
+
 
   if (!process.env.NEXT_PUBLIC_API_URL) {
     throw new Error("NEXT_PUBLIC_API_URL is not defined");
@@ -38,8 +25,8 @@ export default async function SubdomainPage({ params }: SubdomainPageProps) {
   }
 
   return (
-    <TemplatePreview
-      type={template.type}
+    <TemplateViews
+      type={template.type as TemplateType}
       templateData={template as TemplateFormData}
     />
   );

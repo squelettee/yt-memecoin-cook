@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { TemplateForm } from "@/components/forms/template-form"
-import { TemplatePreview } from "@/components/template-preview"
+import { TemplateViews } from "@/components/template-views"
 import { TemplateFormData } from '@/schemas/templateSchema'
 
 
@@ -17,7 +17,7 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
         subdomain={subdomain}
         onUpdate={(data: TemplateFormData) => setTemplateData(data)}
       />
-      <TemplatePreview
+      <TemplateViews
         type={templateData.type}
         templateData={templateData}
       />

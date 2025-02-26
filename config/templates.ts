@@ -80,3 +80,5 @@ export const templates = [
     ]
   }
 ];
+
+export type TemplateType = 'terminal' | 'minimal' | 'pro' | 'basic' | 'standard' | 'complet';

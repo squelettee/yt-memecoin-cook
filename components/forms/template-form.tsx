@@ -129,11 +129,9 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
   }, [publicKey, form]);
 
   async function onSubmit(values: TemplateFormData) {
-    console.log('Début de onSubmit avec les valeurs:', values);
     setIsSubmitting(true);
 
     if (!publicKey) {
-      console.log('Erreur: Wallet non connecté');
       setIsSubmitting(false);
       return;
     }
@@ -176,8 +174,6 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
         throw new Error(response.error || "Échec de la création du template");
       }
 
-      console.log('Template créé avec succès:', response.template);
-
       // Redirection
       const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
       if (baseDomain && response.template?.domain?.name) {
@@ -195,7 +191,6 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
   // Modification de handleSubmit pour plus de détails sur les erreurs
   const handleSubmit = async () => {
     const formState = form.getValues();
-    console.log('État actuel du formulaire:', formState);
 
     try {
       // On ne vérifie plus que les champs qui ont des valeurs par défaut
@@ -207,15 +202,9 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       // Validation complète du formulaire
       const validationResult = await form.trigger();
       if (!validationResult) {
-        const errors = form.formState.errors;
-        console.log('Erreurs de validation détaillées:', JSON.stringify(errors, null, 2));
-        Object.entries(errors).forEach(([field, error]) => {
-          console.log(`Erreur dans le champ ${field}:`, error);
-        });
         return;
       }
 
-      // Si tout est valide, on soumet le formulaire
       await form.handleSubmit(onSubmit)();
     } catch (error) {
       console.error('Erreur lors de la soumission:', error);
