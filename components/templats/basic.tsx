@@ -1,5 +1,3 @@
-"use client"
-
 import { TemplateFormData } from "@/schemas/templateSchema";
 
 export default function Basic({ templateData }: { templateData: TemplateFormData }) {

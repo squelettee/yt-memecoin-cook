@@ -55,7 +55,7 @@ interface TemplateFormProps {
 }
 
 export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState<string>("terminal")
+  const [selectedTemplate, setSelectedTemplate] = useState<string>("basic")
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { publicKey } = useWallet()

@@ -7,7 +7,6 @@ const templates = {
   basic: dynamic(() => import('@/components/templats/basic')),
   standard: dynamic(() => import('@/components/templats/standard')),
   complet: dynamic(() => import('@/components/templats/complet')),
-  terminal: dynamic(() => import('@/components/templats/terminal'))
 } as const;
 
 type TemplateType = keyof typeof templates;

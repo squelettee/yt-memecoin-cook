@@ -68,17 +68,6 @@ export const templates = [
       "headingFont", "bodyFont", "headingColor"
     ]
   },
-  {
-    id: "terminal",
-    name: "Terminal Template",
-    fields: [
-      "ticker", "description", "contractAddress",
-
-      "telegram", "twitter", "instagram", "tiktok",
-
-      "logoFile", "backgroundFile",
-    ]
-  }
 ];
 
-export type TemplateType = 'terminal' | 'minimal' | 'pro' | 'basic' | 'standard' | 'complet';
+export type TemplateType = 'minimal' | 'pro' | 'basic' | 'standard' | 'complet';

@@ -1,5 +1,3 @@
-'use client'
-
 import { TemplateFormData } from "@/schemas/templateSchema";
 
 // fields: ["telegram", "twitter", "pumpFun", "instagram", "tiktok", "logoFile", "contractAddress", "ticker", "description", "backgroundFile"]

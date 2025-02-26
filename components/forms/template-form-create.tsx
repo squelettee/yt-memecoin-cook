@@ -8,7 +8,7 @@ import { TemplateFormData } from '@/schemas/templateSchema'
 
 export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
   const [templateData, setTemplateData] = useState<TemplateFormData>({
-    type: 'terminal',
+    type: 'basic',
   })
 
   return (
