@@ -32,10 +32,9 @@ export function HomeContent({
       <div className="w-full pt-12 sm:pt-24">
         <VelocityScroll defaultVelocity={1}>
           {[
-            " check out these degen memesites just dropped! 🐸",
-            " wagmi to the moon! 🚀",
-            " build your own memesite now! 👨🏻‍🍳",
-            " join the meme revolution! 🦍"
+            " check out these solana memesites just dropped! 🌟",
+            " solana to the moon! 🚀",
+            " build your own solana memesite now! 👨🏻‍🍳",
           ]}
         </VelocityScroll>
       </div>

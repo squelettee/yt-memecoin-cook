@@ -233,7 +233,7 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
         {/* Fixed Header */}
         <div className="px-4 border-b bg-background w-full">
           <h1 className="font-bold text-center pt-5 text-lg sm:text-xl md:text-2xl lg:text-3xl ">
-            <Link href={process.env.NEXT_PUBLIC_API_URL!}>Memecook 🍳</Link>
+            <Link href={process.env.NEXT_PUBLIC_API_URL!}>Memecook 🐸</Link>
           </h1>
           <Separator className="my-4" />
           <TabsList className="grid w-full grid-cols-2 mb-4">

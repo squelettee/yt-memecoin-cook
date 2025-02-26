@@ -113,7 +113,7 @@ export default function TerminalTemplate({ templateData }: { templateData: Templ
       <div className="fixed bottom-4 right-4 text-base font-medium text-muted-foreground opacity-80 hover:opacity-100 transition-opacity">
         <Link href={process.env.NEXT_PUBLIC_API_URL!} target="_blank" className="hover:underline flex items-center gap-2">
           <span>Made with</span>
-          <span className="font-bold">Memecook 🍳</span>
+          <span className="font-bold">Memecook 🐸</span>
         </Link>
       </div> */}
     </main>
