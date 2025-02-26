@@ -32,7 +32,7 @@ export function LatestTemplates({ templates }: { templates: TemplateType[] }) {
             }}
           />
           <div className="relative z-10 bg-background/80 backdrop-blur-sm rounded-lg">
-            <Link href={`https://${template.domain?.name}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`} className="block">
+            <Link href={`http://${template.domain?.name}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`} className="block">
               <CardHeader className="pb-2">
                 <CardDescription className="flex items-center justify-center">
                   <Image

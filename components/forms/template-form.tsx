@@ -177,7 +177,7 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       // Redirection
       const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
       if (baseDomain && response.template?.domain?.name) {
-        window.location.href = `https://${response.template.domain.name}.${baseDomain}`;
+        window.location.href = `http://${response.template.domain.name}.${baseDomain}`;
       }
 
     } catch (error) {
