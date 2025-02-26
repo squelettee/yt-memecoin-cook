@@ -19,7 +19,7 @@ export function Navbar() {
         <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">Memecook 🐸</span>
       </Link>
       <div className="flex gap-2 sm:gap-4 items-center">
-        <div className="scale-[0.85] sm:scale-90 md:scale-100 [&_.wallet-adapter-button]:whitespace-nowrap [&_.wallet-adapter-button]:overflow-hidden [&_.wallet-adapter-button]:text-ellipsis">
+        <div className="scale-[0.85] sm:scale-90 md:scale-100 [&_.wallet-adapter-button]:whitespace-nowrap [&_.wallet-adapter-button]:overflow-hidden [&_.wallet-adapter-button]:text-ellipsis z-10">
           <WalletMultiButtonDynamic />
         </div>
       </div>
