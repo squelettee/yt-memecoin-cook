@@ -57,8 +57,8 @@ export default function Basic({ templateData }: { templateData: TemplateFormData
       <div className="absolute inset-0 bg-background/80 backdrop-blur-[2px] z-[-1]" />
       <BasicHeader templateData={templateData} />
       <div className="flex-1 flex flex-col gap-12 sm:gap-16 py-8">
-        <WalletMultiButtonDynamic />
         <BasicHero templateData={templateData} />
+        <WalletMultiButtonDynamic />
         <ContractAddress templateData={templateData} />
         <BasicSocials templateData={templateData} />
       </div>
