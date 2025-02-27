@@ -8,6 +8,14 @@ import { BasicSocials } from "@/components/templats/basic/components/socials";
 import { ContractAddress } from "@/components/templats/basic/components/contract-address";
 import Image from 'next/image';
 import { useEffect } from 'react';
+import dynamic from "next/dynamic";
+const WalletMultiButtonDynamic = dynamic(
+  async () =>
+    (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
+  {
+    ssr: false
+  }
+)
 
 // Basic template documentation
 // Required fields:
@@ -49,6 +57,7 @@ export default function Basic({ templateData }: { templateData: TemplateFormData
       <div className="absolute inset-0 bg-background/80 backdrop-blur-[2px] z-[-1]" />
       <BasicHeader templateData={templateData} />
       <div className="flex-1 flex flex-col gap-12 sm:gap-16 py-8">
+        <WalletMultiButtonDynamic />
         <BasicHero templateData={templateData} />
         <ContractAddress templateData={templateData} />
         <BasicSocials templateData={templateData} />
