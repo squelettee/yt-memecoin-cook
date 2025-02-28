@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { SubdomainForm } from "@/components/forms/subdomain-form"
 import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
-import { LatestTemplates } from "@/components/latest-templates"
+import { TemplatesTable } from "@/components/templates-table"
 import { Template } from "@/interfaces/template"
 import { checkSubdomainAvailability } from "@/actions/domain/check-subdomain-avaibility"
 
@@ -40,7 +40,7 @@ export function HomeContent({
       </div>
 
       <div className="my-16 w-full">
-        <LatestTemplates templates={templates} />
+        <TemplatesTable templates={templates} />
       </div>
     </>
   )

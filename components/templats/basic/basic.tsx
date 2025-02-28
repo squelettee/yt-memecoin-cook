@@ -5,17 +5,9 @@ import { BasicHeader } from "@/components/templats/basic/components/header";
 import { BasicHero } from "@/components/templats/basic/components/hero";
 import { BasicFooter } from "@/components/templats/basic/components/footer";
 import { BasicSocials } from "@/components/templats/basic/components/socials";
-import { ContractAddress } from "@/components/templats/basic/components/contract-address";
+import { JupiterSwap } from "@/components/templats/basic/components/jupiter-swap";
 import Image from 'next/image';
 import { useEffect } from 'react';
-import dynamic from "next/dynamic";
-const WalletMultiButtonDynamic = dynamic(
-  async () =>
-    (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
-  {
-    ssr: false
-  }
-)
 
 // Basic template documentation
 // Required fields:
@@ -58,8 +50,10 @@ export default function Basic({ templateData }: { templateData: TemplateFormData
       <BasicHeader templateData={templateData} />
       <div className="flex-1 flex flex-col gap-12 sm:gap-16 py-8">
         <BasicHero templateData={templateData} />
-        <WalletMultiButtonDynamic />
-        <ContractAddress templateData={templateData} />
+
+        {/* Intégration du composant Jupiter Swap */}
+        <JupiterSwap templateData={templateData} />
+
         <BasicSocials templateData={templateData} />
       </div>
       <BasicFooter />
