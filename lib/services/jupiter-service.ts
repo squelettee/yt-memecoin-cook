@@ -1,7 +1,7 @@
 import { QuoteResponse, SwapParams, SwapResponse } from '@/interfaces/jupiter';
 
 export class JupiterService {
-  private static API_URL = 'https://quote-api.jup.ag/v6';
+  private static API_URL = 'https://api.jup.ag/swap/v1/swap';
 
   /**
    * Obtient un devis pour un swap
