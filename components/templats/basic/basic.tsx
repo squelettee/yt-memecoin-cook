@@ -30,9 +30,8 @@ export default function Basic({
 }) {
   const backgroundUrl = templateData.backgroundFile
     ? URL.createObjectURL(templateData.backgroundFile)
-    : "/assets/lisa-frogs.jpg";
+    : "/assets/upload_image.jpeg";
 
-  // Nettoyer l'URL créée quand le composant est démonté
   useEffect(() => {
     return () => {
       if (templateData.backgroundFile) {
