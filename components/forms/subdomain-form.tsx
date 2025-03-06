@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubdomainFormData, subdomainSchema } from "@/schemas/subdomainSchema"
+import { SubdomainFormData, subdomainSchema } from "@/schemas/subdomainSchema";
 import {
   Form,
   FormControl,
@@ -33,14 +33,18 @@ export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
     } catch (error) {
       form.setError("subdomain", {
         type: "server",
-        message: error instanceof Error ? error.message : "Une erreur est survenue"
+        message:
+          error instanceof Error ? error.message : "Une erreur est survenue",
       });
     }
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-2 w-64">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="space-y-2 w-64"
+      >
         <FormField
           control={form.control}
           name="subdomain"
@@ -62,8 +66,14 @@ export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg">
-          <LineShadowText className="italic" shadowColor={"#ffff"}>I Deploy</LineShadowText> <ArrowRightIcon className="w-5 h-5 ml-2" />
+        <Button
+          type="submit"
+          className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg"
+        >
+          <LineShadowText className="italic" shadowColor={"#ffff"}>
+            I Deploy
+          </LineShadowText>{" "}
+          <ArrowRightIcon className="w-5 h-5 ml-2" />
         </Button>
       </form>
     </Form>

@@ -5,11 +5,11 @@ export const getTemplate = async (subdomain: string) => {
 
   const domainRecord = await prisma.domain.findFirst({
     where: {
-      name: subdomain.toLowerCase()
+      name: subdomain.toLowerCase(),
     },
-    include: { template: true }
+    include: { template: true },
   });
 
   if (!domainRecord?.template) return null;
   return domainRecord.template;
-}
+};

@@ -1,4 +1,4 @@
-'use server'
+"use server";
 
 import { prisma } from "@/lib/prisma";
 import { TemplateFormData, templateSchema } from "@/schemas/templateSchema";
@@ -11,8 +11,8 @@ export async function createTemplate(templateData: TemplateFormData) {
 
     if (!validationResult.success) {
       return {
-        error: 'Données de template invalides',
-        details: validationResult.error.format()
+        error: "Données de template invalides",
+        details: validationResult.error.format(),
       };
     }
 
@@ -20,11 +20,11 @@ export async function createTemplate(templateData: TemplateFormData) {
 
     // Vérification du domaine
     const existingDomain = await prisma.domain.findUnique({
-      where: { name: validatedData.domain.name.toLowerCase() }
+      where: { name: validatedData.domain.name.toLowerCase() },
     });
 
     if (existingDomain) {
-      return { error: 'Ce nom de domaine existe déjà' };
+      return { error: "Ce nom de domaine existe déjà" };
     }
 
     // Vérification du paiement
@@ -49,10 +49,9 @@ export async function createTemplate(templateData: TemplateFormData) {
     //   })
     // )
 
-
     // Récupération ou création de l'utilisateur
     const user = await getOrCreateUser(validatedData.user.address);
-    if ('error' in user) {
+    if ("error" in user) {
       return user;
     }
 
@@ -80,8 +79,8 @@ export async function createTemplate(templateData: TemplateFormData) {
       backgroundColor: validatedData.backgroundColor,
       domain: {
         create: {
-          name: validatedData.domain.name.toLowerCase()
-        }
+          name: validatedData.domain.name.toLowerCase(),
+        },
       },
       userId: user.id,
     };
@@ -90,17 +89,19 @@ export async function createTemplate(templateData: TemplateFormData) {
       data: templateCreateData,
       include: {
         domain: true,
-        user: true
-      }
+        user: true,
+      },
     });
 
     return { success: true, template };
-
   } catch (error) {
-    console.error('Erreur détaillée lors de la création du template:', error);
+    console.error("Erreur détaillée lors de la création du template:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Une erreur inattendue est survenue'
+      error:
+        error instanceof Error
+          ? error.message
+          : "Une erreur inattendue est survenue",
     };
   }
 }

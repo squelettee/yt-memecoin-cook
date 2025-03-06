@@ -1,20 +1,24 @@
-'use client'
+"use client";
 
-import { TemplateFormData } from "@/schemas/templateSchema"
-import { Button } from "@/components/ui/button"
-import { CheckIcon, CopyIcon } from "lucide-react"
-import { useState } from "react"
+import { TemplateFormData } from "@/schemas/templateSchema";
+import { Button } from "@/components/ui/button";
+import { CheckIcon, CopyIcon } from "lucide-react";
+import { useState } from "react";
 
-export function ContractAddress({ templateData }: { templateData: TemplateFormData }) {
-  const [copied, setCopied] = useState(false)
+export function ContractAddress({
+  templateData,
+}: {
+  templateData: TemplateFormData;
+}) {
+  const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
     if (templateData.contractAddress) {
-      await navigator.clipboard.writeText(templateData.contractAddress)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      await navigator.clipboard.writeText(templateData.contractAddress);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
-  }
+  };
 
   return (
     <section className="w-full max-w-2xl mx-auto px-4">
@@ -39,5 +43,5 @@ export function ContractAddress({ templateData }: { templateData: TemplateFormDa
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

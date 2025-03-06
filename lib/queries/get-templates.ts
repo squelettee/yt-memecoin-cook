@@ -1,14 +1,14 @@
-import { prisma } from "@/lib/prisma"
+import { prisma } from "@/lib/prisma";
 
 export const getTemplates = async (limit: number = 9) => {
   const templates = await prisma.template.findMany({
     take: limit,
     orderBy: {
-      createdAt: 'desc'
+      createdAt: "desc",
     },
     include: {
       domain: true,
     },
-  })
-  return templates
-}
+  });
+  return templates;
+};

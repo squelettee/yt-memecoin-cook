@@ -1,29 +1,39 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { templateSchema, TemplateFormData } from "@/schemas/templateSchema"
-import { createTemplate } from "@/actions/template/create-template"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { MenuIcon, ChartNoAxesCombinedIcon, InfoIcon, ImageIcon, LinkIcon, PaintRollerIcon, FileTextIcon } from "lucide-react"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { templateSchema, TemplateFormData } from "@/schemas/templateSchema";
+import { createTemplate } from "@/actions/template/create-template";
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import {
+  MenuIcon,
+  ChartNoAxesCombinedIcon,
+  InfoIcon,
+  ImageIcon,
+  LinkIcon,
+  PaintRollerIcon,
+  FileTextIcon,
+} from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import Link from "next/link"
-import { useState, useEffect } from "react"
+} from "@/components/ui/accordion";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -31,23 +41,23 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { useWallet } from '@solana/wallet-adapter-react'
-import dynamic from 'next/dynamic'
-import { templates } from "@/config/templates"
+} from "@/components/ui/tooltip";
+import { useWallet } from "@solana/wallet-adapter-react";
+import dynamic from "next/dynamic";
+import { templates } from "@/config/templates";
 const WalletMultiButtonDynamic = dynamic(
   async () =>
-    (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
+    (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
   {
-    ssr: false
-  }
-)
+    ssr: false,
+  },
+);
 
 interface TemplateFormProps {
   subdomain: string;
@@ -55,13 +65,12 @@ interface TemplateFormProps {
 }
 
 export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState<string>("basic")
+  const [selectedTemplate, setSelectedTemplate] = useState<string>("basic");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { publicKey } = useWallet()
+  const { publicKey } = useWallet();
 
   const isWalletConnected = !!publicKey;
-
 
   const form = useForm<TemplateFormData>({
     resolver: zodResolver(templateSchema),
@@ -92,10 +101,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       },
       type: selectedTemplate,
       user: {
-        address: publicKey?.toBase58() || ""
+        address: publicKey?.toBase58() || "",
       },
     },
-  })
+  });
 
   const handleTemplateChange = (templateId: string) => {
     setSelectedTemplate(templateId);
@@ -104,7 +113,7 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
     const currentData = form.getValues();
     onUpdate({
       ...currentData,
-      type: templateId
+      type: templateId,
     });
   };
 
@@ -112,19 +121,18 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
   useEffect(() => {
     const subscription = form.watch((data) => {
       onUpdate({
-        ...data as TemplateFormData,
-        type: selectedTemplate
+        ...(data as TemplateFormData),
+        type: selectedTemplate,
       });
     });
 
     return () => subscription.unsubscribe();
   }, [form, onUpdate, selectedTemplate]);
 
-
   // Ajout d'un useEffect pour mettre à jour l'adresse quand le wallet change
   useEffect(() => {
     if (publicKey) {
-      form.setValue('user.address', publicKey.toBase58());
+      form.setValue("user.address", publicKey.toBase58());
     }
   }, [publicKey, form]);
 
@@ -160,18 +168,18 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
         backgroundColor: values.backgroundColor || "",
         type: selectedTemplate,
         domain: {
-          name: subdomain.toLowerCase()
+          name: subdomain.toLowerCase(),
         },
         user: {
-          address: publicKey.toBase58()
-        }
+          address: publicKey.toBase58(),
+        },
       };
 
       // Création du template
       const response = await createTemplate(formData);
 
       // Check if response has error property first
-      if ('error' in response) {
+      if ("error" in response) {
         throw new Error(response.error);
       }
 
@@ -185,7 +193,6 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       if (baseDomain && response.template?.domain?.name) {
         window.location.href = `http://${response.template.domain.name}.${baseDomain}`;
       }
-
     } catch (error) {
       console.error("Error during submission:", error);
       // Handle error (display message to user, etc.)
@@ -213,29 +220,32 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
 
       await form.handleSubmit(onSubmit)();
     } catch (error) {
-      console.error('Erreur lors de la soumission:', error);
+      console.error("Erreur lors de la soumission:", error);
     }
   };
 
   const shouldShowField = (fieldName: string) => {
-    const template = templates.find(t => t.id === selectedTemplate);
+    const template = templates.find((t) => t.id === selectedTemplate);
     return template?.fields.includes(fieldName);
   };
 
   const hasFieldsInSection = (sectionFields: string[]) => {
-    return sectionFields.some(field => shouldShowField(field));
+    return sectionFields.some((field) => shouldShowField(field));
   };
 
   // Ajout d'une fonction pour empêcher la soumission par défaut
   const handleFormKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
     }
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <Tabs defaultValue="template" className="w-full md:w-[400px] border-r flex flex-col h-full">
+    <div className="flex flex-col h-full min-w-[400px]">
+      <Tabs
+        defaultValue="template"
+        className="w-full md:w-[400px] border-r flex flex-col h-full"
+      >
         {/* Fixed Header */}
         <div className="px-4 border-b bg-background w-full">
           <h1 className="font-bold text-center pt-5 text-lg sm:text-xl md:text-2xl lg:text-3xl ">
@@ -257,7 +267,9 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                   <Button
                     key={template.id}
                     onClick={() => handleTemplateChange(template.id)}
-                    variant={selectedTemplate === template.id ? "default" : "outline"}
+                    variant={
+                      selectedTemplate === template.id ? "default" : "outline"
+                    }
                     className="w-full"
                   >
                     {template.name}
@@ -276,7 +288,12 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
               >
                 <Accordion type="single" collapsible className="w-full">
                   {/* Project Info */}
-                  {hasFieldsInSection(["projectName", "ticker", "description", "contractAddress"]) && (
+                  {hasFieldsInSection([
+                    "projectName",
+                    "ticker",
+                    "description",
+                    "contractAddress",
+                  ]) && (
                     <AccordionItem value="project-info">
                       <AccordionTrigger>
                         <div className="flex items-center gap-2">
@@ -293,7 +310,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>Project Name</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter project name" {...field} />
+                                  <Input
+                                    placeholder="Enter project name"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -308,7 +328,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>Ticker</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter ticker symbol" {...field} />
+                                  <Input
+                                    placeholder="Enter ticker symbol"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -323,7 +346,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>Description</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter project description" {...field} />
+                                  <Input
+                                    placeholder="Enter project description"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -339,15 +365,23 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                                 <FormLabel>
                                   <TooltipProvider>
                                     <Tooltip>
-                                      <TooltipTrigger>Contract Address</TooltipTrigger>
+                                      <TooltipTrigger>
+                                        Contract Address
+                                      </TooltipTrigger>
                                       <TooltipContent>
-                                        <p>The address of your token&apos;s smart contract on the blockchain</p>
+                                        <p>
+                                          The address of your token&apos;s smart
+                                          contract on the blockchain
+                                        </p>
                                       </TooltipContent>
                                     </Tooltip>
                                   </TooltipProvider>
                                 </FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter contract address" {...field} />
+                                  <Input
+                                    placeholder="Enter contract address"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -359,7 +393,11 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                   )}
 
                   {/* Documents */}
-                  {hasFieldsInSection(["whitepaper", "coinGecko", "coinMarketCap"]) && (
+                  {hasFieldsInSection([
+                    "whitepaper",
+                    "coinGecko",
+                    "coinMarketCap",
+                  ]) && (
                     <AccordionItem value="documents">
                       <AccordionTrigger>
                         <div className="flex items-center gap-2">
@@ -376,7 +414,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>Whitepaper</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter whitepaper link" {...field} />
+                                  <Input
+                                    placeholder="Enter whitepaper link"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -391,7 +432,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>CoinGecko</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter CoinGecko link" {...field} />
+                                  <Input
+                                    placeholder="Enter CoinGecko link"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -406,7 +450,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>CoinMarketCap</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter CoinMarketCap link" {...field} />
+                                  <Input
+                                    placeholder="Enter CoinMarketCap link"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -418,7 +465,12 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                   )}
 
                   {/* Social Links */}
-                  {hasFieldsInSection(["telegram", "twitter", "instagram", "tiktok"]) && (
+                  {hasFieldsInSection([
+                    "telegram",
+                    "twitter",
+                    "instagram",
+                    "tiktok",
+                  ]) && (
                     <AccordionItem value="social-links">
                       <AccordionTrigger>
                         <div className="flex items-center gap-2">
@@ -435,7 +487,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>Telegram</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="https://t.me/your-group" {...field} />
+                                  <Input
+                                    placeholder="https://t.me/your-group"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -450,7 +505,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>Twitter</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter Twitter link" {...field} />
+                                  <Input
+                                    placeholder="Enter Twitter link"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -465,7 +523,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>Instagram</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter Instagram link" {...field} />
+                                  <Input
+                                    placeholder="Enter Instagram link"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -480,7 +541,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>TikTok</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter TikTok link" {...field} />
+                                  <Input
+                                    placeholder="Enter TikTok link"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -492,7 +556,12 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                   )}
 
                   {/* Trading */}
-                  {hasFieldsInSection(["dextools", "dexscreener", "birdeye", "jupiter"]) && (
+                  {hasFieldsInSection([
+                    "dextools",
+                    "dexscreener",
+                    "birdeye",
+                    "jupiter",
+                  ]) && (
                     <AccordionItem value="trading">
                       <AccordionTrigger>
                         <div className="flex items-center gap-2">
@@ -509,7 +578,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>DEXTools</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter DEXTools link" {...field} />
+                                  <Input
+                                    placeholder="Enter DEXTools link"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -524,7 +596,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>DEXScreener</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter DEXScreener link" {...field} />
+                                  <Input
+                                    placeholder="Enter DEXScreener link"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -539,7 +614,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                               <FormItem className="px-1">
                                 <FormLabel>Birdeye</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter Birdeye link" {...field} />
+                                  <Input
+                                    placeholder="Enter Birdeye link"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -570,7 +648,11 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                   )}
 
                   {/* Media */}
-                  {hasFieldsInSection(["imagePreviewFile", "logoFile", "backgroundFile"]) && (
+                  {hasFieldsInSection([
+                    "imagePreviewFile",
+                    "logoFile",
+                    "backgroundFile",
+                  ]) && (
                     <AccordionItem value="media">
                       <AccordionTrigger>
                         <div className="flex items-center gap-2">
@@ -658,7 +740,11 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                   )}
 
                   {/* Appearance */}
-                  {hasFieldsInSection(["headingFont", "bodyFont", "headingColor"]) && (
+                  {hasFieldsInSection([
+                    "headingFont",
+                    "bodyFont",
+                    "headingColor",
+                  ]) && (
                     <AccordionItem value="appearance">
                       <AccordionTrigger>
                         <div className="flex items-center gap-2">
@@ -673,7 +759,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                           render={({ field }) => (
                             <FormItem className="px-1">
                               <FormLabel>Heading Font</FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
                                 <SelectTrigger className="w-full">
                                   <SelectValue placeholder="Select a font" />
                                 </SelectTrigger>
@@ -681,8 +770,12 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                                   <SelectGroup>
                                     <SelectItem value="geist">Geist</SelectItem>
                                     <SelectItem value="inter">Inter</SelectItem>
-                                    <SelectItem value="roboto">Roboto</SelectItem>
-                                    <SelectItem value="montserrat">Montserrat</SelectItem>
+                                    <SelectItem value="roboto">
+                                      Roboto
+                                    </SelectItem>
+                                    <SelectItem value="montserrat">
+                                      Montserrat
+                                    </SelectItem>
                                   </SelectGroup>
                                 </SelectContent>
                               </Select>
@@ -697,7 +790,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                           render={({ field }) => (
                             <FormItem className="px-1">
                               <FormLabel>Body Font</FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
                                 <SelectTrigger className="w-full">
                                   <SelectValue placeholder="Select a font" />
                                 </SelectTrigger>
@@ -705,8 +801,12 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                                   <SelectGroup>
                                     <SelectItem value="geist">Geist</SelectItem>
                                     <SelectItem value="inter">Inter</SelectItem>
-                                    <SelectItem value="roboto">Roboto</SelectItem>
-                                    <SelectItem value="montserrat">Montserrat</SelectItem>
+                                    <SelectItem value="roboto">
+                                      Roboto
+                                    </SelectItem>
+                                    <SelectItem value="montserrat">
+                                      Montserrat
+                                    </SelectItem>
                                   </SelectGroup>
                                 </SelectContent>
                               </Select>
@@ -721,7 +821,11 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                           render={({ field }) => (
                             <FormItem className="px-1">
                               <FormLabel>Heading Color</FormLabel>
-                              <Input type="color" value={field.value} onChange={field.onChange} />
+                              <Input
+                                type="color"
+                                value={field.value}
+                                onChange={field.onChange}
+                              />
                               <FormMessage />
                             </FormItem>
                           )}
@@ -768,11 +872,11 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
               disabled={isSubmitting || !isWalletConnected}
               onClick={handleSubmit}
             >
-              {isSubmitting ? 'Creating...' : 'Create Template'}
+              {isSubmitting ? "Creating..." : "Create Template"}
             </Button>
           )}
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { Domain } from "@prisma/client"
+import { Domain } from "@prisma/client";
 
 export interface Template {
   id: number;

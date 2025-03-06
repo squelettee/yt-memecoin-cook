@@ -1,20 +1,14 @@
-'use client'
+"use client";
 
-import { TemplateFormData } from "@/schemas/templateSchema"
-import Image from "next/image"
-import { useEffect, useState } from "react"
-import dynamic from "next/dynamic"
+import { TemplateFormData } from "@/schemas/templateSchema";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
-// Import dynamique du bouton de wallet pour éviter les erreurs SSR
-const WalletMultiButtonDynamic = dynamic(
-  async () =>
-    (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
-  {
-    ssr: false
-  }
-)
-
-export function BasicHeader({ templateData }: { templateData: TemplateFormData }) {
+export function BasicHeader({
+  templateData,
+}: {
+  templateData: TemplateFormData;
+}) {
   const [logoUrl, setLogoUrl] = useState<string>("/assets/upload_image.jpeg");
 
   useEffect(() => {
@@ -39,9 +33,6 @@ export function BasicHeader({ templateData }: { templateData: TemplateFormData }
           {templateData.ticker || "YOUR TICKER"}
         </span>
       </div>
-
-      {/* Bouton de connexion au wallet */}
-      <WalletMultiButtonDynamic className="py-2" />
     </header>
-  )
-} 
+  );
+}

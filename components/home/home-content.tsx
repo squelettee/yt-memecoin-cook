@@ -1,27 +1,23 @@
-'use client'
+"use client";
 
-import { useRouter } from "next/navigation"
-import { SubdomainForm } from "@/components/forms/subdomain-form"
-import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
-import { TemplatesTable } from "@/components/templates-table"
-import { Template } from "@/interfaces/template"
-import { checkSubdomainAvailability } from "@/actions/domain/check-subdomain-avaibility"
+import { useRouter } from "next/navigation";
+import { SubdomainForm } from "@/components/forms/subdomain-form";
+import { VelocityScroll } from "@/components/ui/scroll-based-velocity";
+import { TemplatesTable } from "@/components/templates-table";
+import { Template } from "@/interfaces/template";
+import { checkSubdomainAvailability } from "@/actions/domain/check-subdomain-avaibility";
 
-export function HomeContent({
-  templates,
-}: {
-  templates: Template[],
-}) {
-  const router = useRouter()
+export function HomeContent({ templates }: { templates: Template[] }) {
+  const router = useRouter();
 
   const handleSubmit = async (data: { subdomain: string }) => {
-    const isAvailable = await checkSubdomainAvailability(data.subdomain)
+    const isAvailable = await checkSubdomainAvailability(data.subdomain);
     if (!isAvailable) {
-      throw new Error("Domain already exists")
+      throw new Error("Domain already exists");
     } else {
-      router.push(`/create/${data.subdomain.toLowerCase()}`)
+      router.push(`/create/${data.subdomain.toLowerCase()}`);
     }
-  }
+  };
 
   return (
     <>
@@ -43,5 +39,5 @@ export function HomeContent({
         <TemplatesTable templates={templates} />
       </div>
     </>
-  )
-} 
+  );
+}

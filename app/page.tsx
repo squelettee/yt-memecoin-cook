@@ -1,11 +1,11 @@
-import { Navbar } from "@/components/layouts/navbar"
-import { Footer } from "@/components/layouts/footer"
-import { HomeTitle } from "@/components/home/home-title"
-import { HomeContent } from "@/components/home/home-content"
-import { getTemplates } from "@/lib/queries/get-templates"
+import { Navbar } from "@/components/layouts/navbar";
+import { Footer } from "@/components/layouts/footer";
+import { HomeTitle } from "@/components/home/home-title";
+import { HomeContent } from "@/components/home/home-content";
+import { getTemplates } from "@/lib/queries/get-templates";
 
 export default async function HomePage() {
-  const templates = await getTemplates()
+  const templates = await getTemplates();
 
   return (
     <>
@@ -14,12 +14,10 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-[url('/assets/lisa-frogs.jpg')] bg-cover bg-center bg-no-repeat" />
         <div className="relative w-full flex items-center justify-center flex-col bg-background/80 backdrop-blur-sm">
           <HomeTitle />
-          <HomeContent
-            templates={templates}
-          />
+          <HomeContent templates={templates} />
         </div>
       </main>
       <Footer />
     </>
-  )
+  );
 }

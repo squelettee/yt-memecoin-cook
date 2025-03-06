@@ -1,14 +1,27 @@
-'use client'
+"use client";
 
-import { WalletProvider, ConnectionProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { useMemo } from 'react';
+import {
+  WalletProvider,
+  ConnectionProvider,
+} from "@solana/wallet-adapter-react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import { useMemo } from "react";
+import {
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
 
-import '@solana/wallet-adapter-react-ui/styles.css';
+import "@solana/wallet-adapter-react-ui/styles.css";
 
 export const Wallet = ({ children }: { children: React.ReactNode }) => {
-  const endpoint = 'https://api.mainnet-beta.solana.com';
-  const wallets = useMemo(() => [], []);
+  const endpoint =
+    "https://mainnet.helius-rpc.com/?api-key=12718bda-c02c-4f61-8ace-429887a1d4e1";
+
+  // Initialiser les wallets supportés
+  const wallets = useMemo(
+    () => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
+    [],
+  );
 
   return (
     <ConnectionProvider endpoint={endpoint}>

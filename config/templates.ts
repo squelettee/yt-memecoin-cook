@@ -2,7 +2,18 @@ export const templates = [
   {
     id: "minimal",
     name: "Minimal Template",
-    fields: ["telegram", "twitter", "pumpFun", "instagram", "tiktok", "logoFile", "contractAddress", "ticker", "description", "backgroundFile"]
+    fields: [
+      "telegram",
+      "twitter",
+      "pumpFun",
+      "instagram",
+      "tiktok",
+      "logoFile",
+      "contractAddress",
+      "ticker",
+      "description",
+      "backgroundFile",
+    ],
   },
   {
     id: "basic",
@@ -15,61 +26,95 @@ export const templates = [
       "twitter",
       "logoFile",
       "contractAddress",
-      "backgroundFile"
-    ]
+      "backgroundFile",
+    ],
   },
   {
     id: "standard",
     name: "Standard Template",
     fields: [
       // Basic Information
-      "projectName", "ticker", "description",
+      "projectName",
+      "ticker",
+      "description",
       // Social Networks
-      "telegram", "twitter", "instagram",
+      "telegram",
+      "twitter",
+      "instagram",
       // Trading
-      "dextools", "dexscreener",
+      "dextools",
+      "dexscreener",
       // Media
-      "logoFile", "backgroundFile",
+      "logoFile",
+      "backgroundFile",
       // Appearance
-      "headingColor"
-    ]
+      "headingColor",
+    ],
   },
   {
     id: "pro",
     name: "Pro Template",
     fields: [
       // Basic Information
-      "projectName", "ticker", "description", "contractAddress",
+      "projectName",
+      "ticker",
+      "description",
+      "contractAddress",
       // Documents
-      "whitepaper", "coinGecko",
+      "whitepaper",
+      "coinGecko",
       // Social Networks
-      "telegram", "twitter", "instagram", "tiktok",
+      "telegram",
+      "twitter",
+      "instagram",
+      "tiktok",
       // Trading
-      "dextools", "dexscreener", "birdeye",
+      "dextools",
+      "dexscreener",
+      "birdeye",
       // Media
-      "imagePreviewFile", "logoFile", "backgroundFile",
+      "imagePreviewFile",
+      "logoFile",
+      "backgroundFile",
       // Appearance
-      "headingFont", "bodyFont", "headingColor"
-    ]
+      "headingFont",
+      "bodyFont",
+      "headingColor",
+    ],
   },
   {
     id: "complet",
     name: "Complete Template",
     fields: [
       // Basic Information
-      "projectName", "ticker", "description", "contractAddress",
+      "projectName",
+      "ticker",
+      "description",
+      "contractAddress",
       // Documents
-      "whitepaper", "coinGecko", "coinMarketCap",
+      "whitepaper",
+      "coinGecko",
+      "coinMarketCap",
       // Social Networks
-      "telegram", "twitter", "instagram", "tiktok",
+      "telegram",
+      "twitter",
+      "instagram",
+      "tiktok",
       // Trading
-      "dextools", "dexscreener", "birdeye", "jupiter",
+      "dextools",
+      "dexscreener",
+      "birdeye",
+      "jupiter",
       // Media
-      "imagePreviewFile", "logoFile", "backgroundFile",
+      "imagePreviewFile",
+      "logoFile",
+      "backgroundFile",
       // Appearance
-      "headingFont", "bodyFont", "headingColor"
-    ]
+      "headingFont",
+      "bodyFont",
+      "headingColor",
+    ],
   },
 ];
 
-export type TemplateType = 'minimal' | 'pro' | 'basic' | 'standard' | 'complet';
+export type TemplateType = "minimal" | "pro" | "basic" | "standard" | "complet";

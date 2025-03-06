@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { format } from 'timeago.js'
-import { TemplateType } from '@/schemas/templateSchema'
-import { useRouter } from 'next/navigation'
+import { format } from "timeago.js";
+import { TemplateType } from "@/schemas/templateSchema";
+import { useRouter } from "next/navigation";
 import {
   Table,
   TableHeader,
@@ -11,13 +11,13 @@ import {
   TableBody,
   TableCell,
   TableFooter,
-} from '@/components/ui/table'
-import { Button } from '@/components/ui/button'
-import { InfoIcon, LinkIcon } from 'lucide-react'
-import Image from 'next/image'
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { InfoIcon, LinkIcon } from "lucide-react";
+import Image from "next/image";
 
 export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
-  const router = useRouter()
+  const router = useRouter();
 
   if (!templates.length) {
     return (
@@ -25,12 +25,12 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
         <InfoIcon className="mr-2 h-4 w-4" />
         No templates available at the moment
       </div>
-    )
+    );
   }
 
   const handleRowClick = (domainName: string) => {
-    router.push(`http://${domainName}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`)
-  }
+    router.push(`http://${domainName}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`);
+  };
 
   return (
     <div className="rounded-md border bg-background/80 backdrop-blur-sm">
@@ -43,7 +43,9 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
             <TableHead className="hidden md:table-cell md:text-right">
               <span className="hidden md:inline">Socials</span>
             </TableHead>
-            <TableHead className="hidden md:table-cell text-right">Created</TableHead>
+            <TableHead className="hidden md:table-cell text-right">
+              Created
+            </TableHead>
           </TableRow>
         </TableHeader>
 
@@ -52,7 +54,9 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
             <TableRow
               key={template.id}
               className="hover:bg-muted/50 cursor-pointer"
-              onClick={() => template.domain?.name && handleRowClick(template.domain.name)}
+              onClick={() =>
+                template.domain?.name && handleRowClick(template.domain.name)
+              }
             >
               <TableCell>
                 <Image
@@ -67,7 +71,7 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
               <TableCell>
                 <div className="flex flex-col">
                   <span className="font-medium line-clamp-1">
-                    {template.projectName || 'Unnamed Project'}
+                    {template.projectName || "Unnamed Project"}
                   </span>
                   <span className="text-sm text-muted-foreground line-clamp-1">
                     {template.domain?.name}.memecook.fun
@@ -77,7 +81,7 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
 
               <TableCell className="hidden md:table-cell">
                 <span className="font-mono bg-muted px-2 py-1 rounded-md text-sm">
-                  {template.ticker || 'N/A'}
+                  {template.ticker || "N/A"}
                 </span>
               </TableCell>
 
@@ -91,7 +95,11 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
                       className="md:h-auto md:w-auto md:px-3 md:py-1"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <a href={template.twitter} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={template.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <LinkIcon className="h-4 w-4" />
                         <span className="ml-2">Twitter</span>
                       </a>
@@ -105,7 +113,11 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
                       className="md:h-auto md:w-auto md:px-3 md:py-1"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <a href={template.telegram} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={template.telegram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <LinkIcon className="h-4 w-4" />
                         <span className="ml-2">Telegram</span>
                       </a>
@@ -116,10 +128,12 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
 
               <TableCell className="hidden md:table-cell text-right">
                 <time
-                  title={new Date(template.domain?.createdAt || Date.now()).toLocaleString()}
+                  title={new Date(
+                    template.domain?.createdAt || Date.now(),
+                  ).toLocaleString()}
                   className="text-sm text-muted-foreground"
                 >
-                  {format(template.domain?.createdAt || new Date(), 'en')}
+                  {format(template.domain?.createdAt || new Date(), "en")}
                 </time>
               </TableCell>
             </TableRow>
@@ -129,11 +143,12 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={5} className="text-center py-4">
-              Showing {templates.length} template{templates.length > 1 ? 's' : ''}
+              Showing {templates.length} template
+              {templates.length > 1 ? "s" : ""}
             </TableCell>
           </TableRow>
         </TableFooter>
       </Table>
     </div>
-  )
-} 
+  );
+}

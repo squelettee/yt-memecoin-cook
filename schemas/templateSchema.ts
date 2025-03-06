@@ -45,10 +45,10 @@ export const templateSchema: TemplateSchemaType = z.object({
 
   // Relations
   domain: z.object({
-    name: z.string().min(1, "Le nom de domaine est requis")
+    name: z.string().min(1, "Le nom de domaine est requis"),
   }),
   user: z.object({
-    address: z.string().min(1, "L'adresse de l'utilisateur est requise")
+    address: z.string().min(1, "L'adresse de l'utilisateur est requise"),
   }),
   userId: z.number().optional(),
 });
@@ -63,7 +63,7 @@ export const domainSchema: DomainSchemaType = z.object({
   updatedAt: z.date(),
   name: z.string().min(1, "Le nom de domaine est requis"),
   templateId: z.number(),
-  template: z.lazy(() => templateSchema as TemplateSchemaType).optional()
+  template: z.lazy(() => templateSchema as TemplateSchemaType).optional(),
 });
 
 // User schema for authentication and template ownership
@@ -72,7 +72,7 @@ export const userSchema: UserSchemaType = z.object({
   address: z.string().min(1, "L'adresse de l'utilisateur est requise"),
   chainId: z.number().optional(),
   lastConnected: z.date(),
-  templates: z.array(z.lazy(() => templateSchema as TemplateSchemaType))
+  templates: z.array(z.lazy(() => templateSchema as TemplateSchemaType)),
 });
 
 // Export inferred types for use in other parts of the application

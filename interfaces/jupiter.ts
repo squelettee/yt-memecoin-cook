@@ -27,6 +27,6 @@ export interface SwapParams {
     priorityLevelWithMaxLamports: {
       maxLamports: number;
       priorityLevel: string;
-    }
+    };
   };
-} 
+}
