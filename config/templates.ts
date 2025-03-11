@@ -2,6 +2,7 @@ export const templates = [
   {
     id: "minimal",
     name: "Minimal Template",
+    enabled: false,
     fields: [
       "telegram",
       "twitter",
@@ -18,6 +19,7 @@ export const templates = [
   {
     id: "basic",
     name: "Basic Template",
+    enabled: true,
     fields: [
       "projectName",
       "ticker",
@@ -32,6 +34,7 @@ export const templates = [
   {
     id: "standard",
     name: "Standard Template",
+    enabled: false,
     fields: [
       // Basic Information
       "projectName",
@@ -54,6 +57,7 @@ export const templates = [
   {
     id: "pro",
     name: "Pro Template",
+    enabled: false,
     fields: [
       // Basic Information
       "projectName",
@@ -85,6 +89,7 @@ export const templates = [
   {
     id: "complet",
     name: "Complete Template",
+    enabled: false,
     fields: [
       // Basic Information
       "projectName",
