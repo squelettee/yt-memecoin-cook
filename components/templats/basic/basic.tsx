@@ -5,7 +5,6 @@ import { BasicHeader } from "@/components/templats/basic/components/header";
 import { BasicHero } from "@/components/templats/basic/components/hero";
 import { BasicFooter } from "@/components/templats/basic/components/footer";
 import { BasicSocials } from "@/components/templats/basic/components/socials";
-import { JupiterTerminal } from "@/components/templats/basic/components/jupiter-terminal";
 import Image from "next/image";
 import { useEffect } from "react";
 
@@ -54,7 +53,6 @@ export default function Basic({
       <div className="flex-1 flex flex-col gap-12 sm:gap-16 py-8">
         <BasicHero templateData={templateData} />
 
-        <JupiterTerminal templateData={templateData} />
         <BasicSocials templateData={templateData} />
       </div>
       <BasicFooter />

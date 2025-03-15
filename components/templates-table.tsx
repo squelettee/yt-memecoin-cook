@@ -3,15 +3,7 @@
 import { format } from "timeago.js";
 import { TemplateType } from "@/schemas/templateSchema";
 import { useRouter } from "next/navigation";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-  TableFooter,
-} from "@/components/ui/table";
+import { Table, TableRow, TableBody, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { InfoIcon, LinkIcon } from "lucide-react";
 import Image from "next/image";
@@ -35,20 +27,6 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
   return (
     <div className="rounded-md border bg-background/80 backdrop-blur-sm">
       <Table>
-        <TableHeader>
-          <TableRow className="hover:bg-transparent">
-            <TableHead className="w-[60px] md:w-[100px]">Logo</TableHead>
-            <TableHead>Project</TableHead>
-            <TableHead className="hidden md:table-cell">Ticker</TableHead>
-            <TableHead className="hidden md:table-cell md:text-right">
-              <span className="hidden md:inline">Socials</span>
-            </TableHead>
-            <TableHead className="hidden md:table-cell text-right">
-              Created
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-
         <TableBody>
           {templates.map((template) => (
             <TableRow
@@ -139,15 +117,6 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
             </TableRow>
           ))}
         </TableBody>
-
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={5} className="text-center py-4">
-              Showing {templates.length} template
-              {templates.length > 1 ? "s" : ""}
-            </TableCell>
-          </TableRow>
-        </TableFooter>
       </Table>
     </div>
   );

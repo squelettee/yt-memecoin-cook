@@ -68,7 +68,7 @@ export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
         />
         <Button
           type="submit"
-          className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg"
+          className="w-full h-12 bg-violet-800 hover:bg-black text-primary-foreground font-bold text-lg"
         >
           <LineShadowText className="italic" shadowColor={"#ffff"}>
             I Deploy
