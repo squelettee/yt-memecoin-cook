@@ -51,6 +51,7 @@ import {
 import { useWallet } from "@solana/wallet-adapter-react";
 import dynamic from "next/dynamic";
 import { templates } from "@/config/templates";
+import Image from "next/image";
 const WalletMultiButtonDynamic = dynamic(
   async () =>
     (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
@@ -248,8 +249,11 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       >
         {/* Fixed Header */}
         <div className="px-4 border-b bg-background w-full">
-          <h1 className="font-bold text-center pt-5 text-lg sm:text-xl md:text-2xl lg:text-3xl ">
-            <Link href={process.env.NEXT_PUBLIC_API_URL!}>Memecook 🐸</Link>
+          <h1 className="font-bold text-center pt-5 text-lg sm:text-xl md:text-2xl lg:text-3xl flex items-center justify-center gap-2">
+            <Link href={process.env.NEXT_PUBLIC_API_URL!} className="flex items-center gap-2">
+              Memecook{" "}
+              <Image src="/assets/beta.png" alt="beta" width={50} height={50} />
+            </Link>
           </h1>
           <Separator className="my-4" />
           <TabsList className="grid w-full grid-cols-2 mb-4">
@@ -269,7 +273,9 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                     <Button
                       key={template.id}
                       onClick={() => handleTemplateChange(template.id)}
-                      variant={selectedTemplate === template.id ? "default" : "outline"}
+                      variant={
+                        selectedTemplate === template.id ? "default" : "outline"
+                      }
                       className="w-full"
                     >
                       {template.name}
@@ -867,12 +873,12 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
             </div>
           ) : (
             <Button
-              className="w-full px-6 py-6 bg-secondary-foreground"
+              className="w-full px-6 py-6 bg-violet-800 hover:bg-black text-primary-foreground font-bold text-lg"
               type="button"
               disabled={isSubmitting || !isWalletConnected}
               onClick={handleSubmit}
             >
-              {isSubmitting ? "Creating..." : "Create Template"}
+              {isSubmitting ? "Creating..." : "Create Memesite"}
             </Button>
           )}
         </div>

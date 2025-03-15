@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Memecook",
+  title: "Memecook beta",
   description: "Cook beautiful memesites in no time",
   icons: {
     icon: [
