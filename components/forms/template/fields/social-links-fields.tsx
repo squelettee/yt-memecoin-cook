@@ -2,9 +2,19 @@
 
 import { UseFormReturn } from "react-hook-form";
 import { TemplateFormData } from "@/schemas/templateSchema";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import {
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { LinkIcon } from "lucide-react";
 
 interface SocialLinksFieldsProps {
@@ -12,8 +22,13 @@ interface SocialLinksFieldsProps {
   shouldShowField: (fieldName: string) => boolean;
 }
 
-export function SocialLinksFields({ form, shouldShowField }: SocialLinksFieldsProps) {
-  const hasFields = ["telegram", "twitter", "instagram", "tiktok"].some(shouldShowField);
+export function SocialLinksFields({
+  form,
+  shouldShowField,
+}: SocialLinksFieldsProps) {
+  const hasFields = ["telegram", "twitter", "instagram", "tiktok"].some(
+    shouldShowField,
+  );
 
   if (!hasFields) return null;
 
@@ -89,4 +104,4 @@ export function SocialLinksFields({ form, shouldShowField }: SocialLinksFieldsPr
       </AccordionContent>
     </AccordionItem>
   );
-} 
+}

@@ -31,4 +31,4 @@ export function TemplateFormContent({
   );
 }
 
-TemplateFormContent.Fields = TemplateFormFields; 
+TemplateFormContent.Fields = TemplateFormFields;

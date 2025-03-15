@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 
 const WalletMultiButtonDynamic = dynamic(
-  async () => (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
-  { ssr: false }
+  async () =>
+    (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
+  { ssr: false },
 );
 
 export function TemplateFormFooter({
@@ -40,4 +41,4 @@ export function TemplateFormFooter({
       </div>
     </div>
   );
-} 
+}

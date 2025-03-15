@@ -16,7 +16,10 @@ interface TemplateFormFieldsProps {
   selectedTemplate: string;
 }
 
-export function TemplateFormFields({ form, selectedTemplate }: TemplateFormFieldsProps) {
+export function TemplateFormFields({
+  form,
+  selectedTemplate,
+}: TemplateFormFieldsProps) {
   const handleFormKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -44,4 +47,4 @@ export function TemplateFormFields({ form, selectedTemplate }: TemplateFormField
       </form>
     </Form>
   );
-} 
+}

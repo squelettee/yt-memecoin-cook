@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
-
 export function BasicFooter() {
   const { subdomain } = useParams();
 
@@ -24,7 +23,8 @@ export function BasicFooter() {
         </Link>
       </p>
       <p className="text-xs text-muted-foreground">
-        © {new Date().getFullYear()} {subdomain}.memecook.fun. All rights reserved.
+        © {new Date().getFullYear()} {subdomain}.memecook.fun. All rights
+        reserved.
       </p>
     </footer>
   );

@@ -2,19 +2,41 @@
 
 import { UseFormReturn } from "react-hook-form";
 import { TemplateFormData } from "@/schemas/templateSchema";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import {
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { PaintRollerIcon } from "lucide-react";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface AppearanceFieldsProps {
   form: UseFormReturn<TemplateFormData>;
   shouldShowField: (fieldName: string) => boolean;
 }
 
-export function AppearanceFields({ form, shouldShowField }: AppearanceFieldsProps) {
-  const hasFields = ["headingFont", "bodyFont", "headingColor"].some(shouldShowField);
+export function AppearanceFields({
+  form,
+  shouldShowField,
+}: AppearanceFieldsProps) {
+  const hasFields = ["headingFont", "bodyFont", "headingColor"].some(
+    shouldShowField,
+  );
 
   if (!hasFields) return null;
 
@@ -34,7 +56,10 @@ export function AppearanceFields({ form, shouldShowField }: AppearanceFieldsProp
             render={({ field }) => (
               <FormItem className="px-1">
                 <FormLabel>Heading Font</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a font" />
                   </SelectTrigger>
@@ -59,7 +84,10 @@ export function AppearanceFields({ form, shouldShowField }: AppearanceFieldsProp
             render={({ field }) => (
               <FormItem className="px-1">
                 <FormLabel>Body Font</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a font" />
                   </SelectTrigger>
@@ -85,11 +113,7 @@ export function AppearanceFields({ form, shouldShowField }: AppearanceFieldsProp
               <FormItem className="px-1">
                 <FormLabel>Heading Color</FormLabel>
                 <FormControl>
-                  <Input
-                    type="color"
-                    className="h-10 px-2 py-1"
-                    {...field}
-                  />
+                  <Input type="color" className="h-10 px-2 py-1" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -99,4 +123,4 @@ export function AppearanceFields({ form, shouldShowField }: AppearanceFieldsProp
       </AccordionContent>
     </AccordionItem>
   );
-} 
+}

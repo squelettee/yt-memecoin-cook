@@ -2,9 +2,19 @@
 
 import { UseFormReturn } from "react-hook-form";
 import { TemplateFormData } from "@/schemas/templateSchema";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import {
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { FileTextIcon } from "lucide-react";
 
 interface DocumentFieldsProps {
@@ -13,7 +23,9 @@ interface DocumentFieldsProps {
 }
 
 export function DocumentFields({ form, shouldShowField }: DocumentFieldsProps) {
-  const hasFields = ["whitepaper", "coinGecko", "coinMarketCap"].some(shouldShowField);
+  const hasFields = ["whitepaper", "coinGecko", "coinMarketCap"].some(
+    shouldShowField,
+  );
 
   if (!hasFields) return null;
 
@@ -74,4 +86,4 @@ export function DocumentFields({ form, shouldShowField }: DocumentFieldsProps) {
       </AccordionContent>
     </AccordionItem>
   );
-} 
+}

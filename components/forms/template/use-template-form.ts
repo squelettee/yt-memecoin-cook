@@ -122,4 +122,4 @@ export function useTemplateForm({ subdomain, onUpdate }: UseTemplateFormProps) {
     handleTemplateChange,
     handleSubmit,
   };
-} 
+}

@@ -2,10 +2,20 @@
 
 import { UseFormReturn } from "react-hook-form";
 import { TemplateFormData } from "@/schemas/templateSchema";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import {
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { ChartNoAxesCombinedIcon } from "lucide-react";
 
 interface TradingFieldsProps {
@@ -14,7 +24,9 @@ interface TradingFieldsProps {
 }
 
 export function TradingFields({ form, shouldShowField }: TradingFieldsProps) {
-  const hasFields = ["dextools", "dexscreener", "birdeye", "jupiter"].some(shouldShowField);
+  const hasFields = ["dextools", "dexscreener", "birdeye", "jupiter"].some(
+    shouldShowField,
+  );
 
   if (!hasFields) return null;
 
@@ -94,4 +106,4 @@ export function TradingFields({ form, shouldShowField }: TradingFieldsProps) {
       </AccordionContent>
     </AccordionItem>
   );
-} 
+}

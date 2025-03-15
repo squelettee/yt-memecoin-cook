@@ -2,19 +2,42 @@
 
 import { UseFormReturn } from "react-hook-form";
 import { TemplateFormData } from "@/schemas/templateSchema";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import {
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { InfoIcon } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ProjectInfoFieldsProps {
   form: UseFormReturn<TemplateFormData>;
   shouldShowField: (fieldName: string) => boolean;
 }
 
-export function ProjectInfoFields({ form, shouldShowField }: ProjectInfoFieldsProps) {
-  const hasFields = ["projectName", "ticker", "description", "contractAddress"].some(shouldShowField);
+export function ProjectInfoFields({
+  form,
+  shouldShowField,
+}: ProjectInfoFieldsProps) {
+  const hasFields = [
+    "projectName",
+    "ticker",
+    "description",
+    "contractAddress",
+  ].some(shouldShowField);
 
   if (!hasFields) return null;
 
@@ -83,7 +106,10 @@ export function ProjectInfoFields({ form, shouldShowField }: ProjectInfoFieldsPr
                     <Tooltip>
                       <TooltipTrigger>Contract Address</TooltipTrigger>
                       <TooltipContent>
-                        <p>The address of your token&apos;s smart contract on the blockchain</p>
+                        <p>
+                          The address of your token&apos;s smart contract on the
+                          blockchain
+                        </p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -99,4 +125,4 @@ export function ProjectInfoFields({ form, shouldShowField }: ProjectInfoFieldsPr
       </AccordionContent>
     </AccordionItem>
   );
-} 
+}

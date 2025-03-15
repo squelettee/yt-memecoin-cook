@@ -2,9 +2,19 @@
 
 import { UseFormReturn } from "react-hook-form";
 import { TemplateFormData } from "@/schemas/templateSchema";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import {
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { ImageIcon } from "lucide-react";
 
 interface MediaFieldsProps {
@@ -13,7 +23,9 @@ interface MediaFieldsProps {
 }
 
 export function MediaFields({ form, shouldShowField }: MediaFieldsProps) {
-  const hasFields = ["imagePreviewFile", "logoFile", "backgroundFile"].some(shouldShowField);
+  const hasFields = ["imagePreviewFile", "logoFile", "backgroundFile"].some(
+    shouldShowField,
+  );
 
   if (!hasFields) return null;
 
@@ -101,4 +113,4 @@ export function MediaFields({ form, shouldShowField }: MediaFieldsProps) {
       </AccordionContent>
     </AccordionItem>
   );
-} 
+}

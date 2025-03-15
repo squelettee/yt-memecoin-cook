@@ -250,7 +250,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
         {/* Fixed Header */}
         <div className="px-4 border-b bg-background w-full">
           <h1 className="font-bold text-center pt-5 text-lg sm:text-xl md:text-2xl lg:text-3xl flex items-center justify-center gap-2">
-            <Link href={process.env.NEXT_PUBLIC_API_URL!} className="flex items-center gap-2">
+            <Link
+              href={process.env.NEXT_PUBLIC_API_URL!}
+              className="flex items-center gap-2"
+            >
               Memecook{" "}
               <Image src="/assets/beta.png" alt="beta" width={50} height={50} />
             </Link>
@@ -300,103 +303,103 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                     "description",
                     "contractAddress",
                   ]) && (
-                      <AccordionItem value="project-info">
-                        <AccordionTrigger>
-                          <div className="flex items-center gap-2">
-                            <InfoIcon size={20} />
-                            Project Information
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="space-y-4">
-                          {shouldShowField("projectName") && (
-                            <FormField
-                              control={form.control}
-                              name="projectName"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>Project Name</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter project name"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                          {shouldShowField("ticker") && (
-                            <FormField
-                              control={form.control}
-                              name="ticker"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>Ticker</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter ticker symbol"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                          {shouldShowField("description") && (
-                            <FormField
-                              control={form.control}
-                              name="description"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>Description</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter project description"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                          {shouldShowField("contractAddress") && (
-                            <FormField
-                              control={form.control}
-                              name="contractAddress"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>
-                                    <TooltipProvider>
-                                      <Tooltip>
-                                        <TooltipTrigger>
-                                          Contract Address
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                          <p>
-                                            The address of your token&apos;s smart
-                                            contract on the blockchain
-                                          </p>
-                                        </TooltipContent>
-                                      </Tooltip>
-                                    </TooltipProvider>
-                                  </FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter contract address"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                        </AccordionContent>
-                      </AccordionItem>
-                    )}
+                    <AccordionItem value="project-info">
+                      <AccordionTrigger>
+                        <div className="flex items-center gap-2">
+                          <InfoIcon size={20} />
+                          Project Information
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="space-y-4">
+                        {shouldShowField("projectName") && (
+                          <FormField
+                            control={form.control}
+                            name="projectName"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>Project Name</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter project name"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                        {shouldShowField("ticker") && (
+                          <FormField
+                            control={form.control}
+                            name="ticker"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>Ticker</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter ticker symbol"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                        {shouldShowField("description") && (
+                          <FormField
+                            control={form.control}
+                            name="description"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter project description"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                        {shouldShowField("contractAddress") && (
+                          <FormField
+                            control={form.control}
+                            name="contractAddress"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>
+                                  <TooltipProvider>
+                                    <Tooltip>
+                                      <TooltipTrigger>
+                                        Contract Address
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p>
+                                          The address of your token&apos;s smart
+                                          contract on the blockchain
+                                        </p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </TooltipProvider>
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter contract address"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
 
                   {/* Documents */}
                   {hasFieldsInSection([
@@ -404,71 +407,71 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                     "coinGecko",
                     "coinMarketCap",
                   ]) && (
-                      <AccordionItem value="documents">
-                        <AccordionTrigger>
-                          <div className="flex items-center gap-2">
-                            <FileTextIcon size={20} />
-                            Documents
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="space-y-4">
-                          {shouldShowField("whitepaper") && (
-                            <FormField
-                              control={form.control}
-                              name="whitepaper"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>Whitepaper</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter whitepaper link"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                          {shouldShowField("coinGecko") && (
-                            <FormField
-                              control={form.control}
-                              name="coinGecko"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>CoinGecko</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter CoinGecko link"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                          {shouldShowField("coinMarketCap") && (
-                            <FormField
-                              control={form.control}
-                              name="coinMarketCap"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>CoinMarketCap</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter CoinMarketCap link"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                        </AccordionContent>
-                      </AccordionItem>
-                    )}
+                    <AccordionItem value="documents">
+                      <AccordionTrigger>
+                        <div className="flex items-center gap-2">
+                          <FileTextIcon size={20} />
+                          Documents
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="space-y-4">
+                        {shouldShowField("whitepaper") && (
+                          <FormField
+                            control={form.control}
+                            name="whitepaper"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>Whitepaper</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter whitepaper link"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                        {shouldShowField("coinGecko") && (
+                          <FormField
+                            control={form.control}
+                            name="coinGecko"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>CoinGecko</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter CoinGecko link"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                        {shouldShowField("coinMarketCap") && (
+                          <FormField
+                            control={form.control}
+                            name="coinMarketCap"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>CoinMarketCap</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter CoinMarketCap link"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
 
                   {/* Social Links */}
                   {hasFieldsInSection([
@@ -477,89 +480,89 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                     "instagram",
                     "tiktok",
                   ]) && (
-                      <AccordionItem value="social-links">
-                        <AccordionTrigger>
-                          <div className="flex items-center gap-2">
-                            <LinkIcon size={20} />
-                            Social Links
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="space-y-4">
-                          {shouldShowField("telegram") && (
-                            <FormField
-                              control={form.control}
-                              name="telegram"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>Telegram</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="https://t.me/your-group"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                          {shouldShowField("twitter") && (
-                            <FormField
-                              control={form.control}
-                              name="twitter"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>Twitter</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter Twitter link"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                          {shouldShowField("instagram") && (
-                            <FormField
-                              control={form.control}
-                              name="instagram"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>Instagram</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter Instagram link"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                          {shouldShowField("tiktok") && (
-                            <FormField
-                              control={form.control}
-                              name="tiktok"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>TikTok</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter TikTok link"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                        </AccordionContent>
-                      </AccordionItem>
-                    )}
+                    <AccordionItem value="social-links">
+                      <AccordionTrigger>
+                        <div className="flex items-center gap-2">
+                          <LinkIcon size={20} />
+                          Social Links
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="space-y-4">
+                        {shouldShowField("telegram") && (
+                          <FormField
+                            control={form.control}
+                            name="telegram"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>Telegram</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="https://t.me/your-group"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                        {shouldShowField("twitter") && (
+                          <FormField
+                            control={form.control}
+                            name="twitter"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>Twitter</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter Twitter link"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                        {shouldShowField("instagram") && (
+                          <FormField
+                            control={form.control}
+                            name="instagram"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>Instagram</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter Instagram link"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                        {shouldShowField("tiktok") && (
+                          <FormField
+                            control={form.control}
+                            name="tiktok"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>TikTok</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter TikTok link"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
 
                   {/* Trading */}
                   {hasFieldsInSection([
@@ -568,90 +571,90 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                     "birdeye",
                     "jupiter",
                   ]) && (
-                      <AccordionItem value="trading">
-                        <AccordionTrigger>
-                          <div className="flex items-center gap-2">
-                            <ChartNoAxesCombinedIcon size={20} />
-                            Trading
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="space-y-4">
-                          {shouldShowField("dextools") && (
-                            <FormField
-                              control={form.control}
-                              name="dextools"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>DEXTools</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter DEXTools link"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                          {shouldShowField("dexscreener") && (
-                            <FormField
-                              control={form.control}
-                              name="dexscreener"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>DEXScreener</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter DEXScreener link"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                          {shouldShowField("birdeye") && (
-                            <FormField
-                              control={form.control}
-                              name="birdeye"
-                              render={({ field }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>Birdeye</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Enter Birdeye link"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                          {shouldShowField("jupiter") && (
-                            <FormField
-                              control={form.control}
-                              name="jupiter"
-                              render={({ field }) => (
-                                <FormItem className="flex flex-row items-start px-1">
-                                  <FormControl>
-                                    <Checkbox
-                                      checked={field.value}
-                                      onCheckedChange={field.onChange}
-                                    />
-                                  </FormControl>
-                                  <div className="space-y-1 leading-none">
-                                    <FormLabel>Jupiter</FormLabel>
-                                  </div>
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                        </AccordionContent>
-                      </AccordionItem>
-                    )}
+                    <AccordionItem value="trading">
+                      <AccordionTrigger>
+                        <div className="flex items-center gap-2">
+                          <ChartNoAxesCombinedIcon size={20} />
+                          Trading
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="space-y-4">
+                        {shouldShowField("dextools") && (
+                          <FormField
+                            control={form.control}
+                            name="dextools"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>DEXTools</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter DEXTools link"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                        {shouldShowField("dexscreener") && (
+                          <FormField
+                            control={form.control}
+                            name="dexscreener"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>DEXScreener</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter DEXScreener link"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                        {shouldShowField("birdeye") && (
+                          <FormField
+                            control={form.control}
+                            name="birdeye"
+                            render={({ field }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>Birdeye</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter Birdeye link"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                        {shouldShowField("jupiter") && (
+                          <FormField
+                            control={form.control}
+                            name="jupiter"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start px-1">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel>Jupiter</FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
 
                   {/* Media */}
                   {hasFieldsInSection([
@@ -659,91 +662,91 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                     "logoFile",
                     "backgroundFile",
                   ]) && (
-                      <AccordionItem value="media">
-                        <AccordionTrigger>
-                          <div className="flex items-center gap-2">
-                            <ImageIcon size={20} />
-                            Media
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="space-y-4">
-                          {shouldShowField("imagePreviewFile") && (
-                            <FormField
-                              control={form.control}
-                              name="imagePreviewFile"
-                              render={({ field: { onChange, ...field } }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>Preview Image</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      type="file"
-                                      accept="image/*"
-                                      onChange={(e) => {
-                                        const file = e.target.files?.[0] || null;
-                                        onChange(file);
-                                      }}
-                                      {...field}
-                                      value={undefined}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
+                    <AccordionItem value="media">
+                      <AccordionTrigger>
+                        <div className="flex items-center gap-2">
+                          <ImageIcon size={20} />
+                          Media
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="space-y-4">
+                        {shouldShowField("imagePreviewFile") && (
+                          <FormField
+                            control={form.control}
+                            name="imagePreviewFile"
+                            render={({ field: { onChange, ...field } }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>Preview Image</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                      const file = e.target.files?.[0] || null;
+                                      onChange(file);
+                                    }}
+                                    {...field}
+                                    value={undefined}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
 
-                          {shouldShowField("logoFile") && (
-                            <FormField
-                              control={form.control}
-                              name="logoFile"
-                              render={({ field: { onChange, ...field } }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>Logo</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      type="file"
-                                      accept="image/*"
-                                      onChange={(e) => {
-                                        const file = e.target.files?.[0] || null;
-                                        onChange(file);
-                                      }}
-                                      {...field}
-                                      value={undefined}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
+                        {shouldShowField("logoFile") && (
+                          <FormField
+                            control={form.control}
+                            name="logoFile"
+                            render={({ field: { onChange, ...field } }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>Logo</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                      const file = e.target.files?.[0] || null;
+                                      onChange(file);
+                                    }}
+                                    {...field}
+                                    value={undefined}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
 
-                          {shouldShowField("backgroundFile") && (
-                            <FormField
-                              control={form.control}
-                              name="backgroundFile"
-                              render={({ field: { onChange, ...field } }) => (
-                                <FormItem className="px-1">
-                                  <FormLabel>Background Image</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      type="file"
-                                      accept="image/*"
-                                      onChange={(e) => {
-                                        const file = e.target.files?.[0] || null;
-                                        onChange(file);
-                                      }}
-                                      {...field}
-                                      value={undefined}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          )}
-                        </AccordionContent>
-                      </AccordionItem>
-                    )}
+                        {shouldShowField("backgroundFile") && (
+                          <FormField
+                            control={form.control}
+                            name="backgroundFile"
+                            render={({ field: { onChange, ...field } }) => (
+                              <FormItem className="px-1">
+                                <FormLabel>Background Image</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                      const file = e.target.files?.[0] || null;
+                                      onChange(file);
+                                    }}
+                                    {...field}
+                                    value={undefined}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
 
                   {/* Appearance */}
                   {hasFieldsInSection([
@@ -751,94 +754,94 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                     "bodyFont",
                     "headingColor",
                   ]) && (
-                      <AccordionItem value="appearance">
-                        <AccordionTrigger>
-                          <div className="flex items-center gap-2">
-                            <PaintRollerIcon size={20} />
-                            Appearance
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="space-y-4">
-                          <FormField
-                            control={form.control}
-                            name="headingFont"
-                            render={({ field }) => (
-                              <FormItem className="px-1">
-                                <FormLabel>Heading Font</FormLabel>
-                                <Select
-                                  onValueChange={field.onChange}
-                                  defaultValue={field.value}
-                                >
-                                  <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Select a font" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectGroup>
-                                      <SelectItem value="geist">Geist</SelectItem>
-                                      <SelectItem value="inter">Inter</SelectItem>
-                                      <SelectItem value="roboto">
-                                        Roboto
-                                      </SelectItem>
-                                      <SelectItem value="montserrat">
-                                        Montserrat
-                                      </SelectItem>
-                                    </SelectGroup>
-                                  </SelectContent>
-                                </Select>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
+                    <AccordionItem value="appearance">
+                      <AccordionTrigger>
+                        <div className="flex items-center gap-2">
+                          <PaintRollerIcon size={20} />
+                          Appearance
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="space-y-4">
+                        <FormField
+                          control={form.control}
+                          name="headingFont"
+                          render={({ field }) => (
+                            <FormItem className="px-1">
+                              <FormLabel>Heading Font</FormLabel>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Select a font" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectItem value="geist">Geist</SelectItem>
+                                    <SelectItem value="inter">Inter</SelectItem>
+                                    <SelectItem value="roboto">
+                                      Roboto
+                                    </SelectItem>
+                                    <SelectItem value="montserrat">
+                                      Montserrat
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
 
-                          <FormField
-                            control={form.control}
-                            name="bodyFont"
-                            render={({ field }) => (
-                              <FormItem className="px-1">
-                                <FormLabel>Body Font</FormLabel>
-                                <Select
-                                  onValueChange={field.onChange}
-                                  defaultValue={field.value}
-                                >
-                                  <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Select a font" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectGroup>
-                                      <SelectItem value="geist">Geist</SelectItem>
-                                      <SelectItem value="inter">Inter</SelectItem>
-                                      <SelectItem value="roboto">
-                                        Roboto
-                                      </SelectItem>
-                                      <SelectItem value="montserrat">
-                                        Montserrat
-                                      </SelectItem>
-                                    </SelectGroup>
-                                  </SelectContent>
-                                </Select>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
+                        <FormField
+                          control={form.control}
+                          name="bodyFont"
+                          render={({ field }) => (
+                            <FormItem className="px-1">
+                              <FormLabel>Body Font</FormLabel>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
+                                <SelectTrigger className="w-full">
+                                  <SelectValue placeholder="Select a font" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectItem value="geist">Geist</SelectItem>
+                                    <SelectItem value="inter">Inter</SelectItem>
+                                    <SelectItem value="roboto">
+                                      Roboto
+                                    </SelectItem>
+                                    <SelectItem value="montserrat">
+                                      Montserrat
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
 
-                          <FormField
-                            control={form.control}
-                            name="headingColor"
-                            render={({ field }) => (
-                              <FormItem className="px-1">
-                                <FormLabel>Heading Color</FormLabel>
-                                <Input
-                                  type="color"
-                                  value={field.value}
-                                  onChange={field.onChange}
-                                />
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </AccordionContent>
-                      </AccordionItem>
-                    )}
+                        <FormField
+                          control={form.control}
+                          name="headingColor"
+                          render={({ field }) => (
+                            <FormItem className="px-1">
+                              <FormLabel>Heading Color</FormLabel>
+                              <Input
+                                type="color"
+                                value={field.value}
+                                onChange={field.onChange}
+                              />
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
 
                   {/* Menu - Will only show if fields are added */}
                   {hasFieldsInSection([]) && (

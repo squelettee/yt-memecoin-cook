@@ -39,7 +39,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
           </TabsContent>
 
           <TabsContent value="edits" className="mt-4">
-            <TemplateFormContent.Fields form={form} selectedTemplate={selectedTemplate} />
+            <TemplateFormContent.Fields
+              form={form}
+              selectedTemplate={selectedTemplate}
+            />
           </TabsContent>
         </div>
       </Tabs>
@@ -51,4 +54,4 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       />
     </div>
   );
-} 
+}
