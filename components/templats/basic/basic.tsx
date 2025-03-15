@@ -1,5 +1,4 @@
 "use client";
-
 import { TemplateFormData } from "@/schemas/templateSchema";
 import { BasicHeader } from "@/components/templats/basic/components/header";
 import { BasicHero } from "@/components/templats/basic/components/hero";

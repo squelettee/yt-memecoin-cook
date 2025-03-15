@@ -1,7 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 
-export function BasicFooter({ subdomain }: { subdomain: string }) {
+
+export function BasicFooter() {
+  const { subdomain } = useParams();
+
   return (
     <footer className="w-full px-4 py-6 mt-auto border-t flex flex-col justify-center items-center gap-2">
       <p className="text-center text-sm text-muted-foreground">
