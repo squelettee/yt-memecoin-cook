@@ -3,9 +3,12 @@
 import { prisma } from "@/lib/prisma";
 import { TemplateFormData, templateSchema } from "@/schemas/templateSchema";
 import { getOrCreateUser } from "../user/get-or-create-user";
-// import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
-export async function createTemplate(templateData: TemplateFormData) {
+export async function createTemplate(
+  templateData: TemplateFormData,
+  files?: { logoFile?: File; backgroundFile?: File },
+) {
   try {
     const validationResult = templateSchema.safeParse(templateData);
 
@@ -27,32 +30,54 @@ export async function createTemplate(templateData: TemplateFormData) {
       return { error: "Ce nom de domaine existe déjà" };
     }
 
-    // Vérification du paiement
-    // const connection = new Connection(process.env.SOLANA_RPC_URL!)
-    // const recipientAddress = new PublicKey(process.env.RECIPIENT_SOLANA_ADDRESS!)
-    // const senderAddress = new PublicKey(validatedData.user.address)
-
-    // Vérifier le solde
-    // const balance = await connection.getBalance(senderAddress)
-    // const paymentAmount = 0.001 * LAMPORTS_PER_SOL
-
-    // if (balance < paymentAmount) {
-    //   return { error: 'Solde insuffisant' }
-    // }
-
-    // // Créer et envoyer la transaction
-    // const transaction = new Transaction().add(
-    //   SystemProgram.transfer({
-    //     fromPubkey: senderAddress,
-    //     toPubkey: recipientAddress,
-    //     lamports: paymentAmount
-    //   })
-    // )
-
     // Récupération ou création de l'utilisateur
     const user = await getOrCreateUser(validatedData.user.address);
     if ("error" in user) {
       return user;
+    }
+
+    // Upload des images vers S3
+    const s3Client = new S3Client({
+      region: process.env.AWS_S3_REGION,
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+      },
+    });
+
+    let logoUrl: string | null = null;
+    let backgroundUrl: string | null = null;
+
+    if (files?.logoFile) {
+      const logoBuffer = await files.logoFile.arrayBuffer();
+      const logoKey = `templates/${user.id}/${Date.now()}-logo-${files.logoFile.name}`;
+
+      await s3Client.send(
+        new PutObjectCommand({
+          Bucket: process.env.AWS_BUCKET,
+          Key: logoKey,
+          Body: Buffer.from(logoBuffer),
+          ContentType: files.logoFile.type,
+        }),
+      );
+
+      logoUrl = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${logoKey}`;
+    }
+
+    if (files?.backgroundFile) {
+      const backgroundBuffer = await files.backgroundFile.arrayBuffer();
+      const backgroundKey = `templates/${user.id}/${Date.now()}-background-${files.backgroundFile.name}`;
+
+      await s3Client.send(
+        new PutObjectCommand({
+          Bucket: process.env.AWS_BUCKET,
+          Key: backgroundKey,
+          Body: Buffer.from(backgroundBuffer),
+          ContentType: files.backgroundFile.type,
+        }),
+      );
+
+      backgroundUrl = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${backgroundKey}`;
     }
 
     // Préparation des données pour la création
@@ -77,6 +102,8 @@ export async function createTemplate(templateData: TemplateFormData) {
       bodyFont: validatedData.bodyFont,
       headingColor: validatedData.headingColor,
       backgroundColor: validatedData.backgroundColor,
+      logo: logoUrl,
+      background: backgroundUrl,
       domain: {
         create: {
           name: validatedData.domain.name.toLowerCase(),

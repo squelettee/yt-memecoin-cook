@@ -177,7 +177,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       };
 
       // Création du template
-      const response = await createTemplate(formData);
+      const response = await createTemplate(formData, {
+        logoFile: values.logoFile,
+        backgroundFile: values.backgroundFile,
+      });
 
       // Check if response has error property first
       if ("error" in response) {
@@ -190,10 +193,10 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
       }
 
       // Redirection
-      const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
-      if (baseDomain && response.template?.domain?.name) {
-        window.location.href = `http://${response.template.domain.name}.${baseDomain}`;
-      }
+      // const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
+      // if (baseDomain && response.template?.domain?.name) {
+      //   window.location.href = `http://${response.template.domain.name}.${baseDomain}`;
+      // }
     } catch (error) {
       console.error("Error during submission:", error);
       // Handle error (display message to user, etc.)

@@ -26,16 +26,16 @@ export default function Basic({
 }: {
   templateData: TemplateFormData;
 }) {
-  const backgroundUrl = templateData.backgroundFile
-    ? URL.createObjectURL(templateData.backgroundFile)
-    : "/assets/upload_image.jpeg";
+  const backgroundUrl =
+    templateData.background || templateData.backgroundFile
+      ? templateData.background ||
+        URL.createObjectURL(templateData.backgroundFile!)
+      : "/assets/upload_image.jpeg";
 
   useEffect(() => {
-    return () => {
-      if (templateData.backgroundFile) {
-        URL.revokeObjectURL(backgroundUrl);
-      }
-    };
+    if (templateData.backgroundFile) {
+      return () => URL.revokeObjectURL(backgroundUrl);
+    }
   }, [templateData.backgroundFile, backgroundUrl]);
 
   return (

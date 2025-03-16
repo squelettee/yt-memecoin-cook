@@ -12,12 +12,14 @@ export function BasicHeader({
   const [logoUrl, setLogoUrl] = useState<string>("/assets/upload_image.jpeg");
 
   useEffect(() => {
-    if (templateData.logoFile) {
+    if (templateData.logo) {
+      setLogoUrl(templateData.logo);
+    } else if (templateData.logoFile) {
       const url = URL.createObjectURL(templateData.logoFile);
       setLogoUrl(url);
       return () => URL.revokeObjectURL(url);
     }
-  }, [templateData.logoFile]);
+  }, [templateData.logo, templateData.logoFile]);
 
   return (
     <header className="w-full px-6 sm:px-8 py-6 flex items-center justify-between border-b bg-background/95 backdrop-blur-sm fixed top-0 z-50">

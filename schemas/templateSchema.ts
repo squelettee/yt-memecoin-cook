@@ -38,6 +38,10 @@ export const templateSchema: TemplateSchemaType = z.object({
   headingColor: z.string().default("#ffffff"),
   backgroundColor: z.string().default("#000000"),
 
+  // File URLs
+  logo: z.string().nullable().optional(),
+  background: z.string().nullable().optional(),
+
   // File upload fields (not in Prisma schema)
   imagePreviewFile: z.instanceof(File).nullable().optional(),
   logoFile: z.instanceof(File).nullable().optional(),
