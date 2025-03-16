@@ -11,7 +11,7 @@ export default async function HomePage() {
     <>
       <Navbar />
       <main className="w-full flex items-center justify-center flex-col relative">
-        <div className="absolute inset-0 bg-[url('/assets/lisa-frogs.jpg')] bg-cover bg-center bg-no-repeat" />
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" />
         <div className="relative w-full flex items-center justify-center flex-col bg-background/80 backdrop-blur-sm">
           <HomeTitle />
           <HomeContent templates={templates} />

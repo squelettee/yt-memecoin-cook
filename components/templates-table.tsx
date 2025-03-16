@@ -43,6 +43,7 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
                   width={48}
                   height={48}
                   className="h-10 w-10 md:h-12 md:w-12 object-cover border-2 rounded-full"
+                  unoptimized
                 />
               </TableCell>
 

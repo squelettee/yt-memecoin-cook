@@ -10,4 +10,7 @@ export interface Template {
   twitter: string | null;
   telegram: string | null;
   domain: Domain | null;
+  projectName: string | null;
+  ticker: string | null;
+  description: string | null;
 }
