@@ -1,25 +1,12 @@
 "use client";
 import { TemplateFormData } from "@/schemas/templateSchema";
-import { BasicHeader } from "@/components/templats/basic/components/header";
-import { BasicHero } from "@/components/templats/basic/components/hero";
-import { BasicFooter } from "@/components/templats/basic/components/footer";
-import { BasicSocials } from "@/components/templats/basic/components/socials";
+import { BasicHeader } from "@/components/templats/components/header";
+import { BasicHero } from "@/components/templats/components/hero";
+import { BasicFooter } from "@/components/templats/components/footer";
+import { BasicSocials } from "@/components/templats/components/socials";
+import { ContractAddress } from "@/components/templats/components/contract-address";
 import Image from "next/image";
 import { useEffect } from "react";
-
-// Basic template documentation
-// Required fields:
-// - projectName: Name of the project
-// - ticker: Token/coin ticker symbol
-// - description: Project description text
-// - telegram: Telegram group/channel link
-// - twitter: Twitter/X profile link
-// - logoFile: Project logo image file
-// - address: Contract address
-// - backgroundFile: Project background image file
-//
-// This is the simplest template with just the essential fields
-// for a basic token/project landing page
 
 export default function Basic({
   templateData,
@@ -30,7 +17,7 @@ export default function Basic({
     templateData.background || templateData.backgroundFile
       ? templateData.background ||
         URL.createObjectURL(templateData.backgroundFile!)
-      : "/assets/upload_image.jpeg";
+      : "/assets/lisa-frogs.jpg";
 
   useEffect(() => {
     if (templateData.backgroundFile) {
@@ -46,12 +33,13 @@ export default function Basic({
         className="absolute inset-0 w-full h-full object-cover z-[-1] bg-repeat"
         priority
         fill
+        unoptimized
       />
-      <div className="absolute inset-0 bg-background/80 backdrop-blur-[2px] z-[-1]" />
+      <div className="absolute inset-0 bg-background/70 backdrop-blur-[1px] z-[-1]" />
       <BasicHeader templateData={templateData} />
       <div className="flex-1 flex flex-col gap-12 sm:gap-16 py-8">
         <BasicHero templateData={templateData} />
-
+        <ContractAddress templateData={templateData} />
         <BasicSocials templateData={templateData} />
       </div>
       <BasicFooter />
