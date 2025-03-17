@@ -54,7 +54,8 @@ export default function EarlyAccessPage() {
             <div className="text-center space-y-4">
               <h2 className="text-2xl font-semibold">Stay Updated</h2>
               <p className="text-muted-foreground">
-                Join our waitlist to receive updates about governance token distribution, new features, and community events.
+                Join our waitlist to receive updates about governance token
+                distribution, new features, and community events.
               </p>
               <NewsletterForm />
             </div>
@@ -104,7 +105,9 @@ export default function EarlyAccessPage() {
           <div className="space-y-6 max-w-3xl mx-auto bg-card p-8 rounded-lg border">
             <h2 className="text-2xl font-semibold">Get in Touch</h2>
             <p className="text-muted-foreground">
-              We&apos;re open to collaborations and value your feedback! Whether you have ideas, questions, or want to contribute to the project, we&apos;d love to hear from you.
+              We&apos;re open to collaborations and value your feedback! Whether
+              you have ideas, questions, or want to contribute to the project,
+              we&apos;d love to hear from you.
             </p>
             <div className="flex items-center justify-center gap-2 pt-2">
               <a

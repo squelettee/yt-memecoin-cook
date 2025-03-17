@@ -1,32 +1,34 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail } from "lucide-react";
 import { subscribeToNewsletter } from "@/actions/newletter/subscribe";
 
 export function NewsletterForm() {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('loading');
+    setStatus("loading");
 
     try {
       const result = await subscribeToNewsletter(email);
       if (result.success) {
-        setStatus('success');
-        setEmail('');
+        setStatus("success");
+        setEmail("");
       } else {
-        setStatus('error');
-        setErrorMessage(result.error || 'Something went wrong');
+        setStatus("error");
+        setErrorMessage(result.error || "Something went wrong");
       }
     } catch {
-      setStatus('error');
-      setErrorMessage('Failed to subscribe. Please try again.');
+      setStatus("error");
+      setErrorMessage("Failed to subscribe. Please try again.");
     }
   };
 
@@ -45,13 +47,18 @@ export function NewsletterForm() {
               required
             />
           </div>
-          <Button type="submit" disabled={status === 'loading' || status === 'success'}>
-            {status === 'loading' ? 'Joining...' :
-              status === 'success' ? 'Joined!' :
-                'Join Waitlist'}
+          <Button
+            type="submit"
+            disabled={status === "loading" || status === "success"}
+          >
+            {status === "loading"
+              ? "Joining..."
+              : status === "success"
+                ? "Joined!"
+                : "Join Waitlist"}
           </Button>
         </div>
-        {status === 'error' && (
+        {status === "error" && (
           <p className="text-sm text-red-500">{errorMessage}</p>
         )}
         {status === "success" && (
@@ -62,4 +69,4 @@ export function NewsletterForm() {
       </form>
     </div>
   );
-} 
+}
