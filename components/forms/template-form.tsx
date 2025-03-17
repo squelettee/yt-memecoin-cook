@@ -641,15 +641,18 @@ export function TemplateForm({ subdomain, onUpdate }: TemplateFormProps) {
                             control={form.control}
                             name="jupiter"
                             render={({ field }) => (
-                              <FormItem className="flex flex-row items-start px-1">
-                                <FormControl>
-                                  <Checkbox
-                                    checked={field.value}
-                                    onCheckedChange={field.onChange}
-                                  />
-                                </FormControl>
-                                <div className="space-y-1 leading-none">
-                                  <FormLabel>Jupiter</FormLabel>
+                              <FormItem className="px-1">
+                                <FormLabel>Jupiter</FormLabel>
+                                <div className="flex items-center gap-2">
+                                  <FormControl>
+                                    <Checkbox
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                    />
+                                  </FormControl>
+                                  <span className="text-sm text-muted-foreground">
+                                    Enable Jupiter swap integration
+                                  </span>
                                 </div>
                               </FormItem>
                             )}

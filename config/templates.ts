@@ -29,6 +29,7 @@ export const templates = [
       "logoFile",
       "contractAddress",
       "backgroundFile",
+      "jupiter",
     ],
   },
   {

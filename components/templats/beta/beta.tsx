@@ -41,7 +41,7 @@ export default function Beta({
       <div className="flex-1 flex flex-col gap-12 sm:gap-16 py-8">
         <BetaHero templateData={templateData} />
         <ContractAddress templateData={templateData} />
-        <HowToBuy />
+        <HowToBuy jupiter={templateData.jupiter} />
         <BetaSocials templateData={templateData} />
       </div>
       <BetaFooter />
