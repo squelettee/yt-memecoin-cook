@@ -27,22 +27,23 @@ export function BetaDialog() {
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Welcome to Memecook Beta! 🚀</DialogTitle>
+          <DialogTitle>Welcome to Memecook Beta! 🏛️</DialogTitle>
           <DialogDescription className="space-y-2 pt-2">
             <p>
               We&apos;re excited to announce our beta version. Create beautiful
               landing pages for your meme coins with our easy-to-use templates.
             </p>
             <p className="font-medium text-foreground">
-              🎁 Early users will receive governance tokens! Learn more about
-              our early access program and upcoming airdrop.
+              🎯 Early users will receive governance tokens to shape
+              Memecook&apos;s future! Learn more about our community governance
+              program.
             </p>
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex-col sm:flex-row gap-2">
           <Link href="/early-access" className="w-full sm:w-auto">
             <Button variant="outline" className="w-full">
-              Learn About Early Access
+              Learn About Governance
             </Button>
           </Link>
           <DialogClose asChild>

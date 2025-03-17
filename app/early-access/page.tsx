@@ -12,46 +12,45 @@ export default function EarlyAccessPage() {
         <div className="space-y-8 md:space-y-12">
           <div className="space-y-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              Early Access Program 🚀
+              Governance Program 🏛️
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Join the future of meme coin marketing and earn governance tokens
+              Shape the future of Memecook by becoming an early governance token
+              holder
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
             <div className="p-6 rounded-lg border bg-card">
-              <Rocket className="w-12 h-12 mb-4 text-primary" />
-              <h3 className="text-xl font-semibold mb-2">
-                Early Adopter Benefits
-              </h3>
+              <Users className="w-12 h-12 mb-4 text-primary" />
+              <h3 className="text-xl font-semibold mb-2">Community Power</h3>
               <p className="text-muted-foreground">
-                Be among the first to use Memecook and receive governance tokens
-                in our upcoming airdrop.
+                Join our DAO and participate in key decisions about
+                Memecook&apos;s future development.
               </p>
             </div>
             <div className="p-6 rounded-lg border bg-card">
-              <Users className="w-12 h-12 mb-4 text-primary" />
+              <Rocket className="w-12 h-12 mb-4 text-primary" />
               <h3 className="text-xl font-semibold mb-2">
-                Community Governance
+                Early Adopter Rewards
               </h3>
               <p className="text-muted-foreground">
-                Shape the future of Memecook by participating in key platform
-                decisions.
+                Early users receive governance tokens, giving you direct
+                influence over platform decisions.
               </p>
             </div>
             <div className="p-6 rounded-lg border bg-card">
               <Lock className="w-12 h-12 mb-4 text-primary" />
-              <h3 className="text-xl font-semibold mb-2">Exclusive Access</h3>
+              <h3 className="text-xl font-semibold mb-2">Exclusive Rights</h3>
               <p className="text-muted-foreground">
-                Get priority access to new features and templates before they re
-                publicly released.
+                Governance token holders get priority access to new features and
+                vote on platform updates.
               </p>
             </div>
           </div>
 
           <div className="space-y-6 max-w-3xl mx-auto bg-card p-8 rounded-lg border">
-            <h2 className="text-2xl font-semibold">How to Participate</h2>
+            <h2 className="text-2xl font-semibold">How to Get Involved</h2>
             <div className="space-y-4">
               <div className="flex gap-4">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
@@ -60,7 +59,7 @@ export default function EarlyAccessPage() {
                 <div>
                   <h3 className="font-medium">Connect Your Wallet</h3>
                   <p className="text-muted-foreground">
-                    Connect your Solana wallet to get started.
+                    Connect your Solana wallet to establish your identity.
                   </p>
                 </div>
               </div>
@@ -71,7 +70,8 @@ export default function EarlyAccessPage() {
                 <div>
                   <h3 className="font-medium">Create Your Project</h3>
                   <p className="text-muted-foreground">
-                    Set up your meme coin landing page using our templates.
+                    Build your meme coin landing page to qualify for governance
+                    tokens.
                   </p>
                 </div>
               </div>
@@ -80,10 +80,10 @@ export default function EarlyAccessPage() {
                   3
                 </div>
                 <div>
-                  <h3 className="font-medium">Wait for Airdrop</h3>
+                  <h3 className="font-medium">Receive Governance Rights</h3>
                   <p className="text-muted-foreground">
-                    Early users will automatically be eligible for the
-                    governance token airdrop.
+                    Early users will receive governance tokens to participate in
+                    platform decisions.
                   </p>
                 </div>
               </div>
@@ -93,7 +93,7 @@ export default function EarlyAccessPage() {
           <div className="text-center">
             <Link href="/">
               <Button size="lg" className="gap-2">
-                Start Creating Now
+                Start Building Now
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
