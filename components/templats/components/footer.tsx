@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
 export function BasicFooter() {
   const { subdomain } = useParams();
+  console.log(`${process.env.NEXT_PUBLIC_API_URL}/assets/beta.png`);
 
   return (
     <footer className="w-full px-4 py-6 mt-auto border-t flex flex-col justify-center items-center gap-2">
@@ -14,7 +17,7 @@ export function BasicFooter() {
         >
           Powered by Memecook{" "}
           <Image
-            src="/assets/beta.png"
+            src={`${process.env.NEXT_PUBLIC_API_URL}/assets/beta.png`}
             alt="beta"
             width={50}
             height={50}

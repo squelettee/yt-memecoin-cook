@@ -3,7 +3,6 @@
 import { TemplateFormData } from "@/schemas/templateSchema";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 
 export function BasicHeader({
   templateData,
@@ -32,20 +31,13 @@ export function BasicHeader({
             width={40}
             height={40}
             className="object-cover w-full h-full"
-            unoptimized // Add this prop to bypass Next.js image optimization
+            unoptimized
           />
         </div>
         <span className="font-bold text-lg md:text-xl truncate max-w-[120px] sm:max-w-[200px] md:max-w-none">
           {templateData.ticker || "YOUR TICKER"}
         </span>
       </div>
-      <Button
-        variant="default"
-        size="sm"
-        className="text-xs md:text-sm px-3 py-1 md:px-4 md:py-2"
-      >
-        Buy Now
-      </Button>
     </header>
   );
 }

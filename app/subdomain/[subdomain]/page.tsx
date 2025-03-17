@@ -20,8 +20,6 @@ export default async function SubdomainPage({ params }: SubdomainPageProps) {
 
   const template = await getTemplate(subdomain);
 
-  console.log(template);
-
   if (!template) {
     redirect(process.env.NEXT_PUBLIC_API_URL);
   }
@@ -62,20 +60,20 @@ export async function generateMetadata({
         template.description || `Trading template for ${template.ticker}`,
       images: template.logo
         ? [
-            {
-              url: template.logo,
-              width: 1200,
-              height: 630,
-              alt: `${template.ticker} logo`,
-            },
-          ]
+          {
+            url: template.logo,
+            width: 1200,
+            height: 630,
+            alt: `${template.ticker} logo`,
+          },
+        ]
         : [],
     },
     icons: template.logo
       ? {
-          icon: template.logo,
-          apple: template.logo,
-        }
+        icon: template.logo,
+        apple: template.logo,
+      }
       : undefined,
   };
 }
