@@ -38,6 +38,15 @@ export function BetaDialog() {
               Memecook&apos;s future! Learn more about our community governance
               program.
             </p>
+            <p className="text-sm text-muted-foreground mt-2">
+              💌 Questions or feedback? Contact us at{" "}
+              <a
+                href="mailto:baptiste.gresse@proton.me"
+                className="text-primary hover:underline"
+              >
+                baptiste.gresse@proton.me
+              </a>
+            </p>
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex-col sm:flex-row gap-2">

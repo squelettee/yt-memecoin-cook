@@ -90,6 +90,21 @@ export default function EarlyAccessPage() {
             </div>
           </div>
 
+          <div className="space-y-6 max-w-3xl mx-auto bg-card p-8 rounded-lg border">
+            <h2 className="text-2xl font-semibold">Get in Touch</h2>
+            <p className="text-muted-foreground">
+              We&apos;re open to collaborations and value your feedback! Whether you have ideas, questions, or want to contribute to the project, we&apos;d love to hear from you.
+            </p>
+            <div className="flex items-center justify-center gap-2 pt-2">
+              <a
+                href="mailto:baptiste.gresse@proton.me"
+                className="inline-flex items-center gap-2 text-primary hover:underline"
+              >
+                💌 baptiste.gresse@proton.me
+              </a>
+            </div>
+          </div>
+
           <div className="text-center">
             <Link href="/">
               <Button size="lg" className="gap-2">
