@@ -11,7 +11,7 @@ export function BetaFooter() {
         >
           Powered by Memecook{" "}
           <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/assets/beta.png`}
+            src="https://memecook.fun/assets/beta.png"
             alt="beta"
             width={50}
             height={50}

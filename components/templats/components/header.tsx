@@ -9,7 +9,9 @@ export function BetaHeader({
 }: {
   templateData: TemplateFormData;
 }) {
-  const [logoUrl, setLogoUrl] = useState<string>("/assets/upload_image.jpeg");
+  const [logoUrl, setLogoUrl] = useState<string>(
+    "https://memecook.fun/assets/upload_image.jpeg",
+  );
 
   useEffect(() => {
     if (templateData.logo) {
