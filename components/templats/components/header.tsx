@@ -4,7 +4,7 @@ import { TemplateFormData } from "@/schemas/templateSchema";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export function BasicHeader({
+export function BetaHeader({
   templateData,
 }: {
   templateData: TemplateFormData;

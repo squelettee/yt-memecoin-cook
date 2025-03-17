@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export function BasicFooter() {
+export function BetaFooter() {
   return (
     <footer className="w-full px-4 py-6 mt-auto border-t flex flex-col justify-center items-center gap-2">
       <p className="text-center text-sm text-muted-foreground">

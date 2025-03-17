@@ -2,7 +2,7 @@ import { TemplateFormData } from "@/schemas/templateSchema";
 import { Button } from "@/components/ui/button";
 import { BsTelegram, BsTwitterX } from "react-icons/bs";
 
-export function BasicSocials({
+export function BetaSocials({
   templateData,
 }: {
   templateData: TemplateFormData;

@@ -1,14 +1,14 @@
 "use client";
 import { TemplateFormData } from "@/schemas/templateSchema";
-import { BasicHeader } from "@/components/templats/components/header";
-import { BasicHero } from "@/components/templats/components/hero";
-import { BasicFooter } from "@/components/templats/components/footer";
-import { BasicSocials } from "@/components/templats/components/socials";
+import { BetaHeader } from "@/components/templats/components/header";
+import { BetaHero } from "@/components/templats/components/hero";
+import { BetaFooter } from "@/components/templats/components/footer";
+import { BetaSocials } from "@/components/templats/components/socials";
 import { ContractAddress } from "@/components/templats/components/contract-address";
 import Image from "next/image";
 import { useEffect } from "react";
 
-export default function Basic({
+export default function Beta({
   templateData,
 }: {
   templateData: TemplateFormData;
@@ -16,7 +16,7 @@ export default function Basic({
   const backgroundUrl =
     templateData.background || templateData.backgroundFile
       ? templateData.background ||
-        URL.createObjectURL(templateData.backgroundFile!)
+      URL.createObjectURL(templateData.backgroundFile!)
       : "/assets/lisa-frogs.jpg";
 
   useEffect(() => {
@@ -36,13 +36,13 @@ export default function Basic({
         unoptimized
       />
       <div className="absolute inset-0 bg-background/70 backdrop-blur-[1px] z-[-1]" />
-      <BasicHeader templateData={templateData} />
+      <BetaHeader templateData={templateData} />
       <div className="flex-1 flex flex-col gap-12 sm:gap-16 py-8">
-        <BasicHero templateData={templateData} />
+        <BetaHero templateData={templateData} />
         <ContractAddress templateData={templateData} />
-        <BasicSocials templateData={templateData} />
+        <BetaSocials templateData={templateData} />
       </div>
-      <BasicFooter />
+      <BetaFooter />
     </main>
   );
 }

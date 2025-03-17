@@ -17,8 +17,8 @@ export const templates = [
     ],
   },
   {
-    id: "basic",
-    name: "Basic Template",
+    id: "beta",
+    name: "Beta Template",
     enabled: true,
     fields: [
       "projectName",
@@ -122,4 +122,4 @@ export const templates = [
   },
 ];
 
-export type TemplateType = "minimal" | "pro" | "basic" | "standard" | "complet";
+export type TemplateType = "minimal" | "pro" | "beta" | "standard" | "complet";

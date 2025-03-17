@@ -13,7 +13,7 @@ interface UseTemplateFormProps {
 }
 
 export function useTemplateForm({ subdomain, onUpdate }: UseTemplateFormProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState<string>("basic");
+  const [selectedTemplate, setSelectedTemplate] = useState<string>("beta");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { publicKey } = useWallet();
   const isWalletConnected = !!publicKey;

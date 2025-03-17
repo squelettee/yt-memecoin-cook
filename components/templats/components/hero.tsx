@@ -1,6 +1,6 @@
 import { TemplateFormData } from "@/schemas/templateSchema";
 
-export function BasicHero({
+export function BetaHero({
   templateData,
 }: {
   templateData: TemplateFormData;
