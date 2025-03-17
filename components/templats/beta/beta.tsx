@@ -5,6 +5,7 @@ import { BetaHero } from "@/components/templats/components/hero";
 import { BetaFooter } from "@/components/templats/components/footer";
 import { BetaSocials } from "@/components/templats/components/socials";
 import { ContractAddress } from "@/components/templats/components/contract-address";
+import { HowToBuy } from "@/components/templats/components/how-to-buy";
 import Image from "next/image";
 import { useEffect } from "react";
 
@@ -16,7 +17,7 @@ export default function Beta({
   const backgroundUrl =
     templateData.background || templateData.backgroundFile
       ? templateData.background ||
-        URL.createObjectURL(templateData.backgroundFile!)
+      URL.createObjectURL(templateData.backgroundFile!)
       : "https://memecook.fun/assets/lisa-frogs.jpg";
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export default function Beta({
       <div className="flex-1 flex flex-col gap-12 sm:gap-16 py-8">
         <BetaHero templateData={templateData} />
         <ContractAddress templateData={templateData} />
+        <HowToBuy />
         <BetaSocials templateData={templateData} />
       </div>
       <BetaFooter />
