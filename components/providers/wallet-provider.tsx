@@ -14,10 +14,7 @@ export const Wallet = ({ children }: { children: React.ReactNode }) => {
     "https://mainnet.helius-rpc.com/?api-key=12718bda-c02c-4f61-8ace-429887a1d4e1";
 
   // Initialiser les wallets supportés
-  const wallets = useMemo(
-    () => [],
-    [],
-  );
+  const wallets = useMemo(() => [], []);
 
   return (
     <ConnectionProvider endpoint={endpoint}>

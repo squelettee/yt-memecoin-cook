@@ -3,9 +3,13 @@ import { Footer } from "@/components/layouts/footer";
 import { HomeTitle } from "@/components/home/home-title";
 import { HomeContent } from "@/components/home/home-content";
 import { getTemplates } from "@/lib/queries/get-templates";
+import { BetaDialog } from "@/components/home/beta-dialog";
+import { cookies } from "next/headers";
 
 export default async function HomePage() {
   const templates = await getTemplates();
+  const cookieStore = await cookies();
+  const hasSeenBeta = cookieStore.get("seen-beta");
 
   return (
     <>
@@ -18,6 +22,7 @@ export default async function HomePage() {
         </div>
       </main>
       <Footer />
+      {!hasSeenBeta && <BetaDialog />}
     </>
   );
 }

@@ -1,10 +1,6 @@
 import { TemplateFormData } from "@/schemas/templateSchema";
 
-export function BetaHero({
-  templateData,
-}: {
-  templateData: TemplateFormData;
-}) {
+export function BetaHero({ templateData }: { templateData: TemplateFormData }) {
   return (
     <section className="w-full px-6 pt-32 sm:pt-36 flex flex-col items-center text-center gap-8">
       <div className="max-w-4xl w-full space-y-8">
