@@ -1,12 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { useParams } from "next/navigation";
 
 export function BasicFooter() {
-  const { subdomain } = useParams();
-  console.log(`${process.env.NEXT_PUBLIC_API_URL}/assets/beta.png`);
 
   return (
     <footer className="w-full px-4 py-6 mt-auto border-t flex flex-col justify-center items-center gap-2">
@@ -25,10 +20,9 @@ export function BasicFooter() {
           />
         </Link>
       </p>
-      <p className="text-xs text-muted-foreground">
-        © {new Date().getFullYear()} {subdomain}.memecook.fun. All rights
-        reserved.
-      </p>
+      <span className="text-xs sm:text-sm text-muted-foreground text-center">
+        © 2025 Memecook. All rights reserved.
+      </span>
     </footer>
   );
 }
