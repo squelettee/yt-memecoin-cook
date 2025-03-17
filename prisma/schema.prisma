@@ -55,3 +55,10 @@ model User {
   lastConnected DateTime   @default(now())
   templates     Template[]
 }
+
+model Newsletter {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  isEarly   Boolean  @default(true)
+}

@@ -3,6 +3,7 @@ import { Footer } from "@/components/layouts/footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, Rocket, Users, Lock } from "lucide-react";
+import { NewsletterForm } from "@/components/newsletter-form";
 
 export default function EarlyAccessPage() {
   return (
@@ -46,6 +47,16 @@ export default function EarlyAccessPage() {
                 Governance token holders get priority access to new features and
                 vote on platform updates.
               </p>
+            </div>
+          </div>
+
+          <div className="space-y-6 max-w-3xl mx-auto bg-card p-8 rounded-lg border">
+            <div className="text-center space-y-4">
+              <h2 className="text-2xl font-semibold">Stay Updated</h2>
+              <p className="text-muted-foreground">
+                Join our waitlist to receive updates about governance token distribution, new features, and community events.
+              </p>
+              <NewsletterForm />
             </div>
           </div>
 
