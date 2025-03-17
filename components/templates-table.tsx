@@ -36,7 +36,7 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
                 template.domain?.name && handleRowClick(template.domain.name)
               }
             >
-              <TableCell>
+              <TableCell className="flex items-center justify-center">
                 <Image
                   src={template.logo || "/assets/upload_image.jpeg"}
                   alt={`${template.domain?.name} logo`}
