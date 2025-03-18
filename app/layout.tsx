@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Wallet } from "@/components/providers/wallet-provider";
 import "@/app/globals.css";
-
+import { TwitterPixel } from "@/components/analytics/twitter-pixel";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -47,6 +47,7 @@ export default function RootLayout({
           >
             <Wallet>{children}</Wallet>
           </ThemeProvider>
+          <TwitterPixel />
         </body>
       </html>
     </>

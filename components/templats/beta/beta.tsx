@@ -17,7 +17,7 @@ export default function Beta({
   const backgroundUrl =
     templateData.background || templateData.backgroundFile
       ? templateData.background ||
-      URL.createObjectURL(templateData.backgroundFile!)
+        URL.createObjectURL(templateData.backgroundFile!)
       : "https://memecook.fun/assets/lisa-frogs.jpg";
 
   useEffect(() => {
