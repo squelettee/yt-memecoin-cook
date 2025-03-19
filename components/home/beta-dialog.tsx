@@ -41,10 +41,10 @@ export function BetaDialog() {
             <p className="text-sm text-muted-foreground mt-2">
               💌 Questions or feedback? Contact us at{" "}
               <a
-                href="mailto:baptiste.gresse@proton.me"
+                href="mailto:memecook.contact@proton.me"
                 className="text-primary hover:underline"
               >
-                baptiste.gresse@proton.me
+                memecook.contact@proton.me
               </a>
             </p>
           </DialogDescription>

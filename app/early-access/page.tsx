@@ -111,10 +111,10 @@ export default function EarlyAccessPage() {
             </p>
             <div className="flex items-center justify-center gap-2 pt-2">
               <a
-                href="mailto:baptiste.gresse@proton.me"
+                href="mailto:memecook.contact@proton.me"
                 className="inline-flex items-center gap-2 text-primary hover:underline"
               >
-                💌 baptiste.gresse@proton.me
+                💌 memecook.contact@proton.me
               </a>
             </div>
           </div>
