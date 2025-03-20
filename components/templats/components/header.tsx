@@ -48,7 +48,7 @@ export function BetaHeader({
           className="rounded-full w-[36px] h-[36px] sm:w-[44px] sm:h-[44px] flex items-center justify-center bg-primary/10 hover:bg-primary/20 transition-colors"
         >
           <Image
-            src="https://memecook.fun/assets/socials/telegram.webp"
+            src="https://memecook.fun/socials/telegram.webp"
             alt="Telegram"
             width={24}
             height={24}
@@ -62,7 +62,7 @@ export function BetaHeader({
           className="rounded-full w-[36px] h-[36px] sm:w-[44px] sm:h-[44px] flex items-center justify-center bg-primary/10 hover:bg-primary/20 transition-colors"
         >
           <Image
-            src="https://memecook.fun/assets/socials/twitter.png"
+            src="https://memecook.fun/socials/twitter.png"
             alt="X (Twitter)"
             width={24}
             height={24}
