@@ -5,7 +5,7 @@ const templates = {
   minimal: dynamic(() => import("@/components/templats/minimal/minimal")),
   pro: dynamic(() => import("@/components/templats/pro/pro")),
   beta: dynamic(() => import("@/components/templats/beta/beta")),
-  standard: dynamic(() => import("@/components/templats/standard/standard")),
+  template1: dynamic(() => import("@/components/templats/template1/template1")),
   complet: dynamic(() => import("@/components/templats/complet/complet")),
 } as const;
 
