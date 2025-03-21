@@ -31,27 +31,6 @@ export const Hero = ({ templateData }: { templateData: TemplateFormData }) => {
     }
   }, [templateData.logo, templateData.logoFile]);
 
-  const formatAddress = (address: string) => {
-    if (window.innerWidth <= 640) {
-      return `${address.slice(0, 6)}...${address.slice(-4)}`;
-    }
-    if (window.innerWidth <= 768) {
-      return `${address.slice(0, 12)}...${address.slice(-8)}`;
-    }
-    return address;
-  };
-
-  const [displayAddress, setDisplayAddress] = useState(formatAddress(contractAddress));
-
-  useEffect(() => {
-    const handleResize = () => {
-      setDisplayAddress(formatAddress(contractAddress));
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   return (
     <section className="w-full h-full flex-1 flex flex-col items-center justify-center p-4">
       <div className="max-w-7xl w-full h-full mx-auto relative flex flex-col lg:flex-row justify-around gap-8">
@@ -68,18 +47,18 @@ export const Hero = ({ templateData }: { templateData: TemplateFormData }) => {
               </h1>
             </div>
 
-            {/* Contract Address Field */}
+            {/* Contract Address Field - Mise à jour */}
             <div className="relative group w-full max-w-2xl">
               <div className="absolute bg-black rounded-full w-full h-full top-[5px] right-[-5px]"></div>
               <div className="bg-white rounded-full border border-black border-solid px-4 md:px-6 py-3 md:py-4 flex items-center justify-between relative z-10">
-                <div className="flex flex-col">
-                  <span className="font-mono text-sm md:text-lg">
-                    {displayAddress}
+                <div className="flex flex-col min-w-0 flex-1 mr-2">
+                  <span className="font-mono text-sm md:text-lg truncate">
+                    {contractAddress}
                   </span>
                 </div>
                 <button
                   onClick={copyToClipboard}
-                  className={`ml-2 md:ml-4 p-1.5 md:p-2 rounded-full transition-all duration-200 ${copied ? "bg-green-100 text-green-800" : "hover:bg-gray-100"
+                  className={`shrink-0 ml-2 md:ml-4 p-1.5 md:p-2 rounded-full transition-all duration-200 ${copied ? "bg-green-100 text-green-800" : "hover:bg-gray-100"
                     }`}
                 >
                   {copied ? (
