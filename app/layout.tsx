@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Modak, Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Wallet } from "@/components/providers/wallet-provider";
 import "@/app/globals.css";
 import { TwitterPixel } from "@/components/analytics/twitter-pixel";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -11,6 +12,18 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const modak = Modak({
+  weight: "400",
+  variable: "--font-modak",
+  subsets: ["latin"],
+});
+
+const outfit = Outfit({
+  weight: "800",
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -37,7 +50,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head />
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center max-w-[1440px] mx-auto`}
+          className={`${geistSans.variable} ${geistMono.variable} ${modak.variable} ${outfit.variable} antialiased flex flex-col items-center max-w-[1440px] mx-auto`}
         >
           <ThemeProvider
             attribute="class"

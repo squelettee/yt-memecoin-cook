@@ -190,6 +190,10 @@ export default {
         marquee: "marquee var(--duration) infinite linear",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
       },
+      fontFamily: {
+        modak: ["var(--font-modak)"],
+        outfit: ["var(--font-outfit)"],
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
