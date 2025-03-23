@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-export function BetaDialog() {
+export function HomeDialog() {
   const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {

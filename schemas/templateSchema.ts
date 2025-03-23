@@ -33,8 +33,8 @@ export const templateSchema: TemplateSchemaType = z.object({
   // Fields with defaults (required in Prisma)
   type: z.string().default("minimal"),
   jupiter: z.boolean().default(false),
-  headingFont: z.string().default("geist"),
-  bodyFont: z.string().default("geist"),
+  headingFont: z.string().default("outfit"),
+  bodyFont: z.string().default("outfit"),
   headingColor: z.string().default("#ffffff"),
   backgroundColor: z.string().default("#000000"),
 

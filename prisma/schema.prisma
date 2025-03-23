@@ -43,8 +43,8 @@ model Template {
   whitepaper      String?  @db.VarChar(255)
   domain          Domain?
   user            User?    @relation(fields: [userId], references: [id])
-  headingFont     String   @default("geist") @db.VarChar(255)
-  bodyFont        String   @default("geist") @db.VarChar(255)
+  headingFont     String   @default("outfit") @db.VarChar(255)
+  bodyFont        String   @default("outfit") @db.VarChar(255)
   headingColor    String   @default("#ffffff") @db.VarChar(255)
   backgroundColor String   @default("#000000") @db.VarChar(255)
 }

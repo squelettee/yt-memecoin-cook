@@ -193,6 +193,8 @@ export default {
       fontFamily: {
         modak: ["var(--font-modak)"],
         outfit: ["var(--font-outfit)"],
+        roboto: ["var(--font-roboto)"],
+        mysteryquest: ["var(--font-mysteryquest)"],
       },
     },
   },

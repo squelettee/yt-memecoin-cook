@@ -1,34 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Modak, Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Wallet } from "@/components/providers/wallet-provider";
 import "@/app/globals.css";
-import { TwitterPixel } from "@/components/analytics/twitter-pixel";
+import { Cherry_Bomb_One, DynaPuff } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const modak = Modak({
+const cherryBombOne = Cherry_Bomb_One({
   weight: "400",
-  variable: "--font-modak",
   subsets: ["latin"],
+  variable: "--font-cherry-bomb-one",
 });
 
-const outfit = Outfit({
-  weight: "800",
-  variable: "--font-outfit",
+const dynapuff = DynaPuff({
+  weight: "700",
   subsets: ["latin"],
+  variable: "--font-dynapuff",
 });
 
 export const metadata: Metadata = {
-  title: "Memecook beta",
+  title: "Memecook",
   description: "Cook beautiful memesites in no time",
   icons: {
     icon: [
@@ -46,23 +35,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <html lang="en" suppressHydrationWarning>
-        <head />
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} ${modak.variable} ${outfit.variable} antialiased flex flex-col items-center max-w-[1440px] mx-auto`}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${dynapuff.className} ${cherryBombOne.className} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          enableSystem={false}
+          forcedTheme="light"
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            enableSystem={false}
-            forcedTheme="light"
-            disableTransitionOnChange
-          >
-            <Wallet>{children}</Wallet>
-          </ThemeProvider>
-          <TwitterPixel />
-        </body>
-      </html>
-    </>
+          <Wallet>{children}</Wallet>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

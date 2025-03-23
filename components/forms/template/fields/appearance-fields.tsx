@@ -65,10 +65,11 @@ export function AppearanceFields({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="geist">Geist</SelectItem>
+                      <SelectItem value="outfit">Outfit</SelectItem>
                       <SelectItem value="inter">Inter</SelectItem>
                       <SelectItem value="roboto">Roboto</SelectItem>
                       <SelectItem value="montserrat">Montserrat</SelectItem>
+                      <SelectItem value="mysteryquest">Mystery Quest</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -93,10 +94,11 @@ export function AppearanceFields({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="geist">Geist</SelectItem>
+                      <SelectItem value="outfit">Outfit</SelectItem>
                       <SelectItem value="inter">Inter</SelectItem>
                       <SelectItem value="roboto">Roboto</SelectItem>
                       <SelectItem value="montserrat">Montserrat</SelectItem>
+                      <SelectItem value="mysteryquest">Mystery Quest</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>

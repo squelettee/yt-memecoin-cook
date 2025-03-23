@@ -7,7 +7,7 @@ type ShadowButtonProps = {
   icon?: string;
   iconAlt?: string;
   variant?: "icon" | "text";
-  size?: "sm" | "md" | "lg" | "2xl";
+  size?: "sm" | "md" | "lg" | "2xl" | "5xl" | "6xl";
   className?: string;
 } & ComponentProps<"button">;
 
@@ -21,13 +21,15 @@ export const ShadowButton = ({
   ...props
 }: ShadowButtonProps) => {
   const baseButtonStyles =
-    "border overflow-hidden border-black border-solid bg-white relative z-10 transition-all group-hover:translate-x-[1px] group-hover:translate-y-[1px]";
+    "border overflow-hidden border-black border-solid  relative z-10 transition-all group-hover:translate-x-[1px] group-hover:translate-y-[1px]";
 
   const iconSizes = {
     sm: "h-8 w-8",
     md: "h-10 w-10",
     lg: "h-12 w-12",
     "2xl": "h-16 w-16",
+    "5xl": "h-20 w-20",
+    "6xl": "h-24 w-24",
   };
 
   const textSizes = {
@@ -35,6 +37,8 @@ export const ShadowButton = ({
     md: "px-6 py-2 text-base",
     lg: "px-8 py-3 text-lg",
     "2xl": "px-10 py-4 text-2xl",
+    "5xl": "px-12 py-5 text-3xl",
+    "6xl": "px-16 py-6 text-4xl",
   };
 
   const buttonStyles = {

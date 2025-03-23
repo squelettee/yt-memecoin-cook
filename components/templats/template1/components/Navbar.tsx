@@ -1,10 +1,8 @@
-"use client";
+"use client"
 
-import Image from "next/image";
 import { TemplateFormData } from "@/schemas/templateSchema";
 import { ShadowButton } from "@/components/ui/shadow-button";
-import { useEffect } from "react";
-import { useState } from "react";
+import { DynamicImage } from "@/components/ui/dynamic-image";
 
 export const Navbar = ({
   templateData,
@@ -16,22 +14,8 @@ export const Navbar = ({
     element?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const [logoUrl, setLogoUrl] = useState<string>(
-    "https://memecook.fun/assets/upload_image.jpeg",
-  );
-
-  useEffect(() => {
-    if (templateData.logo) {
-      setLogoUrl(templateData.logo);
-    } else if (templateData.logoFile) {
-      const url = URL.createObjectURL(templateData.logoFile);
-      setLogoUrl(url);
-      return () => URL.revokeObjectURL(url);
-    }
-  }, [templateData.logo, templateData.logoFile]);
-
   return (
-    <div className="w-full py-4 px-4">
+    <div className="w-full py-8 px-4 bg-cyan-300">
       <nav className="max-w-7xl mx-auto relative">
         {/* Black shadow div positioned behind and offset */}
         <div className="absolute bg-black rounded-full w-full h-full top-[5px] right-[-5px]"></div>
@@ -40,13 +24,15 @@ export const Navbar = ({
         <div className="bg-white rounded-full border border-black border-solid px-6 py-3 flex items-center justify-between relative z-10">
           {/* Left side - Logo and Nav Links */}
           <div className="flex items-center gap-8">
-            <div className="h-14 w-14 rounded-full overflow-hidden flex items-center justify-center border border-black border-solid">
-              <Image
-                className="h-full w-full"
-                src={logoUrl}
-                alt="Bear Logo"
+            <div className="h-10 w-10 rounded-full overflow-hidden flex items-center justify-center border border-black border-solid">
+              <DynamicImage
+                src={templateData.logo}
+                file={templateData.logoFile}
+                fallbackSrc="https://memecook.fun/assets/upload_image.jpeg"
+                alt="Logo"
                 width={100}
                 height={100}
+                className="h-full w-full"
               />
             </div>
 
@@ -58,22 +44,22 @@ export const Navbar = ({
                 ABOUT
               </button>
               <button
+                onClick={() => scrollToSection("roadmap")}
+                className="font-bold text-black hover:text-gray-700 transition-colors"
+              >
+                ROADMAP
+              </button>
+              <button
                 onClick={() => scrollToSection("how-to-buy")}
                 className="font-bold text-black hover:text-gray-700 transition-colors"
               >
                 HOW TO BUY
               </button>
               <button
-                onClick={() => scrollToSection("memes")}
+                onClick={() => scrollToSection("faq")}
                 className="font-bold text-black hover:text-gray-700 transition-colors"
               >
-                MEMES
-              </button>
-              <button
-                onClick={() => scrollToSection("tokenomics")}
-                className="font-bold text-black hover:text-gray-700 transition-colors"
-              >
-                TOKENOMICS
+                FAQ
               </button>
             </nav>
           </div>
@@ -83,19 +69,19 @@ export const Navbar = ({
             <ShadowButton
               icon="https://memecook.fun/socials/twitter.png"
               iconAlt="Twitter"
-              size="lg"
+              size="md"
               className="hidden md:flex"
             />
             <ShadowButton
               icon="https://memecook.fun/socials/telegram.webp"
               iconAlt="Telegram"
-              size="lg"
+              size="md"
               className="hidden md:flex"
             />
             <ShadowButton
               variant="text"
-              size="lg"
-              className="text-black"
+              size="md"
+              className="text-white bg-pink-500 hover:bg-pink-600"
               onClick={() => scrollToSection("buy")}
             >
               BUY NOW

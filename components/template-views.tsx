@@ -1,12 +1,16 @@
 import { TemplateFormData } from "@/schemas/templateSchema";
 import dynamic from "next/dynamic";
 
+const Template1 = dynamic(
+  () => import("@/components/templats/template1/template1"),
+  {
+    ssr: true,
+    loading: () => <div>Loading...</div>,
+  }
+);
+
 const templates = {
-  minimal: dynamic(() => import("@/components/templats/minimal/minimal")),
-  pro: dynamic(() => import("@/components/templats/pro/pro")),
-  beta: dynamic(() => import("@/components/templats/beta/beta")),
-  template1: dynamic(() => import("@/components/templats/template1/template1")),
-  complet: dynamic(() => import("@/components/templats/complet/complet")),
+  template1: Template1,
 } as const;
 
 type TemplateType = keyof typeof templates;
@@ -19,5 +23,10 @@ export const TemplateViews = ({
   templateData: TemplateFormData;
 }) => {
   const Template = templates[type];
+
+  if (!Template) {
+    return <div>Template not found</div>;
+  }
+
   return <Template templateData={templateData} />;
 };
