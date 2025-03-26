@@ -1,36 +1,34 @@
-"use client";
+import { TemplateFormData } from "@/schemas/templateSchema";
 
-type RoadmapPhase = {
-  phase: number;
-  text: string;
-};
+export const Roadmap = ({ templateData }: { templateData: TemplateFormData }) => {
 
-const roadmapPhases: RoadmapPhase[] = [
-  {
-    phase: 1,
-    text: "Launch on Jupiter, Marketing Campaign, Community Building, Social Media Growth, Influencer Partnerships",
-  },
-  {
-    phase: 2,
-    text: "CEX Listings, Partnerships Development, Utility Expansion, NFT Collection Launch, Staking Platform",
-  },
-  {
-    phase: 3,
-    text: "Global Expansion, New Product Features, Community Rewards, Metaverse Integration, DAO Governance",
-  },
-];
+  if (!templateData.roadmapEnable) return null;
 
-export const Roadmap = () => {
+  const roadmapPhases = [
+    {
+      phase: 1,
+      text: templateData.roadmapPhase1 || "Launch on Jupiter, Marketing Campaign, Community Building, Social Media Growth, Influencer Partnerships",
+    },
+    {
+      phase: 2,
+      text: templateData.roadmapPhase2 || "CEX Listings, Partnerships Development, Utility Expansion, NFT Collection Launch, Staking Platform",
+    },
+    {
+      phase: 3,
+      text: templateData.roadmapPhase3 || "Global Expansion, New Product Features, Community Rewards, Metaverse Integration, DAO Governance",
+    },
+  ].filter((phase) => phase.text);
+
   return (
     <section id="roadmap" className="w-full px-4 py-12 bg-cyan-300">
       <div className="max-w-7xl mx-auto">
         <div className="relative flex justify-center mb-12">
           <div className="relative">
             <h2 className="text-4xl md:text-5xl lg:text-7xl text-white font-bold relative z-10 [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
-              ROADMAP
+              {templateData.roadmapTitle || "ROADMAP"}
             </h2>
             <h2 className="text-4xl md:text-5xl lg:text-7xl text-black font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]">
-              ROADMAP
+              {templateData.roadmapTitle || "ROADMAP"}
             </h2>
           </div>
         </div>

@@ -23,7 +23,7 @@ const Template1 = ({ templateData }: { templateData: TemplateFormData }) => {
         <Navbar templateData={templateData} />
         <Hero templateData={templateData} />
         <About />
-        <Roadmap />
+        <Roadmap templateData={templateData} />
         <HowToBuy templateData={templateData} />
         <Faq templateData={templateData} />
         <Footer templateData={templateData} />

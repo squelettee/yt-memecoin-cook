@@ -118,6 +118,13 @@ const formConfigByTemplate: Record<
         section: "Media",
       },
     ],
+    Roadmap: [
+      { id: "roadmapEnable", label: "Enable Roadmap", type: "checkbox", section: "Roadmap" },
+      { id: "roadmapTitle", label: "Title", type: "text", section: "Roadmap" },
+      { id: "roadmapPhase1", label: "Phase 1", type: "text", section: "Roadmap" },
+      { id: "roadmapPhase2", label: "Phase 2", type: "text", section: "Roadmap" },
+      { id: "roadmapPhase3", label: "Phase 3", type: "text", section: "Roadmap" },
+    ],
     HowToBuy: [
       { id: "howtobuyTitle", label: "Title", type: "text", section: "HowToBuy" },
       { id: "howtobuyStep1", label: "Question 1", type: "text", section: "HowToBuy" },
