@@ -45,33 +45,36 @@ export const Faq = ({ templateData }: { templateData: TemplateFormData }) => {
         </div>
         <div className="flex flex-col gap-4">
           {faqItems.map((item, index) => (
-            <div key={index} className="relative group">
+            <div key={index} className="relative group min-w-0">
               {/* Shadow effect */}
               <div className="absolute bg-black py-7 rounded-xl w-full h-full top-[5px] right-[-5px]" />
 
               {/* FAQ item */}
-              <div className="bg-white rounded-xl  py-5 border border-black border-solid relative z-10">
+              <div className="bg-white rounded-xl py-5 border border-black border-solid relative z-10">
                 <button
-                  className="w-full px-6 py-4 flex items-center justify-between text-left"
+                  className="w-full px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between text-left"
                   onClick={() =>
                     setOpenIndex(openIndex === index ? null : index)
                   }
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="flex items-center justify-center w-8 h-8 rounded-full bg-cyan-500 text-white font-bold">
+                  <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                    {/* Index avec taille responsive */}
+                    <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-cyan-500 text-white font-bold text-base sm:text-lg">
                       {index + 1}
                     </span>
-                    <span className="font-bold text-lg">{item.question}</span>
+                    <span className="font-bold text-base sm:text-lg break-words min-w-0 overflow-hidden text-ellipsis">
+                      {item.question}
+                    </span>
                   </div>
+                  {/* Flèche responsive */}
                   <ChevronDown
-                    className={`w-5 h-5 transition-transform ${
-                      openIndex === index ? "rotate-180" : ""
-                    }`}
+                    className={`flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 ml-2 transition-transform ${openIndex === index ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
                 {openIndex === index && (
-                  <div className="px-6 pb-4 text-gray-600 ml-11 overflow-hidden">
+                  <div className="px-4 sm:px-6 pb-4 text-gray-600 mx-2 sm:mx-11 break-words overflow-auto max-w-full max-h-[300px] overflow-y-auto text-sm sm:text-base">
                     {item.answer}
                   </div>
                 )}
