@@ -14,11 +14,13 @@ export const templateSchema: TemplateSchemaType = z.object({
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 
-  // All fields are optional except those with defaults
+  // Basic fields
   projectName: z.string().optional().or(z.literal("")),
   ticker: z.string().optional().or(z.literal("")),
   description: z.string().optional().or(z.literal("")),
   contractAddress: z.string().max(255).optional().or(z.literal("")),
+
+  // Links
   whitepaper: z.string().max(255).optional().or(z.literal("")),
   coinGecko: z.string().max(255).optional().or(z.literal("")),
   coinMarketCap: z.string().max(255).optional().or(z.literal("")),
@@ -29,31 +31,80 @@ export const templateSchema: TemplateSchemaType = z.object({
   dextools: z.string().max(255).optional().or(z.literal("")),
   dexscreener: z.string().max(255).optional().or(z.literal("")),
   birdeye: z.string().max(255).optional().or(z.literal("")),
+  charlink: z.string().max(255).optional().or(z.literal("")),
+  pumpFun: z.string().max(255).optional().or(z.literal("")),
 
-  // Fields with defaults (required in Prisma)
-  type: z.string().default("minimal"),
-  jupiter: z.boolean().default(false),
+  // Fields with defaults
+  type: z.string().default("template1"),
+  jupiter: z.string().default(""),
+
+  // Styling configuration
   headingFont: z.string().default("outfit"),
   bodyFont: z.string().default("outfit"),
   headingColor: z.string().default("#ffffff"),
   backgroundColor: z.string().default("#000000"),
+  primaryColor: z.string().default("#75caff"),
+  secondaryColor: z.string().default("#f5f5f5"),
+  accentColor: z.string().default("#2284ec"),
+  textColor: z.string().default("#000000"),
+  borderColor: z.string().default("#2284ec"),
+  textBorderColor: z.string().default("#000000"),
 
-  // File URLs
+  // About us
+  aboutUsTitle: z.string().optional().or(z.literal("")),
+  aboutUsContent: z.string().optional().or(z.literal("")),
+  aboutUsImage: z.string().optional().or(z.literal("")),
+
+  // Roadmap
+  roadmapTitle: z.string().optional().or(z.literal("")),
+  roadmapPhase1: z.string().optional().or(z.literal("")),
+  roadmapPhase2: z.string().optional().or(z.literal("")),
+  roadmapPhase3: z.string().optional().or(z.literal("")),
+  roadmapEnable: z.boolean().default(true),
+
+  // How to buy
+  howtobuyTitle: z.string().optional().or(z.literal("")),
+  howtobuyStep1: z.string().optional().or(z.literal("")),
+  howtobuyStep2: z.string().optional().or(z.literal("")),
+  howtobuyStep3: z.string().optional().or(z.literal("")),
+  howtobuyStep4: z.string().optional().or(z.literal("")),
+
+  // FAQ
+  faqTitle: z.string().optional().or(z.literal("")),
+  faqQuestion1: z.string().optional().or(z.literal("")),
+  faqQuestion2: z.string().optional().or(z.literal("")),
+  faqQuestion3: z.string().optional().or(z.literal("")),
+  faqQuestion4: z.string().optional().or(z.literal("")),
+  faqAnswer1: z.string().optional().or(z.literal("")),
+  faqAnswer2: z.string().optional().or(z.literal("")),
+  faqAnswer3: z.string().optional().or(z.literal("")),
+  faqAnswer4: z.string().optional().or(z.literal("")),
+  faqEnable: z.boolean().default(true),
+
+  // Footer
+  footerText: z.string().optional().or(z.literal("")),
+
+  // File URLs (stockées en base de données)
   logo: z.string().nullable().optional(),
   background: z.string().nullable().optional(),
+  imagePreview: z.string().nullable().optional(),
 
-  // File upload fields (not in Prisma schema)
-  imagePreviewFile: z.instanceof(File).nullable().optional(),
-  logoFile: z.instanceof(File).nullable().optional(),
-  backgroundFile: z.instanceof(File).nullable().optional(),
+  // Champs temporaires pour les fichiers uploadés (non stockés en base de données)
+  logoFile: z.any().optional(),
+  backgroundFile: z.any().optional(),
+  imagePreviewFile: z.any().optional(),
 
-  // Relations
-  domain: z.object({
-    name: z.string().min(1, "Le nom de domaine est requis"),
-  }),
-  user: z.object({
-    address: z.string().min(1, "L'adresse de l'utilisateur est requise"),
-  }),
+  // Relations (maintenant optionnelles)
+  domain: z
+    .object({
+      name: z.string().min(1, "Le nom de domaine est requis"),
+    })
+    .optional(),
+  user: z
+    .object({
+      address: z.string().min(1, "L'adresse de l'utilisateur est requise"),
+    })
+    .optional(),
   userId: z.number().optional(),
 });
 

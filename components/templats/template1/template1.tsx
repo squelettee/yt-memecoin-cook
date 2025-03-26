@@ -9,16 +9,14 @@ import { HowToBuy } from "./components/HowToBuy";
 import { Roadmap } from "./components/Roadmap";
 import { About } from "./components/About";
 
-const Template1 = ({
-  templateData,
-}: {
-  templateData: TemplateFormData;
-}) => {
+const Template1 = ({ templateData }: { templateData: TemplateFormData }) => {
   return (
     <main
       className="w-full min-h-screen relative font-bold"
       style={{
-        fontFamily: templateData.bodyFont ? `var(--font-${templateData.bodyFont.toLowerCase()})` : 'inherit'
+        fontFamily: templateData.bodyFont
+          ? `var(--font-${templateData.bodyFont.toLowerCase()})`
+          : "inherit",
       }}
     >
       {/* <DynamicImage
@@ -31,13 +29,13 @@ const Template1 = ({
         fill
         unoptimized
       /> */}
-      <div className="flex flex-col items-center h-screen w-full">
+      <div className="flex flex-col items-center w-full">
         <Navbar templateData={templateData} />
         <Hero templateData={templateData} />
         <About />
         <Roadmap />
         <HowToBuy />
-        <Faq />
+        {templateData.faqEnable && <Faq templateData={templateData} />}
         <Footer templateData={templateData} />
       </div>
     </main>

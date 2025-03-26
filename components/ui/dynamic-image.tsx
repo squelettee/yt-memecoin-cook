@@ -31,4 +31,4 @@ export const DynamicImage = ({
   }, [src, file, fallbackSrc]);
 
   return <Image src={imageUrl} alt={alt} {...props} />;
-}; 
+};

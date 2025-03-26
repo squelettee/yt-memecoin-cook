@@ -47,7 +47,9 @@ export const Roadmap = () => {
                   <span className="flex items-center justify-center w-auto px-4 h-8 rounded-full bg-yellow-500 text-white font-bold">
                     Phase {phase.phase}
                   </span>
-                  <span className="font-bold text-lg text-center">{phase.text}</span>
+                  <span className="font-bold text-lg text-center">
+                    {phase.text}
+                  </span>
                 </div>
               </div>
             </div>

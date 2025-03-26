@@ -7,8 +7,16 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 export async function createTemplate(
   templateData: TemplateFormData,
-  files?: { logoFile?: File; backgroundFile?: File },
+  subdomain: string,
+  address: string,
+  files?: { logoFile?: File; backgroundFile?: File; imagePreviewFile?: File },
 ) {
+  console.log("📥 createTemplate called with:", {
+    templateData,
+    subdomain,
+    address,
+    hasFiles: !!files,
+  });
   try {
     const validationResult = templateSchema.safeParse(templateData);
 
@@ -23,7 +31,7 @@ export async function createTemplate(
 
     // Vérification du domaine
     const existingDomain = await prisma.domain.findUnique({
-      where: { name: validatedData.domain.name.toLowerCase() },
+      where: { name: subdomain.toLowerCase() },
     });
 
     if (existingDomain) {
@@ -31,7 +39,7 @@ export async function createTemplate(
     }
 
     // Récupération ou création de l'utilisateur
-    const user = await getOrCreateUser(validatedData.user.address);
+    const user = await getOrCreateUser(address);
     if ("error" in user) {
       return user;
     }
@@ -47,7 +55,7 @@ export async function createTemplate(
 
     let logoUrl: string | null = null;
     let backgroundUrl: string | null = null;
-
+    let imagePreviewUrl: string | null = null;
     if (files?.logoFile) {
       const logoBuffer = await files.logoFile.arrayBuffer();
       const logoKey = `templates/${user.id}/${Date.now()}-logo-${files.logoFile.name}`;
@@ -80,40 +88,36 @@ export async function createTemplate(
       backgroundUrl = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${backgroundKey}`;
     }
 
-    // Préparation des données pour la création
-    const templateCreateData = {
-      type: validatedData.type,
-      projectName: validatedData.projectName,
-      ticker: validatedData.ticker,
-      description: validatedData.description,
-      contractAddress: validatedData.contractAddress,
-      whitepaper: validatedData.whitepaper,
-      coinGecko: validatedData.coinGecko,
-      coinMarketCap: validatedData.coinMarketCap,
-      telegram: validatedData.telegram,
-      twitter: validatedData.twitter,
-      instagram: validatedData.instagram,
-      tiktok: validatedData.tiktok,
-      dextools: validatedData.dextools,
-      dexscreener: validatedData.dexscreener,
-      birdeye: validatedData.birdeye,
-      jupiter: validatedData.jupiter,
-      headingFont: validatedData.headingFont,
-      bodyFont: validatedData.bodyFont,
-      headingColor: validatedData.headingColor,
-      backgroundColor: validatedData.backgroundColor,
-      logo: logoUrl,
-      background: backgroundUrl,
-      domain: {
-        create: {
-          name: validatedData.domain.name.toLowerCase(),
-        },
-      },
-      userId: user.id,
-    };
+    if (files?.imagePreviewFile) {
+      const imagePreviewBuffer = await files.imagePreviewFile.arrayBuffer();
+      const imagePreviewKey = `templates/${user.id}/${Date.now()}-image-preview-${files.imagePreviewFile.name}`;
 
+      await s3Client.send(
+        new PutObjectCommand({
+          Bucket: process.env.AWS_BUCKET,
+          Key: imagePreviewKey,
+          Body: Buffer.from(imagePreviewBuffer),
+          ContentType: files.imagePreviewFile.type,
+        }),
+      );
+
+      imagePreviewUrl = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${imagePreviewKey}`;
+    }
+
+    // Puis créer le template avec les données validées
     const template = await prisma.template.create({
-      data: templateCreateData,
+      data: {
+        ...validatedData,
+        logo: logoUrl,
+        background: backgroundUrl,
+        imagePreview: imagePreviewUrl,
+        domain: {
+          create: {
+            name: subdomain.toLowerCase(),
+          },
+        },
+        userId: user.id,
+      },
       include: {
         domain: true,
         user: true,

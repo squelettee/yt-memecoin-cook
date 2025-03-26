@@ -1,12 +1,18 @@
 import { TemplateFormData } from "@/schemas/templateSchema";
 import dynamic from "next/dynamic";
+import localFont from "next/font/local";
+
+const dynapuff = localFont({
+  src: "../public/fonts/DynaPuff/DynaPuff-VariableFont_wdth,wght.ttf",
+  weight: "800",
+});
 
 const Template1 = dynamic(
   () => import("@/components/templats/template1/template1"),
   {
     ssr: true,
     loading: () => <div>Loading...</div>,
-  }
+  },
 );
 
 const templates = {
@@ -28,5 +34,9 @@ export const TemplateViews = ({
     return <div>Template not found</div>;
   }
 
-  return <Template templateData={templateData} />;
+  return (
+    <div className={`${dynapuff.className} w-full h-screen overflow-y-auto`}>
+      <Template templateData={templateData} />
+    </div>
+  );
 };

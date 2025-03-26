@@ -11,7 +11,8 @@
     "prisma:seed": "tsx prisma/seed.ts",
     "vercel-build": "prisma generate && next build",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
-    "rebuild": "rm -rf node_modules && rm -rf .next && bun install && bun run build"
+    "rebuild": "rm -rf node_modules && rm -rf .next && bun install && bun run build",
+    "knip": "knip"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.733.0",
@@ -58,6 +59,7 @@
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.5.2",
     "input-otp": "^1.4.2",
+    "knip": "^5.46.0",
     "lucide-react": "^0.471.1",
     "motion": "^12.4.2",
     "next": "^15.1.6",

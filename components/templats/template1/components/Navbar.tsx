@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { TemplateFormData } from "@/schemas/templateSchema";
 import { ShadowButton } from "@/components/ui/shadow-button";

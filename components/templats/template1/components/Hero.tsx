@@ -18,7 +18,7 @@ export const Hero = ({ templateData }: { templateData: TemplateFormData }) => {
 
   return (
     <section className="w-full h-full flex-1 flex flex-col items-center justify-center p-4 bg-cyan-300">
-      <div className="max-w-7xl w-full h-full mx-auto relative flex flex-col lg:flex-row justify-around gap-8">
+      <div className="max-w-7xl w-full h-full mx-auto relative flex flex-col lg:flex-row justify-around items-center gap-8">
         {/* Left Side */}
         <div className="w-full lg:w-1/2 h-full flex flex-col items-center justify-center">
           <div className="flex justify-center flex-col items-center gap-y-8 w-full">
@@ -35,7 +35,7 @@ export const Hero = ({ templateData }: { templateData: TemplateFormData }) => {
             {/* Contract Address Field */}
             <div className="relative group w-full max-w-2xl">
               <div className="absolute bg-black rounded-full w-full h-full top-[5px] right-[-5px]"></div>
-              <div className="bg-white rounded-full border border-black border-solid px-4 md:px-6 py-3 md:py-4 flex items-center justify-between relative z-10">
+              <div className=" bg-white rounded-full border border-black border-solid px-4 md:px-6 py-3 md:py-4 flex items-center justify-between relative z-10">
                 <div className="flex flex-col min-w-0 flex-1 mr-2">
                   <span className="font-mono text-sm md:text-lg truncate">
                     {contractAddress}

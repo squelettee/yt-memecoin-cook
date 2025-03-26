@@ -1,5 +1,5 @@
-import { Navbar } from "@/components/layouts/navbar";
-import { Footer } from "@/components/layouts/footer";
+import { HomeNavbar } from "@/components/home/home-navbar";
+import { HomeFooter } from "@/components/home/home-footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, Rocket, Users, Lock } from "lucide-react";
@@ -8,7 +8,7 @@ import { NewsletterForm } from "@/components/newsletter-form";
 export default function EarlyAccessPage() {
   return (
     <>
-      <Navbar />
+      <HomeNavbar />
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-12 md:py-16">
         <div className="space-y-8 md:space-y-12">
           <div className="space-y-4 text-center">
@@ -129,7 +129,7 @@ export default function EarlyAccessPage() {
           </div>
         </div>
       </main>
-      <Footer />
+      <HomeFooter />
     </>
   );
 }

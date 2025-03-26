@@ -10,6 +10,7 @@ export const templates = [
       "instagram",
       "tiktok",
       "logoFile",
+      "imagePreviewFile",
       "contractAddress",
       "ticker",
       "description",
@@ -37,22 +38,21 @@ export const templates = [
     name: "Template 1",
     enabled: true,
     fields: [
-      // Basic Information
       "projectName",
       "ticker",
       "description",
-      // Social Networks
       "telegram",
       "twitter",
       "instagram",
-      // Trading
       "dextools",
       "dexscreener",
-      // Media
-      "logoFile",
-      "backgroundFile",
-      // Appearance
+      "logo",
+      "imagePreview",
+      "background",
       "headingColor",
+      "headingColor",
+      "headingFont",
+      "footerText",
     ],
   },
   {
@@ -122,4 +122,4 @@ export const templates = [
     ],
   },
 ];
-export type TemplateType = "template1" 
+export type TemplateType = "template1";

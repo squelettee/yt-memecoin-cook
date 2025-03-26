@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { DynamicImage } from "@/components/ui/dynamic-image";
 import { ShadowButton } from "@/components/ui/shadow-button";
@@ -6,21 +6,65 @@ import Link from "next/link";
 
 export const About = () => {
   const socialLinks = [
-    { icon: "https://memecook.fun/socials/twitter.png", url: "https://twitter.com", alt: "Twitter" },
-    { icon: "https://memecook.fun/socials/telegram.webp", url: "https://telegram.org", alt: "Telegram" },
-    { icon: "https://memecook.fun/socials/tiktok.png", url: "https://tiktok.com", alt: "TikTok" },
-    { icon: "https://memecook.fun/socials/instagram.png", url: "https://instagram.com", alt: "Instagram" },
-    { icon: "https://memecook.fun/socials/birdeye.png", url: "https://birdeye.so", alt: "Birdeye" },
-    { icon: "https://memecook.fun/socials/coingecko.png", url: "https://coingecko.com", alt: "CoinGecko" },
-    { icon: "https://memecook.fun/socials/coinmarketcap.png", url: "https://coinmarketcap.com", alt: "CoinMarketCap" },
-    { icon: "https://memecook.fun/socials/dexscreener.png", url: "https://dexscreener.com", alt: "DexScreener" },
-    { icon: "https://memecook.fun/socials/dextools.png", url: "https://dextools.io", alt: "DexTools" },
-    { icon: "https://memecook.fun/socials/pumpfun.png", url: "https://pumpfun.io", alt: "PumpFun" },
-    { icon: "https://memecook.fun/socials/whitepaper.png", url: "https://whitepaper.com", alt: "Whitepaper" },
-  ].filter(link => link.icon && link.url);
+    {
+      icon: "https://memecook.fun/socials/twitter.png",
+      url: "https://twitter.com",
+      alt: "Twitter",
+    },
+    {
+      icon: "https://memecook.fun/socials/telegram.webp",
+      url: "https://telegram.org",
+      alt: "Telegram",
+    },
+    {
+      icon: "https://memecook.fun/socials/tiktok.png",
+      url: "https://tiktok.com",
+      alt: "TikTok",
+    },
+    {
+      icon: "https://memecook.fun/socials/instagram.png",
+      url: "https://instagram.com",
+      alt: "Instagram",
+    },
+    {
+      icon: "https://memecook.fun/socials/birdeye.png",
+      url: "https://birdeye.so",
+      alt: "Birdeye",
+    },
+    {
+      icon: "https://memecook.fun/socials/coingecko.png",
+      url: "https://coingecko.com",
+      alt: "CoinGecko",
+    },
+    {
+      icon: "https://memecook.fun/socials/coinmarketcap.png",
+      url: "https://coinmarketcap.com",
+      alt: "CoinMarketCap",
+    },
+    {
+      icon: "https://memecook.fun/socials/dexscreener.png",
+      url: "https://dexscreener.com",
+      alt: "DexScreener",
+    },
+    {
+      icon: "https://memecook.fun/socials/dextools.png",
+      url: "https://dextools.io",
+      alt: "DexTools",
+    },
+    {
+      icon: "https://memecook.fun/socials/pumpfun.png",
+      url: "https://pumpfun.io",
+      alt: "PumpFun",
+    },
+    {
+      icon: "https://memecook.fun/socials/whitepaper.png",
+      url: "https://whitepaper.com",
+      alt: "Whitepaper",
+    },
+  ].filter((link) => link.icon && link.url);
 
   return (
-    <section id="about" className="w-full px-4 py-12">
+    <section id="about" className="w-full px-4 py-12 bg-slate-50">
       <div className="max-w-7xl mx-auto">
         <div className="relative flex justify-center mb-12">
           <div className="relative">
@@ -35,7 +79,7 @@ export const About = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left side - Image */}
-          <div className="bg-white rounded-xl p-6">
+          <div className="rounded-xl p-6">
             <DynamicImage
               src="https://memecook.fun/assets/upload_image.jpeg"
               file={undefined}
@@ -48,9 +92,9 @@ export const About = () => {
           </div>
 
           {/* Right side - Text */}
-          <div className="bg-white rounded-xl p-6 flex items-center justify-center">
+          <div className="rounded-xl p-6 flex items-center justify-center">
             <p className="font-bold text-lg text-center">
-              Welcome to our revolutionary meme project! We&apos;re not just another token - we&apos;re building a community-driven ecosystem where creativity meets blockchain technology. Our mission is to bring joy and value to our holders through innovative features, regular community events, and sustainable tokenomics. With our experienced team and clear roadmap, we&apos;re positioned to make waves in the crypto space while keeping the fun spirit of meme culture alive. Join us on this exciting journey as we redefine what&apos;s possible in the world of meme tokens!
+              long description of yout project here
             </p>
           </div>
         </div>

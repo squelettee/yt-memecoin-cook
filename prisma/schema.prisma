@@ -17,36 +17,92 @@ model Domain {
 }
 
 model Template {
+  // Base fields
   id              Int      @id @default(autoincrement())
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   type            String   @default("beta") @db.VarChar(255)
+
+  // Media fields
   background      String?  @db.VarChar(255)
-  birdeye         String?  @db.VarChar(255)
-  coinGecko       String?  @db.VarChar(255)
-  coinMarketCap   String?  @db.VarChar(255)
-  contractAddress String?  @db.VarChar(255)
-  description     String?  @db.VarChar(255)
-  dexscreener     String?  @db.VarChar(255)
-  dextools        String?  @db.VarChar(255)
-  imagePreview    String?  @db.VarChar(255)
-  instagram       String?  @db.VarChar(255)
-  jupiter         Boolean  @default(false)
   logo            String?  @db.VarChar(255)
+  imagePreview    String?  @db.VarChar(255)
+
+
+  // Project information
   projectName     String?  @db.VarChar(255)
-  pumpFun         String?  @db.VarChar(255)
-  telegram        String?  @db.VarChar(255)
   ticker          String?  @db.VarChar(255)
-  tiktok          String?  @db.VarChar(255)
-  twitter         String?  @db.VarChar(255)
-  userId          Int?
-  whitepaper      String?  @db.VarChar(255)
-  domain          Domain?
-  user            User?    @relation(fields: [userId], references: [id])
+  description     String?  @db.VarChar(255)
+  contractAddress String?  @db.VarChar(255)
+
+  // Links
+  birdeye        String?  @db.VarChar(255)
+  coinGecko      String?  @db.VarChar(255)
+  coinMarketCap  String?  @db.VarChar(255)
+  dexscreener    String?  @db.VarChar(255)
+  dextools       String?  @db.VarChar(255)
+  pumpFun        String?  @db.VarChar(255)
+  jupiter        String?  @db.VarChar(255)
+  charlink       String?  @db.VarChar(255)
+  whitepaper     String?  @db.VarChar(255)
+  instagram      String?  @db.VarChar(255)
+  telegram       String?  @db.VarChar(255)
+  tiktok         String?  @db.VarChar(255)
+  twitter        String?  @db.VarChar(255)
+
+  // Styling configuration
   headingFont     String   @default("outfit") @db.VarChar(255)
   bodyFont        String   @default("outfit") @db.VarChar(255)
   headingColor    String   @default("#ffffff") @db.VarChar(255)
   backgroundColor String   @default("#000000") @db.VarChar(255)
+  primaryColor    String   @default("#75caff") @db.VarChar(255)
+  secondaryColor  String   @default("#f5f5f5") @db.VarChar(255)
+  accentColor     String   @default("#2284ec") @db.VarChar(255)
+  textColor       String   @default("#000000") @db.VarChar(255)
+  borderColor     String   @default("#2284ec") @db.VarChar(255)
+  textBorderColor String   @default("#000000") @db.VarChar(255)
+
+  // about us
+  aboutUsTitle    String?  @db.VarChar(255)
+  aboutUsContent  String?  @db.VarChar(255)
+  aboutUsImage    String?  @db.VarChar(255)
+
+  //roadmap
+  roadmapTitle    String?  @db.VarChar(255)
+  roadmapPhase1   String?  @db.VarChar(255)
+  roadmapPhase2   String?  @db.VarChar(255)
+  roadmapPhase3   String?  @db.VarChar(255)
+  roadmapEnable   Boolean  @default(true)
+
+  // how to buy
+
+  howtobuyTitle    String?  @db.VarChar(255)
+  howtobuyStep1    String?  @db.VarChar(255)
+  howtobuyStep2    String?  @db.VarChar(255)
+  howtobuyStep3    String?  @db.VarChar(255)
+  howtobuyStep4    String?  @db.VarChar(255)
+
+  // FAQ
+
+  faqTitle        String?  @db.VarChar(255)
+  faqQuestion1    String?  @db.VarChar(255)
+  faqQuestion2    String?  @db.VarChar(255)
+  faqQuestion3    String?  @db.VarChar(255)
+  faqQuestion4    String?  @db.VarChar(255)
+  faqAnswer1      String?  @db.VarChar(255)
+  faqAnswer2      String?  @db.VarChar(255)
+  faqAnswer3      String?  @db.VarChar(255)
+  faqAnswer4      String?  @db.VarChar(255)
+  faqEnable       Boolean  @default(true)
+
+  // footer
+
+  footerText    String?  @db.VarChar(255)
+
+  // Relations
+  userId          Int?
+  domain          Domain?
+  user            User?    @relation(fields: [userId], references: [id])
 }
 
 model User {
