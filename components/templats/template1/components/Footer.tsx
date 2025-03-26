@@ -52,8 +52,8 @@ export const Footer = ({
   return (
     <footer className="w-full bg-cyan-300 py-10">
       <div className="container mx-auto flex flex-col items-center gap-6 px-4 py-8">
-        <h2 className="text-5xl font-bold">
-          {templateData.footerText || "Footer text here"}
+        <h2 className="text-5xl font-bold text-center">
+          {templateData.footerText || "Join our community"}
         </h2>
         <div className="flex flex-col items-center gap-6">
           {socialLinks.length > 0 && (
@@ -78,7 +78,7 @@ export const Footer = ({
       </div>
       <div className="px-6 flex justify-center items-center">
         <span className="font-bold text-sm text-gray-500">
-          Made with Memecook
+          Made with <Link href="https://memecook.fun" target="_blank" rel="noopener noreferrer">Memecook</Link>
         </span>
       </div>
     </footer>

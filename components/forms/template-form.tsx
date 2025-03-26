@@ -118,6 +118,13 @@ const formConfigByTemplate: Record<
         section: "Media",
       },
     ],
+    HowToBuy: [
+      { id: "howtobuyTitle", label: "Title", type: "text", section: "HowToBuy" },
+      { id: "howtobuyStep1", label: "Question 1", type: "text", section: "HowToBuy" },
+      { id: "howtobuyStep2", label: "Question 1", type: "text", section: "HowToBuy" },
+      { id: "howtobuyStep3", label: "Question 1", type: "text", section: "HowToBuy" },
+      { id: "howtobuyStep4", label: "Question 1", type: "text", section: "HowToBuy" },
+    ],
     FAQ: [
       {
         id: "faqEnable",
