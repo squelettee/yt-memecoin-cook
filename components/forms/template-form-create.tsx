@@ -9,7 +9,7 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
   const [templateData, setTemplateData] = useState<TemplateFormData>({
     type: "template1",
     projectName: "",
-    ticker: "",
+    ticker: "$SOL",
     description: "",
     contractAddress: "",
 
@@ -41,38 +41,38 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
     textBorderColor: "#000000",
 
     // About us
-    aboutTitle: "",
+    aboutTitle: "ABOUT",
     aboutContent: "",
     aboutImage: "",
 
     // Roadmap
-    roadmapTitle: "",
-    roadmapPhase1: "",
-    roadmapPhase2: "",
-    roadmapPhase3: "",
+    roadmapTitle: "ROADMAP",
+    roadmapPhase1: "Launch on Jupiter, Marketing Campaign, Community Building, Social Media Growth, Influencer Partnerships",
+    roadmapPhase2: "CEX Listings, Partnerships Development, Utility Expansion, NFT Collection Launch, Staking Platform",
+    roadmapPhase3: "Global Expansion, New Product Features, Community Rewards, Metaverse Integration, DAO Governance",
     roadmapEnable: true,
 
     // How to buy
-    howtobuyTitle: "",
-    howtobuyStep1: "",
-    howtobuyStep2: "",
-    howtobuyStep3: "",
-    howtobuyStep4: "",
+    howtobuyTitle: "HOW TO BUY",
+    howtobuyStep1: "Create any wallet of your choice, we recommend Phantom.",
+    howtobuyStep2: "Fund your wallet with Solana, you can buy Solana from an exchange.",
+    howtobuyStep3: "Head to Jupiter & paste our Contract Address, and swap your Solana to our token.",
+    howtobuyStep4: "Wait for the transaction to confirm, and you're in!",
 
     // FAQ
-    faqTitle: "",
-    faqQuestion1: "",
-    faqQuestion2: "",
-    faqQuestion3: "",
-    faqQuestion4: "",
-    faqAnswer1: "",
-    faqAnswer2: "",
-    faqAnswer3: "",
-    faqAnswer4: "",
+    faqTitle: "FAQ",
+    faqQuestion1: "Question 1",
+    faqQuestion2: "Question 2",
+    faqQuestion3: "Question 3",
+    faqQuestion4: "Question 4",
+    faqAnswer1: "Answer 1",
+    faqAnswer2: "Answer 2",
+    faqAnswer3: "Answer 3",
+    faqAnswer4: "Answer 4",
     faqEnable: true,
 
     // Footer
-    footerText: "",
+    footerText: "Join our community",
 
     // Media urls
     logo: null,

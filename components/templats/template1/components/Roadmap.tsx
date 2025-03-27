@@ -7,15 +7,15 @@ export const Roadmap = ({ templateData }: { templateData: TemplateFormData }) =>
   const roadmapPhases = [
     {
       phase: 1,
-      text: templateData.roadmapPhase1 || "Launch on Jupiter, Marketing Campaign, Community Building, Social Media Growth, Influencer Partnerships",
+      text: templateData.roadmapPhase1,
     },
     {
       phase: 2,
-      text: templateData.roadmapPhase2 || "CEX Listings, Partnerships Development, Utility Expansion, NFT Collection Launch, Staking Platform",
+      text: templateData.roadmapPhase2,
     },
     {
       phase: 3,
-      text: templateData.roadmapPhase3 || "Global Expansion, New Product Features, Community Rewards, Metaverse Integration, DAO Governance",
+      text: templateData.roadmapPhase3,
     },
   ].filter((phase) => phase.text);
 
@@ -25,10 +25,10 @@ export const Roadmap = ({ templateData }: { templateData: TemplateFormData }) =>
         <div className="relative flex justify-center mb-12">
           <div className="relative">
             <h2 className="text-4xl md:text-5xl lg:text-7xl text-white font-bold relative z-10 [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
-              {templateData.roadmapTitle || "ROADMAP"}
+              {templateData.roadmapTitle}
             </h2>
             <h2 className="text-4xl md:text-5xl lg:text-7xl text-black font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]">
-              {templateData.roadmapTitle || "ROADMAP"}
+              {templateData.roadmapTitle}
             </h2>
           </div>
         </div>

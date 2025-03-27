@@ -13,20 +13,20 @@ export const Faq = ({ templateData }: { templateData: TemplateFormData }) => {
 
   const faqItems = [
     {
-      question: templateData.faqQuestion1 || "Question 1",
-      answer: templateData.faqAnswer1 || "Answer 1",
+      question: templateData.faqQuestion1,
+      answer: templateData.faqAnswer1,
     },
     {
-      question: templateData.faqQuestion2 || "Question 2",
-      answer: templateData.faqAnswer2 || "Answer 2",
+      question: templateData.faqQuestion2,
+      answer: templateData.faqAnswer2,
     },
     {
-      question: templateData.faqQuestion3 || "Question 3",
-      answer: templateData.faqAnswer3 || "Answer 3",
+      question: templateData.faqQuestion3,
+      answer: templateData.faqAnswer3,
     },
     {
-      question: templateData.faqQuestion4 || "Question 4",
-      answer: templateData.faqAnswer4 || "Answer 4",
+      question: templateData.faqQuestion4,
+      answer: templateData.faqAnswer4,
     },
   ].filter((item) => item.question && item.answer);
 
@@ -36,10 +36,10 @@ export const Faq = ({ templateData }: { templateData: TemplateFormData }) => {
         <div className="relative flex justify-center mb-12">
           <div className="relative">
             <h2 className="text-4xl md:text-5xl lg:text-7xl text-white font-bold relative z-10 [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
-              {templateData.faqTitle || "FAQ"}
+              {templateData.faqTitle}
             </h2>
             <h2 className="text-4xl md:text-5xl lg:text-7xl text-black font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]">
-              {templateData.faqTitle || "FAQ"}
+              {templateData.faqTitle}
             </h2>
           </div>
         </div>

@@ -4,16 +4,16 @@ export const HowToBuy = ({ templateData }: { templateData: TemplateFormData }) =
 
   const howToBuyItems = [
     {
-      text: templateData.howtobuyStep1 || "Create any wallet of your choice, we recommend Phantom.",
+      text: templateData.howtobuyStep1,
     },
     {
-      text: templateData.howtobuyStep2 || "Fund your wallet with Solana, you can buy Solana from an exchange.",
+      text: templateData.howtobuyStep2,
     },
     {
-      text: templateData.howtobuyStep3 || "Head to Jupiter & paste our Contract Address, and swap your Solana to our token.",
+      text: templateData.howtobuyStep3,
     },
     {
-      text: templateData.howtobuyStep4 || "Wait for the transaction to confirm, and you're in!",
+      text: templateData.howtobuyStep4,
     },
   ].filter((item) => item.text);
 
@@ -23,10 +23,10 @@ export const HowToBuy = ({ templateData }: { templateData: TemplateFormData }) =
         <div className="relative flex justify-center mb-12">
           <div className="relative">
             <h2 className="text-4xl md:text-5xl lg:text-7xl text-white font-bold relative z-10 [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
-              {templateData.howtobuyTitle || "HOW TO BUY"}
+              {templateData.howtobuyTitle}
             </h2>
             <h2 className="text-4xl md:text-5xl lg:text-7xl text-black font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]">
-              {templateData.howtobuyTitle || "HOW TO BUY"}
+              {templateData.howtobuyTitle}
             </h2>
           </div>
         </div>
