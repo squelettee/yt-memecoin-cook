@@ -7,9 +7,11 @@ import { DynamicImage } from "@/components/ui/dynamic-image";
 export const Navbar = ({
   templateData,
   file,
+  headingFontClass,
 }: {
   templateData: TemplateFormData;
   file?: File | null;
+  headingFontClass: string;
 }) => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -52,7 +54,7 @@ export const Navbar = ({
             <nav className="hidden md:flex items-center gap-6">
               <button
                 onClick={() => scrollToSection("about")}
-                className="font-bold text-black hover:text-gray-700 transition-colors"
+                className={`font-bold text-black hover:text-gray-700 transition-colors ${headingFontClass}`}
                 style={{ color: templateData.textColor }}
               >
                 ABOUT
@@ -60,7 +62,7 @@ export const Navbar = ({
               {templateData.roadmapEnable && (
                 <button
                   onClick={() => scrollToSection("roadmap")}
-                  className="font-bold text-black hover:text-gray-700 transition-colors"
+                  className={`font-bold text-black hover:text-gray-700 transition-colors ${headingFontClass}`}
                   style={{ color: templateData.textColor }}
                 >
                   ROADMAP
@@ -68,7 +70,7 @@ export const Navbar = ({
               )}
               <button
                 onClick={() => scrollToSection("how-to-buy")}
-                className="font-bold text-black hover:text-gray-700 transition-colors"
+                className={`font-bold text-black hover:text-gray-700 transition-colors ${headingFontClass}`}
                 style={{ color: templateData.textColor }}
               >
                 HOW TO BUY
@@ -76,7 +78,7 @@ export const Navbar = ({
               {templateData.faqEnable && (
                 <button
                   onClick={() => scrollToSection("faq")}
-                  className="font-bold text-black hover:text-gray-700 transition-colors"
+                  className={`font-bold text-black hover:text-gray-700 transition-colors ${headingFontClass}`}
                   style={{ color: templateData.textColor }}
                 >
                   FAQ

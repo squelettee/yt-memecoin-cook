@@ -21,15 +21,6 @@ const gravitas_one = localFont({
   weight: "400",
 });
 
-const modak = localFont({
-  src: "../public/fonts/Modak/Modak-Regular.ttf",
-});
-
-const rock_3d = localFont({
-  src: "../public/fonts/Rock_3D/Rock3D-Regular.ttf",
-  weight: "400",
-});
-
 const rubik_bubble = localFont({
   src: "../public/fonts/Rubik_Bubbles/RubikBubbles-Regular.ttf",
   weight: "400",
@@ -64,8 +55,6 @@ interface FontClassNames {
   cherryBombClass: string;
   spaceGroteskClass: string;
   gravitasOneClass: string;
-  modakClass: string;
-  rock3dClass: string;
   rubikBubbleClass: string;
   rammettoOneClass: string;
   bagelFontOneClass: string;
@@ -93,8 +82,6 @@ export const TemplateViews = ({
     cherryBombClass: cherry_bomb_one.className,
     spaceGroteskClass: space_grotesk.className,
     gravitasOneClass: gravitas_one.className,
-    modakClass: modak.className,
-    rock3dClass: rock_3d.className,
     rubikBubbleClass: rubik_bubble.className,
     rammettoOneClass: rammetto_one.className,
     bagelFontOneClass: bagel_font_one.className,

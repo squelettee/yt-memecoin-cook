@@ -2,8 +2,10 @@ import { TemplateFormData } from "@/schemas/templateSchema";
 
 export const HowToBuy = ({
   templateData,
+  headingFontClass,
 }: {
   templateData: TemplateFormData;
+  headingFontClass: string;
 }) => {
   const howToBuyItems = [
     {
@@ -30,7 +32,7 @@ export const HowToBuy = ({
         <div className="relative flex justify-center mb-12">
           <div className="relative">
             <h2
-              className="text-4xl md:text-5xl lg:text-7xl font-bold relative z-10 "
+              className={`text-4xl md:text-5xl lg:text-7xl font-bold relative z-10 ${headingFontClass}`}
               style={{
                 color: templateData.headingColor,
                 textShadow: `-1px -1px 0 ${templateData.textBorderColor}, 1px -1px 0 ${templateData.textBorderColor}, -1px 1px 0 ${templateData.textBorderColor}, 1px 1px 0 ${templateData.textBorderColor}`,
@@ -39,8 +41,10 @@ export const HowToBuy = ({
               {templateData.howtobuyTitle}
             </h2>
             <h2
-              className="text-4xl md:text-5xl lg:text-7xl  font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]"
-              style={{ color: templateData.borderColor }}
+              className={`text-4xl md:text-5xl lg:text-7xl  font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px] ${headingFontClass}`}
+              style={{
+                color: templateData.borderColor,
+              }}
             >
               {templateData.howtobuyTitle}
             </h2>

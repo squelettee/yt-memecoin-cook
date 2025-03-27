@@ -14,8 +14,6 @@ interface FontClassNames {
   cherryBombClass: string;
   spaceGroteskClass: string;
   gravitasOneClass: string;
-  modakClass: string;
-  rock3dClass: string;
   rubikBubbleClass: string;
   rammettoOneClass: string;
   bagelFontOneClass: string;
@@ -36,41 +34,80 @@ const Template1 = ({
   };
   subdomain?: string;
 }) => {
+  // Déterminer la classe de police pour les titres
+  const headingFontClass = (() => {
+    switch (templateData.headingFont) {
+      case "dynapuff":
+        return fonts.dynapuffClass;
+      case "cherry-bomb":
+        return fonts.cherryBombClass;
+      case "gravitas-one":
+        return fonts.gravitasOneClass;
+      case "rubik-bubble":
+        return fonts.rubikBubbleClass;
+      case "rammetto-one":
+        return fonts.rammettoOneClass;
+      case "bagel-font-one":
+        return fonts.bagelFontOneClass;
+      default:
+        return fonts.dynapuffClass;
+    }
+  })();
+
+  // Déterminer la classe de police pour le corps du texte
+  const bodyFontClass = (() => {
+    switch (templateData.bodyFont) {
+      case "dynapuff":
+        return fonts.dynapuffClass;
+      case "cherry-bomb":
+        return fonts.cherryBombClass;
+      case "space-grotesk":
+        return fonts.spaceGroteskClass;
+      case "gravitas-one":
+        return fonts.gravitasOneClass;
+      case "rubik-bubble":
+        return fonts.rubikBubbleClass;
+      case "rammetto-one":
+        return fonts.rammettoOneClass;
+      case "bagel-font-one":
+        return fonts.bagelFontOneClass;
+      default:
+        return fonts.dynapuffClass;
+    }
+  })();
+
   return (
-    <main
-      className={`w-full min-h-screen relative font-bold ${(() => {
-        switch (templateData.bodyFont) {
-          case "dynapuff":
-            return fonts.dynapuffClass;
-          case "cherry-bomb":
-            return fonts.cherryBombClass;
-          case "space-grotesk":
-            return fonts.spaceGroteskClass;
-          case "gravitas-one":
-            return fonts.gravitasOneClass;
-          case "modak":
-            return fonts.modakClass;
-          case "rock-3d":
-            return fonts.rock3dClass;
-          case "rubik-bubble":
-            return fonts.rubikBubbleClass;
-          case "rammetto-one":
-            return fonts.rammettoOneClass;
-          case "bagel-font-one":
-            return fonts.bagelFontOneClass;
-          default:
-            return fonts.dynapuffClass;
-        }
-      })()}`}
-    >
+    <main className={`w-full min-h-screen relative font-bold ${bodyFontClass}`}>
       <div className="flex flex-col items-center w-full">
-        <Navbar templateData={templateData} file={files?.logoFile} />
-        <Hero templateData={templateData} file={files?.previewImage} />
-        <About templateData={templateData} file={files?.backgroundFile} />
-        <Roadmap templateData={templateData} />
-        <HowToBuy templateData={templateData} />
-        <Faq templateData={templateData} />
-        <Footer templateData={templateData} subdomain={subdomain} />
+        <Navbar
+          templateData={templateData}
+          file={files?.logoFile}
+          headingFontClass={headingFontClass}
+        />
+        <Hero
+          templateData={templateData}
+          file={files?.previewImage}
+          headingFontClass={headingFontClass}
+        />
+        <About
+          templateData={templateData}
+          file={files?.backgroundFile}
+          headingFontClass={headingFontClass}
+        />
+        <Roadmap
+          templateData={templateData}
+          headingFontClass={headingFontClass}
+        />
+        <HowToBuy
+          templateData={templateData}
+          headingFontClass={headingFontClass}
+        />
+        <Faq templateData={templateData} headingFontClass={headingFontClass} />
+        <Footer
+          templateData={templateData}
+          subdomain={subdomain}
+          headingFontClass={headingFontClass}
+        />
       </div>
     </main>
   );

@@ -8,9 +8,11 @@ import { TemplateFormData } from "@/schemas/templateSchema";
 export const About = ({
   templateData,
   file,
+  headingFontClass,
 }: {
   templateData: TemplateFormData;
   file?: File | null;
+  headingFontClass: string;
 }) => {
   const socialLinks = [
     {
@@ -50,7 +52,7 @@ export const About = ({
         <div className="relative flex justify-center mb-12">
           <div className="relative">
             <h2
-              className="text-4xl md:text-5xl lg:text-7xl font-bold relative z-10"
+              className={`text-4xl md:text-5xl lg:text-7xl font-bold relative z-10 ${headingFontClass}`}
               style={{
                 color: templateData.headingColor,
                 textShadow: `-1px -1px 0 ${templateData.textBorderColor}, 1px -1px 0 ${templateData.textBorderColor}, -1px 1px 0 ${templateData.textBorderColor}, 1px 1px 0 ${templateData.textBorderColor}`,
@@ -59,8 +61,10 @@ export const About = ({
               {templateData.aboutTitle}
             </h2>
             <h2
-              className="text-4xl md:text-5xl lg:text-7xl font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]"
-              style={{ color: templateData.borderColor }}
+              className={`text-4xl md:text-5xl lg:text-7xl font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px] ${headingFontClass}`}
+              style={{
+                color: templateData.borderColor,
+              }}
             >
               {templateData.aboutTitle}
             </h2>

@@ -5,12 +5,15 @@ import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { DynamicImage } from "@/components/ui/dynamic-image";
 import { ShadowButton } from "@/components/ui/shadow-button";
+
 export const Hero = ({
   templateData,
   file,
+  headingFontClass,
 }: {
   templateData: TemplateFormData;
   file?: File | null;
+  headingFontClass: string;
 }) => {
   const { ticker } = templateData;
   const [copied, setCopied] = useState(false);
@@ -33,7 +36,7 @@ export const Hero = ({
             {/* Ticker with shadow effect */}
             <div className="relative flex self-center">
               <h1
-                className="text-5xl md:text-6xl lg:text-8xl font-bold relative z-10 "
+                className={`text-5xl md:text-6xl lg:text-8xl font-bold relative z-10 ${headingFontClass}`}
                 style={{
                   color: templateData.headingColor,
                   textShadow: `-1px -1px 0 ${templateData.textBorderColor}, 1px -1px 0 ${templateData.textBorderColor}, -1px 1px 0 ${templateData.textBorderColor}, 1px 1px 0 ${templateData.textBorderColor}`,
@@ -42,8 +45,10 @@ export const Hero = ({
                 {ticker?.slice(0, 10)}
               </h1>
               <h1
-                className="text-5xl md:text-6xl lg:text-8xl font-bold absolute top-[5px] md:top-[8px] lg:top-[10px] right-[-5px] md:right-[-8px] lg:right-[-10px]"
-                style={{ color: templateData.borderColor }}
+                className={`text-5xl md:text-6xl lg:text-8xl font-bold absolute top-[5px] md:top-[8px] lg:top-[10px] right-[-5px] md:right-[-8px] lg:right-[-10px] ${headingFontClass}`}
+                style={{
+                  color: templateData.borderColor,
+                }}
               >
                 {ticker?.slice(0, 10)}
               </h1>
@@ -64,7 +69,7 @@ export const Hero = ({
               >
                 <div className="flex flex-col min-w-0 flex-1 mr-2">
                   <span
-                    className="font-mono text-sm md:text-lg truncate"
+                    className={`font-mono text-sm md:text-lg truncate`}
                     style={{ color: templateData.textColor }}
                   >
                     {templateData.contractAddress}

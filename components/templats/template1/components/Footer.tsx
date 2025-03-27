@@ -5,9 +5,11 @@ import Link from "next/link";
 export const Footer = ({
   templateData,
   subdomain,
+  headingFontClass,
 }: {
   templateData: TemplateFormData;
   subdomain?: string;
+  headingFontClass: string;
 }) => {
   const socialLinks = [
     {
@@ -44,8 +46,10 @@ export const Footer = ({
     >
       <div className="container mx-auto flex flex-col items-center gap-6 px-4 py-8">
         <h2
-          className="text-5xl font-bold text-center"
-          style={{ color: templateData.headingColor }}
+          className={`text-5xl font-bold text-center ${headingFontClass}`}
+          style={{
+            color: templateData.headingColor,
+          }}
         >
           {templateData.footerText}
         </h2>
