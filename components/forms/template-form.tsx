@@ -499,7 +499,7 @@ export function TemplateForm({
   }, [form, onUpdate]);
 
   return (
-    <div className="flex flex-col h-full min-w-[320px]">
+    <div className="flex flex-col h-full min-w-[320px] overflow-y-auto">
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}

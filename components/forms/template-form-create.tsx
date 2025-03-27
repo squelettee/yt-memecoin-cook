@@ -97,19 +97,23 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
   });
 
   return (
-    <>
-      <TemplateForm
-        onUpdate={(data: TemplateFormData) => setTemplateData(data)}
-        templateData={templateData}
-        subdomain={subdomain}
-        files={files}
-        setFiles={setFiles}
-      />
-      <TemplateViews
-        type={templateData.type}
-        templateData={templateData}
-        files={files}
-      />
-    </>
+    <div className="flex h-screen w-full">
+      <div className="h-full overflow-y-auto">
+        <TemplateForm
+          onUpdate={(data: TemplateFormData) => setTemplateData(data)}
+          templateData={templateData}
+          subdomain={subdomain}
+          files={files}
+          setFiles={setFiles}
+        />
+      </div>
+      <div className="flex-1">
+        <TemplateViews
+          type={templateData.type}
+          templateData={templateData}
+          files={files}
+        />
+      </div>
+    </div>
   );
 }
