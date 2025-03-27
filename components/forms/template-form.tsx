@@ -217,42 +217,58 @@ const FormFieldRenderer = ({
   field: FormFieldConfig;
   formField: ControllerRenderProps<TemplateFormData, Path<TemplateFormData>>;
 }) => {
+  // 📁 File Input
   if (field.type === "file") {
     return (
-      <Input
-        type="file"
-        onChange={(e) => {
-          const file = e.target.files?.[0] || null;
-          formField.onChange(file);
-        }}
-      />
+      <div className="w-full">
+        <Input
+          type="file"
+          className="file:mr-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
+          onChange={(e) => {
+            const file = e.target.files?.[0] || null;
+            formField.onChange(file);
+          }}
+        />
+      </div>
     );
   }
 
+  // ✓ Checkbox Input 
   if (field.type === "checkbox") {
     return (
-      <Checkbox
-        {...formField}
-        checked={formField.value}
-        onCheckedChange={(checked) => {
-          formField.onChange(checked);
-        }}
-      />
+      <div className="flex items-center space-x-2">
+        <Checkbox
+          {...formField}
+          checked={formField.value}
+          onCheckedChange={(checked) => {
+            formField.onChange(checked);
+          }}
+          className="data-[state=checked]:bg-violet-700"
+        />
+        <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+          {field.label}
+        </label>
+      </div>
     );
   }
 
+  // 🔽 Select Input
   if (field.type === "select") {
     return (
       <Select
         value={formField.value}
         onValueChange={(value) => formField.onChange(value)}
       >
-        <SelectTrigger className="w-full">
+        <SelectTrigger className="w-full bg-white/5 backdrop-blur-sm border-violet-200 focus:ring-violet-400">
           <SelectValue placeholder={field.placeholder} />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-white/95 backdrop-blur-lg border-violet-200">
           {field.options?.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
+            <SelectItem
+              key={option.value}
+              value={option.value}
+              className="hover:bg-violet-50 focus:bg-violet-50"
+            >
               {option.label}
             </SelectItem>
           ))}
@@ -261,13 +277,14 @@ const FormFieldRenderer = ({
     );
   }
 
+  // 🎨 Color Input
   if (field.type === "color") {
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <Input
           {...formField}
           type="color"
-          className="h-10 w-20 cursor-pointer rounded-md border border-input"
+          className="h-12 w-24 cursor-pointer rounded-lg border-2 border-violet-200 hover:border-violet-300 transition-colors p-1"
           onChange={(e) => {
             formField.onChange(e.target.value);
           }}
@@ -275,7 +292,7 @@ const FormFieldRenderer = ({
         <Input
           value={formField.value}
           type="text"
-          className="h-10 w-28 uppercase"
+          className="h-12 w-32 uppercase rounded-lg border-violet-200 focus:border-violet-400 focus:ring-violet-400 font-mono"
           onChange={(e) => {
             formField.onChange(e.target.value);
           }}
@@ -388,12 +405,12 @@ export function TemplateForm({
       >
         {/* Header */}
         <div className="px-4 bg-background w-full">
-          <h1 className="font-bold text-center pt-5 text-lg">
+          <h1 className="font-bold text-center pt-5 text-lg font-mysteryquest">
             <Link href={process.env.NEXT_PUBLIC_API_URL!}>Memecook</Link>
           </h1>
           <Separator className="my-4" />
           <TabsList className="grid w-full grid-cols-2 mb-4">
-            <TabsTrigger value="template">Template</TabsTrigger>
+            <TabsTrigger value="template">Templates</TabsTrigger>
             <TabsTrigger value="edits">Edit Content</TabsTrigger>
           </TabsList>
         </div>
@@ -411,80 +428,109 @@ export function TemplateForm({
                   {templates
                     .filter((t) => t.enabled)
                     .map((template) => (
-                      <Button
-                        key={template.id}
-                        type="button"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleTemplateChange(template.id);
-                        }}
-                        variant={
-                          selectedTemplate === template.id
-                            ? "default"
-                            : "outline"
-                        }
-                      >
-                        {template.name}
-                      </Button>
+                      <div key={template.id} className="relative group">
+                        <Button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleTemplateChange(template.id);
+                          }}
+                          variant={selectedTemplate === template.id ? "default" : "outline"}
+                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-200 ${selectedTemplate === template.id
+                            ? "bg-blue-600 hover:bg-blue-700 text-white"
+                            : "hover:border-blue-400 hover:bg-blue-50"
+                            }`}
+                        >
+                          <span className="text-lg font-bold">{template.name}</span>
+                          <span className="text-sm opacity-80">Click to select</span>
+                        </Button>
+                      </div>
                     ))}
                 </div>
               </TabsContent>
 
               <TabsContent value="edits" className="mt-4">
-                <div className="space-y-4 px-4">
+                <div className="space-y-5 px-4">
                   <Accordion type="single" collapsible>
+                    {/* Map through each section of form fields */}
                     {Object.entries(formConfig).map(([section, fields]) => (
-                      <AccordionItem key={section} value={section}>
-                        <AccordionTrigger>{section}</AccordionTrigger>
-                        <AccordionContent>
-                          {fields.map((field) => (
-                            <FormField
-                              key={field.id}
-                              control={form.control}
-                              name={field.id}
-                              render={({ field: formField }) => (
-                                <FormItem>
-                                  <FormLabel>{field.label}</FormLabel>
-                                  <FormControl>
-                                    <FormFieldRenderer
-                                      field={field}
-                                      formField={formField}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          ))}
+                      <AccordionItem
+                        key={section}
+                        value={section}
+                        className="border rounded-lg "
+                      >
+                        {/* Section header */}
+                        <AccordionTrigger className="px-4 py-2 hover:bg-violet-50 text-md font-bold">
+                          {section}
+                        </AccordionTrigger>
+
+                        {/* Section content */}
+                        <AccordionContent className="px-4 py-2">
+                          <div className="space-y-2">
+                            {/* Render each field in the section */}
+                            {fields.map((field) => (
+                              <FormField
+                                key={field.id}
+                                control={form.control}
+                                name={field.id}
+                                render={({ field: formField }) => (
+                                  <FormItem className="space-y-2">
+                                    <FormLabel className="font-medium">
+                                      {field.label}
+                                    </FormLabel>
+
+                                    <FormControl>
+                                      <FormFieldRenderer
+                                        field={field}
+                                        formField={formField}
+                                      />
+                                    </FormControl>
+
+                                    <FormMessage className="text-sm text-red-500" />
+                                  </FormItem>
+                                )}
+                              />
+                            ))}
+                          </div>
                         </AccordionContent>
                       </AccordionItem>
                     ))}
                   </Accordion>
                 </div>
               </TabsContent>
-
               {/* Footer */}
               <div className="w-full px-4 py-4 bg-background">
                 {!isWalletConnected ? (
-                  <div className="text-center">
-                    <p className="text-sm text-muted-foreground mb-2">
-                      Connect your wallet to create your template
-                    </p>
-                    <WalletMultiButtonDynamic className="w-full" />
+                  <div className="flex flex-col items-center gap-4 p-4 bg-violet-50 rounded-lg border border-violet-200">
+                    <div className="text-center">
+                      <h3 className="text-lg font-bold text-violet-900 mb-1">Connect Your Wallet</h3>
+                      <p className="text-sm text-violet-700">
+                        To create your template, please connect your wallet first
+                      </p>
+                    </div>
+                    <WalletMultiButtonDynamic className="w-full max-w-md py-3 rounded-lg border-2 border-violet-300 bg-white hover:bg-violet-100 transition-colors shadow-sm" />
                   </div>
                 ) : (
-                  <Button
-                    type="submit"
-                    className="w-full bg-violet-800 hover:bg-black"
-                    disabled={isPending || !isWalletConnected}
-                  >
-                    {isPending ? "Creating..." : "Create Memesite"}
-                  </Button>
-                )}
-                {error && (
-                  <p className="text-sm text-red-500 mt-2 text-center">
-                    {error}
-                  </p>
+                  <div className="flex flex-col items-center gap-4 p-4">
+                    <Button
+                      type="submit"
+                      className="w-full max-w-md py-6 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-lg font-bold shadow-lg transition-colors"
+                      disabled={isPending || !isWalletConnected}
+                    >
+                      {isPending ? (
+                        <span className="flex items-center gap-2">
+                          <span className="animate-spin">⚡</span> Creating...
+                        </span>
+                      ) : (
+                        "Create my Memesite"
+                      )}
+                    </Button>
+                    {error && (
+                      <p className="text-sm text-red-500 text-center font-medium">
+                        {error}
+                      </p>
+                    )}
+                  </div>
                 )}
               </div>
             </form>
