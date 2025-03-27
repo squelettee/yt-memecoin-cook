@@ -40,7 +40,6 @@ export async function createTemplate(
       return user;
     }
 
-
     const s3Client = new S3Client({
       region: process.env.AWS_S3_REGION,
       credentials: {
