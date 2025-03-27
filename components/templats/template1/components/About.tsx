@@ -24,7 +24,7 @@ export const About = ({ templateData }: { templateData: TemplateFormData }) => {
     },
     {
       icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/pump.jpeg`,
-      url: templateData.pumpfun,
+      url: templateData.pumpFun,
       alt: "PumpFun",
     },
     {

@@ -70,7 +70,7 @@ const formConfigByTemplate: Record<
     Links: [
       { id: "twitter", label: "Twitter", type: "text", section: "Links" },
       { id: "telegram", label: "Telegram", type: "text", section: "Links" },
-      { id: "pumpfun", label: "PumpFun", type: "text", section: "Links" },
+      { id: "pumpFun", label: "PumpFun", type: "text", section: "Links" },
       { id: "jupiter", label: "Jupiter", type: "text", section: "Links" },
       {
         id: "dexscreener",
@@ -510,11 +510,10 @@ export function TemplateForm({
                               ? "default"
                               : "outline"
                           }
-                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-200 ${
-                            selectedTemplate === template.id
-                              ? "bg-blue-600 hover:bg-blue-700 text-white"
-                              : "hover:border-blue-400 hover:bg-blue-50"
-                          }`}
+                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-200 ${selectedTemplate === template.id
+                            ? "bg-blue-600 hover:bg-blue-700 text-white"
+                            : "hover:border-blue-400 hover:bg-blue-50"
+                            }`}
                         >
                           <span className="text-lg font-bold">
                             {template.name}
