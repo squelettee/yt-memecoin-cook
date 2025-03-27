@@ -69,7 +69,14 @@ const formConfigByTemplate: Record<
         section: "Styling",
         options: [
           { label: "dynapuff", value: "dynapuff" },
-          { label: "cherry-bomb", value: "cherry-bomb" }
+          { label: "cherry-bomb", value: "cherry-bomb" },
+          { label: "space-grotesk", value: "space-grotesk" },
+          { label: "gravitas-one", value: "gravitas-one" },
+          { label: "modak", value: "modak" },
+          { label: "rock-3d", value: "rock-3d" },
+          { label: "rubik-bubble", value: "rubik-bubble" },
+          { label: "rammetto-one", value: "rammetto-one" },
+          { label: "bagel-font-one", value: "bagel-font-one" }
         ]
       },
       {
@@ -79,7 +86,14 @@ const formConfigByTemplate: Record<
         section: "Styling",
         options: [
           { label: "dynapuff", value: "dynapuff" },
-          { label: "cherry-bomb", value: "cherry-bomb" }
+          { label: "cherry-bomb", value: "cherry-bomb" },
+          { label: "space-grotesk", value: "space-grotesk" },
+          { label: "gravitas-one", value: "gravitas-one" },
+          { label: "modak", value: "modak" },
+          { label: "rock-3d", value: "rock-3d" },
+          { label: "rubik-bubble", value: "rubik-bubble" },
+          { label: "rammetto-one", value: "rammetto-one" },
+          { label: "bagel-font-one", value: "bagel-font-one" }
         ]
       },
       {

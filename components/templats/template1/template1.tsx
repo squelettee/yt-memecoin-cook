@@ -12,6 +12,13 @@ import { About } from "./components/About";
 interface FontClassNames {
   dynapuffClass: string;
   cherryBombClass: string;
+  spaceGroteskClass: string;
+  gravitasOneClass: string;
+  modakClass: string;
+  rock3dClass: string;
+  rubikBubbleClass: string;
+  rammettoOneClass: string;
+  bagelFontOneClass: string;
 }
 
 const Template1 = ({
@@ -29,6 +36,20 @@ const Template1 = ({
             return fonts.dynapuffClass;
           case 'cherry-bomb':
             return fonts.cherryBombClass;
+          case 'space-grotesk':
+            return fonts.spaceGroteskClass;
+          case 'gravitas-one':
+            return fonts.gravitasOneClass;
+          case 'modak':
+            return fonts.modakClass;
+          case 'rock-3d':
+            return fonts.rock3dClass;
+          case 'rubik-bubble':
+            return fonts.rubikBubbleClass;
+          case 'rammetto-one':
+            return fonts.rammettoOneClass;
+          case 'bagel-font-one':
+            return fonts.bagelFontOneClass;
           default:
             return fonts.dynapuffClass;
         }
