@@ -51,9 +51,9 @@ export const templateSchema: TemplateSchemaType = z.object({
   textBorderColor: z.string().default("#000000"),
 
   // About us
-  aboutUsTitle: z.string().optional().or(z.literal("")),
-  aboutUsContent: z.string().optional().or(z.literal("")),
-  aboutUsImage: z.string().optional().or(z.literal("")),
+  aboutTitle: z.string().optional().or(z.literal("")),
+  aboutContent: z.string().optional().or(z.literal("")),
+  aboutImage: z.string().optional().or(z.literal("")),
 
   // Roadmap
   roadmapTitle: z.string().optional().or(z.literal("")),

@@ -41,9 +41,9 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
     textBorderColor: "#000000",
 
     // About us
-    aboutUsTitle: "",
-    aboutUsContent: "",
-    aboutUsImage: "",
+    aboutTitle: "",
+    aboutContent: "",
+    aboutImage: "",
 
     // Roadmap
     roadmapTitle: "",

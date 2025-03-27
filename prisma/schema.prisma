@@ -63,9 +63,9 @@ model Template {
   textBorderColor String   @default("#000000") @db.VarChar(255)
 
   // about us
-  aboutUsTitle    String?  @db.VarChar(255)
-  aboutUsContent  String?  @db.VarChar(255)
-  aboutUsImage    String?  @db.VarChar(255)
+  aboutTitle    String?  @db.VarChar(255)
+  aboutContent  String?  @db.VarChar(255)
+  aboutImage    String?  @db.VarChar(255)
 
   //roadmap
   roadmapTitle    String?  @db.VarChar(255)
