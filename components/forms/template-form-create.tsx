@@ -42,7 +42,7 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
     headingFont: "dynapuff",
     bodyFont: "dynapuff",
     headingColor: "#ffffff",
-    backgroundColor: "#000000",
+    backgroundColor: "#ffffff",
     primaryColor: "#75caff",
     secondaryColor: "#f5f5f5",
     accentColor: "#ec4899",
@@ -112,6 +112,7 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
           type={templateData.type}
           templateData={templateData}
           files={files}
+          subdomain={subdomain}
         />
       </div>
     </div>

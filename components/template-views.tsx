@@ -75,6 +75,7 @@ export const TemplateViews = ({
   type,
   templateData,
   files,
+  subdomain,
 }: {
   type: TemplateType;
   templateData: TemplateFormData;
@@ -83,6 +84,7 @@ export const TemplateViews = ({
     backgroundFile: File | null;
     previewImage: File | null;
   };
+  subdomain?: string;
 }) => {
   const Template = templates[type];
 
@@ -104,7 +106,12 @@ export const TemplateViews = ({
 
   return (
     <div className={`w-full h-screen overflow-y-auto`}>
-      <Template templateData={templateData} fonts={fonts} files={files} />
+      <Template
+        templateData={templateData}
+        fonts={fonts}
+        files={files}
+        subdomain={subdomain}
+      />
     </div>
   );
 };

@@ -23,10 +23,19 @@ export const Navbar = ({
     >
       <nav className="max-w-4xl mx-auto relative">
         {/* Black shadow div positioned behind and offset */}
-        <div className="absolute bg-black rounded-full w-full h-full top-[5px] right-[-5px]"></div>
+        <div
+          className="absolute bg-black rounded-full w-full h-full top-[5px] right-[-5px]"
+          style={{ backgroundColor: templateData.borderColor }}
+        ></div>
 
         {/* Main navbar */}
-        <div className="bg-white rounded-full border border-black border-solid px-6 py-3 flex items-center justify-between relative z-10">
+        <div
+          className="rounded-full border border-solid px-6 py-3 flex items-center justify-between relative z-10"
+          style={{
+            borderColor: templateData.borderColor,
+            backgroundColor: templateData.backgroundColor,
+          }}
+        >
           {/* Left side - Logo and Nav Links */}
           <div className="flex items-center gap-8">
             <div className="h-10 w-10 rounded-full overflow-hidden flex items-center justify-center border border-black border-solid">
@@ -44,6 +53,7 @@ export const Navbar = ({
               <button
                 onClick={() => scrollToSection("about")}
                 className="font-bold text-black hover:text-gray-700 transition-colors"
+                style={{ color: templateData.textColor }}
               >
                 ABOUT
               </button>
@@ -51,6 +61,7 @@ export const Navbar = ({
                 <button
                   onClick={() => scrollToSection("roadmap")}
                   className="font-bold text-black hover:text-gray-700 transition-colors"
+                  style={{ color: templateData.textColor }}
                 >
                   ROADMAP
                 </button>
@@ -58,6 +69,7 @@ export const Navbar = ({
               <button
                 onClick={() => scrollToSection("how-to-buy")}
                 className="font-bold text-black hover:text-gray-700 transition-colors"
+                style={{ color: templateData.textColor }}
               >
                 HOW TO BUY
               </button>
@@ -65,6 +77,7 @@ export const Navbar = ({
                 <button
                   onClick={() => scrollToSection("faq")}
                   className="font-bold text-black hover:text-gray-700 transition-colors"
+                  style={{ color: templateData.textColor }}
                 >
                   FAQ
                 </button>

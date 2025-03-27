@@ -25,6 +25,7 @@ const Template1 = ({
   templateData,
   fonts,
   files,
+  subdomain,
 }: {
   templateData: TemplateFormData;
   fonts: FontClassNames;
@@ -33,6 +34,7 @@ const Template1 = ({
     backgroundFile: File | null;
     previewImage: File | null;
   };
+  subdomain?: string;
 }) => {
   return (
     <main
@@ -68,7 +70,7 @@ const Template1 = ({
         <Roadmap templateData={templateData} />
         <HowToBuy templateData={templateData} />
         <Faq templateData={templateData} />
-        <Footer templateData={templateData} />
+        <Footer templateData={templateData} subdomain={subdomain} />
       </div>
     </main>
   );

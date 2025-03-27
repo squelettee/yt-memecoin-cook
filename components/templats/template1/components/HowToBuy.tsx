@@ -57,8 +57,11 @@ export const HowToBuy = ({
 
               {/* How to buy item */}
               <div
-                className="bg-white rounded-xl py-4 sm:py-5 border border-solid relative z-10"
-                style={{ borderColor: templateData.borderColor }}
+                className="rounded-xl py-4 sm:py-5 border border-solid relative z-10"
+                style={{
+                  borderColor: templateData.borderColor,
+                  backgroundColor: templateData.backgroundColor,
+                }}
               >
                 <div className="px-4 sm:px-6 py-2 sm:py-4 flex flex-col items-center gap-2 sm:gap-3 w-full">
                   <span

@@ -56,17 +56,27 @@ export const Hero = ({
                 style={{ backgroundColor: templateData.borderColor }}
               ></div>
               <div
-                className=" bg-white rounded-full border  border-solid px-4 md:px-6 py-3 md:py-4 flex items-center justify-between relative z-10"
-                style={{ borderColor: templateData.borderColor }}
+                className="rounded-full border  border-solid px-4 md:px-6 py-3 md:py-4 flex items-center justify-between relative z-10"
+                style={{
+                  borderColor: templateData.borderColor,
+                  backgroundColor: templateData.backgroundColor,
+                }}
               >
                 <div className="flex flex-col min-w-0 flex-1 mr-2">
-                  <span className="font-mono text-sm md:text-lg truncate">
+                  <span
+                    className="font-mono text-sm md:text-lg truncate"
+                    style={{ color: templateData.textColor }}
+                  >
                     {templateData.contractAddress}
                   </span>
                 </div>
                 <button
                   onClick={copyToClipboard}
                   className={`shrink-0 ml-2 md:ml-4 p-1.5 md:p-2 rounded-full transition-all duration-200 ${copied ? "bg-green-100 text-green-800" : "hover:bg-gray-100"}`}
+                  style={{
+                    backgroundColor: templateData.accentColor,
+                    color: templateData.textColor,
+                  }}
                 >
                   {copied ? (
                     <Check className="w-4 h-4 md:w-5 md:h-5" />

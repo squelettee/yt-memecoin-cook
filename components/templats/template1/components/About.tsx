@@ -82,7 +82,10 @@ export const About = ({
 
           {/* Right side - Text */}
           <div className="rounded-xl p-6 flex items-center justify-center">
-            <p className="font-bold text-lg break-words w-full max-w-full overflow-hidden">
+            <p
+              className="font-bold text-lg break-words w-full max-w-full overflow-hidden"
+              style={{ color: templateData.textColor }}
+            >
               {templateData.aboutContent}
             </p>
           </div>

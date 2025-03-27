@@ -60,8 +60,11 @@ export const Roadmap = ({
 
               {/* Phase card */}
               <div
-                className="bg-white rounded-xl py-5 border border-solid relative z-10 h-full"
-                style={{ borderColor: templateData.borderColor }}
+                className="rounded-xl py-5 border border-solid relative z-10 h-full"
+                style={{
+                  borderColor: templateData.borderColor,
+                  backgroundColor: templateData.backgroundColor,
+                }}
               >
                 <div className="px-6 py-4 flex flex-col items-center gap-3 h-full">
                   <span
@@ -73,7 +76,10 @@ export const Roadmap = ({
                   >
                     Phase {phase.phase}
                   </span>
-                  <span className="font-bold text-lg text-center">
+                  <span
+                    className="font-bold text-lg text-center"
+                    style={{ color: templateData.textColor }}
+                  >
                     {phase.text}
                   </span>
                 </div>
