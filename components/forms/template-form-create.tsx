@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { TemplateForm } from "@/components/forms/template-form";
 import { TemplateViews } from "@/components/template-views";
 import { TemplateFormData } from "@/schemas/templateSchema";
@@ -95,10 +95,6 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
     background: null,
     imagePreview: null,
   });
-
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
 
   return (
     <>

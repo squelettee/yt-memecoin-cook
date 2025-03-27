@@ -101,7 +101,6 @@ export const Hero = ({
               fallbackSrc="https://memecook.fun/assets/upload_image.jpeg"
               fill
               className="object-contain rounded-xl"
-              priority
             />
           </div>
         </div>

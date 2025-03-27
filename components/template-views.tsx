@@ -86,10 +86,6 @@ export const TemplateViews = ({
 }) => {
   const Template = templates[type];
 
-  if (!Template) {
-    return <div>Template not found</div>;
-  }
-
   const fonts: FontClassNames = {
     dynapuffClass: dynapuff.className,
     cherryBombClass: cherry_bomb_one.className,
@@ -101,6 +97,10 @@ export const TemplateViews = ({
     rammettoOneClass: rammetto_one.className,
     bagelFontOneClass: bagel_font_one.className,
   };
+
+  if (!Template) {
+    return <div>Template not found</div>;
+  }
 
   return (
     <div className={`w-full h-screen overflow-y-auto`}>

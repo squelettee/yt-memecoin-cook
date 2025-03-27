@@ -465,19 +465,10 @@ export function TemplateForm({
         };
 
         // Supprimer les références aux fichiers des données du formulaire
-        const formData = {
-          ...data,
-          // Assurez-vous que ces champs sont des chaînes ou null, pas des objets File
-          logo: typeof data.logo === "string" ? data.logo : null,
-          background:
-            typeof data.background === "string" ? data.background : null,
-          imagePreview:
-            typeof data.imagePreview === "string" ? data.imagePreview : null,
-        };
 
         // Envoyer les données du formulaire et les fichiers séparément
         const response = await createTemplate(
-          formData,
+          data,
           subdomain,
           publicKey.toBase58(),
           fileData,
@@ -551,11 +542,10 @@ export function TemplateForm({
                               ? "default"
                               : "outline"
                           }
-                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-200 ${
-                            selectedTemplate === template.id
-                              ? "bg-blue-600 hover:bg-blue-700 text-white"
-                              : "hover:border-blue-400 hover:bg-blue-50"
-                          }`}
+                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-200 ${selectedTemplate === template.id
+                            ? "bg-blue-600 hover:bg-blue-700 text-white"
+                            : "hover:border-blue-400 hover:bg-blue-50"
+                            }`}
                         >
                           <span className="text-lg font-bold">
                             {template.name}

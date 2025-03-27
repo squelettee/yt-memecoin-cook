@@ -15,12 +15,6 @@ export async function createTemplate(
     preview?: File | null;
   },
 ) {
-  console.log("📥 createTemplate called with:", {
-    templateData,
-    subdomain,
-    address,
-    hasFiles: !!files,
-  });
   try {
     const validationResult = templateSchema.safeParse(templateData);
 
@@ -33,7 +27,6 @@ export async function createTemplate(
 
     const validatedData = validationResult.data;
 
-    // Vérification du domaine
     const existingDomain = await prisma.domain.findUnique({
       where: { name: subdomain.toLowerCase() },
     });
@@ -42,13 +35,12 @@ export async function createTemplate(
       return { error: "Ce nom de domaine existe déjà" };
     }
 
-    // Récupération ou création de l'utilisateur
     const user = await getOrCreateUser(address);
     if ("error" in user) {
       return user;
     }
 
-    // Upload des images vers S3
+
     const s3Client = new S3Client({
       region: process.env.AWS_S3_REGION,
       credentials: {
@@ -57,9 +49,6 @@ export async function createTemplate(
       },
     });
 
-    let logoUrl: string | null = null;
-    let backgroundUrl: string | null = null;
-    let imagePreviewUrl: string | null = null;
     if (files?.logo) {
       const logoBuffer = await files.logo.arrayBuffer();
       const logoKey = `templates/${user.id}/${Date.now()}-logo-${files.logo.name}`;
@@ -73,7 +62,7 @@ export async function createTemplate(
         }),
       );
 
-      logoUrl = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${logoKey}`;
+      validatedData.logo = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${logoKey}`;
     }
 
     if (files?.background) {
@@ -89,7 +78,7 @@ export async function createTemplate(
         }),
       );
 
-      backgroundUrl = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${backgroundKey}`;
+      validatedData.backgroundImage = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${backgroundKey}`;
     }
 
     if (files?.preview) {
@@ -105,16 +94,12 @@ export async function createTemplate(
         }),
       );
 
-      imagePreviewUrl = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${imagePreviewKey}`;
+      validatedData.imagePreview = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${imagePreviewKey}`;
     }
 
-    // Puis créer le template avec les données validées
     const template = await prisma.template.create({
       data: {
         ...validatedData,
-        logo: logoUrl,
-        background: backgroundUrl,
-        imagePreview: imagePreviewUrl,
         domain: {
           create: {
             name: subdomain.toLowerCase(),
