@@ -4,10 +4,8 @@ import { TemplateFormData } from "@/schemas/templateSchema";
 import { ShadowButton } from "@/components/ui/shadow-button";
 import { DynamicImage } from "@/components/ui/dynamic-image";
 
-
 export const Navbar = ({
   templateData,
-
 }: {
   templateData: TemplateFormData;
 }) => {
@@ -17,7 +15,10 @@ export const Navbar = ({
   };
 
   return (
-    <div className="w-full py-8 px-4" style={{ backgroundColor: templateData.primaryColor }}>
+    <div
+      className="w-full py-8 px-4"
+      style={{ backgroundColor: templateData.primaryColor }}
+    >
       <nav className="max-w-7xl mx-auto relative">
         {/* Black shadow div positioned behind and offset */}
         <div className="absolute bg-black rounded-full w-full h-full top-[5px] right-[-5px]"></div>
@@ -45,24 +46,28 @@ export const Navbar = ({
               >
                 ABOUT
               </button>
-              {templateData.roadmapEnable && <button
-                onClick={() => scrollToSection("roadmap")}
-                className="font-bold text-black hover:text-gray-700 transition-colors"
-              >
-                ROADMAP
-              </button>}
+              {templateData.roadmapEnable && (
+                <button
+                  onClick={() => scrollToSection("roadmap")}
+                  className="font-bold text-black hover:text-gray-700 transition-colors"
+                >
+                  ROADMAP
+                </button>
+              )}
               <button
                 onClick={() => scrollToSection("how-to-buy")}
                 className="font-bold text-black hover:text-gray-700 transition-colors"
               >
                 HOW TO BUY
               </button>
-              {templateData.faqEnable && <button
-                onClick={() => scrollToSection("faq")}
-                className="font-bold text-black hover:text-gray-700 transition-colors"
-              >
-                FAQ
-              </button>}
+              {templateData.faqEnable && (
+                <button
+                  onClick={() => scrollToSection("faq")}
+                  className="font-bold text-black hover:text-gray-700 transition-colors"
+                >
+                  FAQ
+                </button>
+              )}
             </nav>
           </div>
 
@@ -86,7 +91,7 @@ export const Navbar = ({
               className="hover:opacity-90 transition-colors"
               style={{
                 backgroundColor: templateData.accentColor,
-                color: templateData.headingColor
+                color: templateData.headingColor,
               }}
               onClick={() => scrollToSection("buy")}
             >

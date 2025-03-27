@@ -2,7 +2,6 @@ import { TemplateFormData } from "@/schemas/templateSchema";
 import dynamic from "next/dynamic";
 import localFont from "next/font/local";
 
-
 const dynapuff = localFont({
   src: "../public/fonts/DynaPuff/DynaPuff-VariableFont_wdth,wght.ttf",
   weight: "800",
@@ -96,7 +95,6 @@ export const TemplateViews = ({
     rammettoOneClass: rammetto_one.className,
     bagelFontOneClass: bagel_font_one.className,
   };
-
 
   return (
     <div className={`w-full h-screen overflow-y-auto`}>

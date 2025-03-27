@@ -42,21 +42,27 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
 
     // About us
     aboutTitle: "ABOUT",
-    aboutContent: "We are a team of experienced traders and developers who are passionate about the future of the crypto market.",
+    aboutContent:
+      "We are a team of experienced traders and developers who are passionate about the future of the crypto market.",
     aboutImage: "",
 
     // Roadmap
     roadmapTitle: "ROADMAP",
-    roadmapPhase1: "Launch on Jupiter, Marketing Campaign, Community Building, Social Media Growth, Influencer Partnerships",
-    roadmapPhase2: "CEX Listings, Partnerships Development, Utility Expansion, NFT Collection Launch, Staking Platform",
-    roadmapPhase3: "Global Expansion, New Product Features, Community Rewards, Metaverse Integration, DAO Governance",
+    roadmapPhase1:
+      "Launch on Jupiter, Marketing Campaign, Community Building, Social Media Growth, Influencer Partnerships",
+    roadmapPhase2:
+      "CEX Listings, Partnerships Development, Utility Expansion, NFT Collection Launch, Staking Platform",
+    roadmapPhase3:
+      "Global Expansion, New Product Features, Community Rewards, Metaverse Integration, DAO Governance",
     roadmapEnable: true,
 
     // How to buy
     howtobuyTitle: "HOW TO BUY",
     howtobuyStep1: "Create any wallet of your choice, we recommend Phantom.",
-    howtobuyStep2: "Fund your wallet with Solana, you can buy Solana from an exchange.",
-    howtobuyStep3: "Head to Jupiter & paste our Contract Address, and swap your Solana to our token.",
+    howtobuyStep2:
+      "Fund your wallet with Solana, you can buy Solana from an exchange.",
+    howtobuyStep3:
+      "Head to Jupiter & paste our Contract Address, and swap your Solana to our token.",
     howtobuyStep4: "Wait for the transaction to confirm, and you're in!",
 
     // FAQ

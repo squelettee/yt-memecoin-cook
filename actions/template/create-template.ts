@@ -9,7 +9,7 @@ export async function createTemplate(
   templateData: TemplateFormData,
   subdomain: string,
   address: string,
-  files?: { logoFile?: File; backgroundFile?: File; imagePreviewFile?: File },
+  files?: { logo?: File; background?: File; preview?: File },
 ) {
   console.log("📥 createTemplate called with:", {
     templateData,
@@ -56,48 +56,48 @@ export async function createTemplate(
     let logoUrl: string | null = null;
     let backgroundUrl: string | null = null;
     let imagePreviewUrl: string | null = null;
-    if (files?.logoFile) {
-      const logoBuffer = await files.logoFile.arrayBuffer();
-      const logoKey = `templates/${user.id}/${Date.now()}-logo-${files.logoFile.name}`;
+    if (files?.logo) {
+      const logoBuffer = await files.logo.arrayBuffer();
+      const logoKey = `templates/${user.id}/${Date.now()}-logo-${files.logo.name}`;
 
       await s3Client.send(
         new PutObjectCommand({
           Bucket: process.env.AWS_BUCKET,
           Key: logoKey,
           Body: Buffer.from(logoBuffer),
-          ContentType: files.logoFile.type,
+          ContentType: files.logo.type,
         }),
       );
 
       logoUrl = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${logoKey}`;
     }
 
-    if (files?.backgroundFile) {
-      const backgroundBuffer = await files.backgroundFile.arrayBuffer();
-      const backgroundKey = `templates/${user.id}/${Date.now()}-background-${files.backgroundFile.name}`;
+    if (files?.background) {
+      const backgroundBuffer = await files.background.arrayBuffer();
+      const backgroundKey = `templates/${user.id}/${Date.now()}-background-${files.background.name}`;
 
       await s3Client.send(
         new PutObjectCommand({
           Bucket: process.env.AWS_BUCKET,
           Key: backgroundKey,
           Body: Buffer.from(backgroundBuffer),
-          ContentType: files.backgroundFile.type,
+          ContentType: files.background.type,
         }),
       );
 
       backgroundUrl = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${backgroundKey}`;
     }
 
-    if (files?.imagePreviewFile) {
-      const imagePreviewBuffer = await files.imagePreviewFile.arrayBuffer();
-      const imagePreviewKey = `templates/${user.id}/${Date.now()}-image-preview-${files.imagePreviewFile.name}`;
+    if (files?.preview) {
+      const imagePreviewBuffer = await files.preview.arrayBuffer();
+      const imagePreviewKey = `templates/${user.id}/${Date.now()}-image-preview-${files.preview.name}`;
 
       await s3Client.send(
         new PutObjectCommand({
           Bucket: process.env.AWS_BUCKET,
           Key: imagePreviewKey,
           Body: Buffer.from(imagePreviewBuffer),
-          ContentType: files.imagePreviewFile.type,
+          ContentType: files.preview.type,
         }),
       );
 

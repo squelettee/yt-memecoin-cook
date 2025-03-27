@@ -6,7 +6,6 @@ import Link from "next/link";
 import { TemplateFormData } from "@/schemas/templateSchema";
 
 export const About = ({ templateData }: { templateData: TemplateFormData }) => {
-
   const socialLinks = [
     {
       icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/twitter.png`,
@@ -36,14 +35,27 @@ export const About = ({ templateData }: { templateData: TemplateFormData }) => {
   ].filter((link) => link.icon && link.url);
 
   return (
-    <section id="about" className={`w-full px-4 py-12`} style={{ backgroundColor: templateData.secondaryColor }}>
+    <section
+      id="about"
+      className={`w-full px-4 py-12`}
+      style={{ backgroundColor: templateData.secondaryColor }}
+    >
       <div className="max-w-7xl mx-auto">
         <div className="relative flex justify-center mb-12">
           <div className="relative">
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold relative z-10" style={{ color: templateData.headingColor, textShadow: `-1px -1px 0 ${templateData.textBorderColor}, 1px -1px 0 ${templateData.textBorderColor}, -1px 1px 0 ${templateData.textBorderColor}, 1px 1px 0 ${templateData.textBorderColor}` }}>
+            <h2
+              className="text-4xl md:text-5xl lg:text-7xl font-bold relative z-10"
+              style={{
+                color: templateData.headingColor,
+                textShadow: `-1px -1px 0 ${templateData.textBorderColor}, 1px -1px 0 ${templateData.textBorderColor}, -1px 1px 0 ${templateData.textBorderColor}, 1px 1px 0 ${templateData.textBorderColor}`,
+              }}
+            >
               {templateData.aboutTitle}
             </h2>
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]" style={{ color: templateData.borderColor }}>
+            <h2
+              className="text-4xl md:text-5xl lg:text-7xl font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]"
+              style={{ color: templateData.borderColor }}
+            >
               {templateData.aboutTitle}
             </h2>
           </div>

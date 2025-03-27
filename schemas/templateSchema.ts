@@ -89,11 +89,6 @@ export const templateSchema: TemplateSchemaType = z.object({
   background: z.string().nullable().optional(),
   imagePreview: z.string().nullable().optional(),
 
-  // Champs temporaires pour les fichiers uploadés (non stockés en base de données)
-  logoFile: z.any().optional(),
-  backgroundFile: z.any().optional(),
-  imagePreviewFile: z.any().optional(),
-
   // Relations (maintenant optionnelles)
   domain: z
     .object({

@@ -16,25 +16,43 @@ export const Hero = ({ templateData }: { templateData: TemplateFormData }) => {
   };
 
   return (
-    <section className="w-full h-full flex-1 flex flex-col items-center justify-center p-4" style={{ backgroundColor: templateData.primaryColor }}>
+    <section
+      className="w-full h-full flex-1 flex flex-col items-center justify-center p-4"
+      style={{ backgroundColor: templateData.primaryColor }}
+    >
       <div className="max-w-7xl w-full h-full mx-auto relative flex flex-col lg:flex-row justify-around items-center gap-8">
         {/* Left Side */}
         <div className="w-full lg:w-1/2 h-full flex flex-col items-center justify-center">
           <div className="flex justify-center flex-col items-center gap-y-8 w-full">
             {/* Ticker with shadow effect */}
             <div className="relative flex self-center">
-              <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold relative z-10 " style={{ color: templateData.headingColor, textShadow: `-1px -1px 0 ${templateData.textBorderColor}, 1px -1px 0 ${templateData.textBorderColor}, -1px 1px 0 ${templateData.textBorderColor}, 1px 1px 0 ${templateData.textBorderColor}` }}>
+              <h1
+                className="text-5xl md:text-6xl lg:text-8xl font-bold relative z-10 "
+                style={{
+                  color: templateData.headingColor,
+                  textShadow: `-1px -1px 0 ${templateData.textBorderColor}, 1px -1px 0 ${templateData.textBorderColor}, -1px 1px 0 ${templateData.textBorderColor}, 1px 1px 0 ${templateData.textBorderColor}`,
+                }}
+              >
                 {ticker?.slice(0, 10)}
               </h1>
-              <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold absolute top-[5px] md:top-[8px] lg:top-[10px] right-[-5px] md:right-[-8px] lg:right-[-10px]" style={{ color: templateData.borderColor }}>
+              <h1
+                className="text-5xl md:text-6xl lg:text-8xl font-bold absolute top-[5px] md:top-[8px] lg:top-[10px] right-[-5px] md:right-[-8px] lg:right-[-10px]"
+                style={{ color: templateData.borderColor }}
+              >
                 {ticker?.slice(0, 10)}
               </h1>
             </div>
 
             {/* Contract Address Field */}
             <div className="relative group w-full max-w-2xl">
-              <div className="absolute rounded-full w-full h-full top-[5px] right-[-5px]" style={{ backgroundColor: templateData.borderColor }}></div>
-              <div className=" bg-white rounded-full border  border-solid px-4 md:px-6 py-3 md:py-4 flex items-center justify-between relative z-10" style={{ borderColor: templateData.borderColor }}>
+              <div
+                className="absolute rounded-full w-full h-full top-[5px] right-[-5px]"
+                style={{ backgroundColor: templateData.borderColor }}
+              ></div>
+              <div
+                className=" bg-white rounded-full border  border-solid px-4 md:px-6 py-3 md:py-4 flex items-center justify-between relative z-10"
+                style={{ borderColor: templateData.borderColor }}
+              >
                 <div className="flex flex-col min-w-0 flex-1 mr-2">
                   <span className="font-mono text-sm md:text-lg truncate">
                     {templateData.contractAddress}
@@ -60,7 +78,7 @@ export const Hero = ({ templateData }: { templateData: TemplateFormData }) => {
               className="hover:opacity-90"
               style={{
                 backgroundColor: templateData.accentColor,
-                color: templateData.headingColor
+                color: templateData.headingColor,
               }}
             >
               BUY NOW

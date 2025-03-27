@@ -36,9 +36,15 @@ export const Footer = ({
   ].filter((link) => link.icon && link.url);
 
   return (
-    <footer className="w-full py-10" style={{ backgroundColor: templateData.primaryColor }}>
+    <footer
+      className="w-full py-10"
+      style={{ backgroundColor: templateData.primaryColor }}
+    >
       <div className="container mx-auto flex flex-col items-center gap-6 px-4 py-8">
-        <h2 className="text-5xl font-bold text-center" style={{ color: templateData.headingColor }}>
+        <h2
+          className="text-5xl font-bold text-center"
+          style={{ color: templateData.headingColor }}
+        >
           {templateData.footerText}
         </h2>
         <div className="flex flex-col items-center gap-6">
@@ -64,7 +70,14 @@ export const Footer = ({
       </div>
       <div className="px-6 flex justify-center items-center">
         <span className="font-bold text-sm text-gray-500">
-          Made with <Link href="https://memecook.fun" target="_blank" rel="noopener noreferrer">Memecook</Link>
+          Made with{" "}
+          <Link
+            href="https://memecook.fun"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Memecook
+          </Link>
         </span>
       </div>
     </footer>

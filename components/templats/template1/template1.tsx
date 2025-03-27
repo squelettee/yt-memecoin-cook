@@ -23,38 +23,37 @@ interface FontClassNames {
 
 const Template1 = ({
   templateData,
-  fonts
+  fonts,
 }: {
   templateData: TemplateFormData;
-  fonts: FontClassNames
+  fonts: FontClassNames;
 }) => {
   return (
     <main
       className={`w-full min-h-screen relative font-bold ${(() => {
         switch (templateData.bodyFont) {
-          case 'dynapuff':
+          case "dynapuff":
             return fonts.dynapuffClass;
-          case 'cherry-bomb':
+          case "cherry-bomb":
             return fonts.cherryBombClass;
-          case 'space-grotesk':
+          case "space-grotesk":
             return fonts.spaceGroteskClass;
-          case 'gravitas-one':
+          case "gravitas-one":
             return fonts.gravitasOneClass;
-          case 'modak':
+          case "modak":
             return fonts.modakClass;
-          case 'rock-3d':
+          case "rock-3d":
             return fonts.rock3dClass;
-          case 'rubik-bubble':
+          case "rubik-bubble":
             return fonts.rubikBubbleClass;
-          case 'rammetto-one':
+          case "rammetto-one":
             return fonts.rammettoOneClass;
-          case 'bagel-font-one':
+          case "bagel-font-one":
             return fonts.bagelFontOneClass;
           default:
             return fonts.dynapuffClass;
         }
-      })()
-        }`}
+      })()}`}
     >
       <div className="flex flex-col items-center w-full">
         <Navbar templateData={templateData} />

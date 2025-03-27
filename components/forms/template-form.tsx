@@ -28,7 +28,13 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import dynamic from "next/dynamic";
 import { templates } from "@/config/templates";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 const WalletMultiButtonDynamic = dynamic(
   async () =>
     (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
@@ -66,7 +72,12 @@ const formConfigByTemplate: Record<
       { id: "telegram", label: "Telegram", type: "text", section: "Links" },
       { id: "pumpfun", label: "PumpFun", type: "text", section: "Links" },
       { id: "jupiter", label: "Jupiter", type: "text", section: "Links" },
-      { id: "dexscreener", label: "Dexscreener", type: "text", section: "Links" },
+      {
+        id: "dexscreener",
+        label: "Dexscreener",
+        type: "text",
+        section: "Links",
+      },
     ],
     Styling: [
       {
@@ -83,8 +94,8 @@ const formConfigByTemplate: Record<
           { label: "rock-3d", value: "rock-3d" },
           { label: "rubik-bubble", value: "rubik-bubble" },
           { label: "rammetto-one", value: "rammetto-one" },
-          { label: "bagel-font-one", value: "bagel-font-one" }
-        ]
+          { label: "bagel-font-one", value: "bagel-font-one" },
+        ],
       },
       {
         id: "bodyFont",
@@ -100,62 +111,72 @@ const formConfigByTemplate: Record<
           { label: "rock-3d", value: "rock-3d" },
           { label: "rubik-bubble", value: "rubik-bubble" },
           { label: "rammetto-one", value: "rammetto-one" },
-          { label: "bagel-font-one", value: "bagel-font-one" }
-        ]
+          { label: "bagel-font-one", value: "bagel-font-one" },
+        ],
       },
       {
         id: "headingColor",
         label: "Heading Color",
         type: "color",
-        section: "Styling"
+        section: "Styling",
       },
       {
         id: "backgroundColor",
         label: "Background Color",
         type: "color",
-        section: "Styling"
+        section: "Styling",
       },
       {
         id: "primaryColor",
         label: "Primary Color",
         type: "color",
-        section: "Styling"
+        section: "Styling",
       },
       {
         id: "secondaryColor",
         label: "Secondary Color",
         type: "color",
-        section: "Styling"
+        section: "Styling",
       },
       {
         id: "accentColor",
         label: "Accent Color",
         type: "color",
-        section: "Styling"
+        section: "Styling",
       },
       {
         id: "textColor",
         label: "Text Color",
         type: "color",
-        section: "Styling"
+        section: "Styling",
       },
       {
         id: "borderColor",
         label: "Border Color",
         type: "color",
-        section: "Styling"
+        section: "Styling",
       },
       {
         id: "textBorderColor",
         label: "Text Border Color",
         type: "color",
-        section: "Styling"
-      }
+        section: "Styling",
+      },
     ],
     Hero: [
       { id: "ticker", label: "Ticker", type: "text", section: "Hero" },
-      { id: "contractAddress", label: "Contract Address", type: "text", section: "Hero" },
-      { id: "previewImage", label: "Preview Image", type: "file", section: "Hero" },
+      {
+        id: "contractAddress",
+        label: "Contract Address",
+        type: "text",
+        section: "Hero",
+      },
+      {
+        id: "previewImage",
+        label: "Preview Image",
+        type: "file",
+        section: "Hero",
+      },
     ],
     About: [
       { id: "aboutTitle", label: "Title", type: "text", section: "About" },
@@ -163,18 +184,63 @@ const formConfigByTemplate: Record<
       { id: "aboutImage", label: "Image", type: "file", section: "About" },
     ],
     Roadmap: [
-      { id: "roadmapEnable", label: "Enable Roadmap", type: "checkbox", section: "Roadmap" },
+      {
+        id: "roadmapEnable",
+        label: "Enable Roadmap",
+        type: "checkbox",
+        section: "Roadmap",
+      },
       { id: "roadmapTitle", label: "Title", type: "text", section: "Roadmap" },
-      { id: "roadmapPhase1", label: "Phase 1", type: "text", section: "Roadmap" },
-      { id: "roadmapPhase2", label: "Phase 2", type: "text", section: "Roadmap" },
-      { id: "roadmapPhase3", label: "Phase 3", type: "text", section: "Roadmap" },
+      {
+        id: "roadmapPhase1",
+        label: "Phase 1",
+        type: "text",
+        section: "Roadmap",
+      },
+      {
+        id: "roadmapPhase2",
+        label: "Phase 2",
+        type: "text",
+        section: "Roadmap",
+      },
+      {
+        id: "roadmapPhase3",
+        label: "Phase 3",
+        type: "text",
+        section: "Roadmap",
+      },
     ],
     HowToBuy: [
-      { id: "howtobuyTitle", label: "Title", type: "text", section: "HowToBuy" },
-      { id: "howtobuyStep1", label: "Question 1", type: "text", section: "HowToBuy" },
-      { id: "howtobuyStep2", label: "Question 1", type: "text", section: "HowToBuy" },
-      { id: "howtobuyStep3", label: "Question 1", type: "text", section: "HowToBuy" },
-      { id: "howtobuyStep4", label: "Question 1", type: "text", section: "HowToBuy" },
+      {
+        id: "howtobuyTitle",
+        label: "Title",
+        type: "text",
+        section: "HowToBuy",
+      },
+      {
+        id: "howtobuyStep1",
+        label: "Question 1",
+        type: "text",
+        section: "HowToBuy",
+      },
+      {
+        id: "howtobuyStep2",
+        label: "Question 1",
+        type: "text",
+        section: "HowToBuy",
+      },
+      {
+        id: "howtobuyStep3",
+        label: "Question 1",
+        type: "text",
+        section: "HowToBuy",
+      },
+      {
+        id: "howtobuyStep4",
+        label: "Question 1",
+        type: "text",
+        section: "HowToBuy",
+      },
     ],
     FAQ: [
       {
@@ -370,9 +436,9 @@ export function TemplateForm({
           subdomain,
           publicKey.toBase58(),
           {
-            logoFile: values.logoFile,
-            backgroundFile: values.backgroundFile,
-            imagePreviewFile: values.imagePreviewFile,
+            logo: values.logo,
+            background: values.background,
+            preview: values.preview,
           },
         );
 
@@ -439,14 +505,23 @@ export function TemplateForm({
                             e.preventDefault();
                             handleTemplateChange(template.id);
                           }}
-                          variant={selectedTemplate === template.id ? "default" : "outline"}
-                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-200 ${selectedTemplate === template.id
-                            ? "bg-blue-600 hover:bg-blue-700 text-white"
-                            : "hover:border-blue-400 hover:bg-blue-50"
-                            }`}
+                          variant={
+                            selectedTemplate === template.id
+                              ? "default"
+                              : "outline"
+                          }
+                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-200 ${
+                            selectedTemplate === template.id
+                              ? "bg-blue-600 hover:bg-blue-700 text-white"
+                              : "hover:border-blue-400 hover:bg-blue-50"
+                          }`}
                         >
-                          <span className="text-lg font-bold">{template.name}</span>
-                          <span className="text-sm opacity-80">Click to select</span>
+                          <span className="text-lg font-bold">
+                            {template.name}
+                          </span>
+                          <span className="text-sm opacity-80">
+                            Click to select
+                          </span>
                         </Button>
                       </div>
                     ))}
@@ -507,9 +582,12 @@ export function TemplateForm({
                 {!isWalletConnected ? (
                   <div className="flex flex-col items-center gap-4 p-4 bg-violet-50 rounded-lg border border-violet-200">
                     <div className="text-center">
-                      <h3 className="text-lg font-bold text-violet-900 mb-1">Connect Your Wallet</h3>
+                      <h3 className="text-lg font-bold text-violet-900 mb-1">
+                        Connect Your Wallet
+                      </h3>
                       <p className="text-sm text-violet-700">
-                        To create your template, please connect your wallet first
+                        To create your template, please connect your wallet
+                        first
                       </p>
                     </div>
                     <WalletMultiButtonDynamic className="w-full max-w-md py-3 rounded-lg border-2 border-violet-300 bg-white hover:bg-violet-100 transition-colors shadow-sm" />
