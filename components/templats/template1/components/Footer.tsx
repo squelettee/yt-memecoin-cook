@@ -8,44 +8,25 @@ export const Footer = ({
   templateData: TemplateFormData;
 }) => {
   const socialLinks = [
-    { icon: templateData.twitter, url: templateData.twitter, alt: "Twitter" },
     {
-      icon: templateData.telegram,
+      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/twitter.png`,
+      url: templateData.twitter,
+      alt: "Twitter",
+    },
+    {
+      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/telegram.webp`,
       url: templateData.telegram,
       alt: "Telegram",
     },
-    { icon: templateData.tiktok, url: templateData.tiktok, alt: "TikTok" },
     {
-      icon: templateData.instagram,
-      url: templateData.instagram,
-      alt: "Instagram",
-    },
-    { icon: templateData.birdeye, url: templateData.birdeye, alt: "Birdeye" },
-    {
-      icon: templateData.coinGecko,
-      url: templateData.coinGecko,
-      alt: "CoinGecko",
-    },
-    {
-      icon: templateData.coinMarketCap,
-      url: templateData.coinMarketCap,
-      alt: "CoinMarketCap",
-    },
-    {
-      icon: templateData.dexscreener,
+      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/dex.jpeg`,
       url: templateData.dexscreener,
       alt: "DexScreener",
     },
     {
-      icon: templateData.dextools,
-      url: templateData.dextools,
-      alt: "DexTools",
-    },
-    { icon: templateData.pumpFun, url: templateData.pumpFun, alt: "PumpFun" },
-    {
-      icon: templateData.whitepaper,
-      url: templateData.whitepaper,
-      alt: "Whitepaper",
+      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/pump.jpeg`,
+      url: templateData.pumpFun,
+      alt: "PumpFun",
     },
   ].filter((link) => link.icon && link.url);
 

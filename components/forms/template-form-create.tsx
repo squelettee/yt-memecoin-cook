@@ -42,7 +42,7 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
 
     // About us
     aboutTitle: "ABOUT",
-    aboutContent: "",
+    aboutContent: "We are a team of experienced traders and developers who are passionate about the future of the crypto market.",
     aboutImage: "",
 
     // Roadmap

@@ -3,63 +3,30 @@
 import { DynamicImage } from "@/components/ui/dynamic-image";
 import { ShadowButton } from "@/components/ui/shadow-button";
 import Link from "next/link";
+import { TemplateFormData } from "@/schemas/templateSchema";
 
-export const About = () => {
+export const About = ({ templateData }: { templateData: TemplateFormData }) => {
+
   const socialLinks = [
     {
-      icon: "https://memecook.fun/socials/twitter.png",
-      url: "https://twitter.com",
+      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/twitter.png`,
+      url: templateData.twitter,
       alt: "Twitter",
     },
     {
-      icon: "https://memecook.fun/socials/telegram.webp",
-      url: "https://telegram.org",
+      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/telegram.webp`,
+      url: templateData.telegram,
       alt: "Telegram",
     },
     {
-      icon: "https://memecook.fun/socials/tiktok.png",
-      url: "https://tiktok.com",
-      alt: "TikTok",
-    },
-    {
-      icon: "https://memecook.fun/socials/instagram.png",
-      url: "https://instagram.com",
-      alt: "Instagram",
-    },
-    {
-      icon: "https://memecook.fun/socials/birdeye.png",
-      url: "https://birdeye.so",
-      alt: "Birdeye",
-    },
-    {
-      icon: "https://memecook.fun/socials/coingecko.png",
-      url: "https://coingecko.com",
-      alt: "CoinGecko",
-    },
-    {
-      icon: "https://memecook.fun/socials/coinmarketcap.png",
-      url: "https://coinmarketcap.com",
-      alt: "CoinMarketCap",
-    },
-    {
-      icon: "https://memecook.fun/socials/dexscreener.png",
-      url: "https://dexscreener.com",
+      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/dex.jpeg`,
+      url: templateData.dexscreener,
       alt: "DexScreener",
     },
     {
-      icon: "https://memecook.fun/socials/dextools.png",
-      url: "https://dextools.io",
-      alt: "DexTools",
-    },
-    {
-      icon: "https://memecook.fun/socials/pumpfun.png",
-      url: "https://pumpfun.io",
+      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/pump.jpeg`,
+      url: templateData.pumpFun,
       alt: "PumpFun",
-    },
-    {
-      icon: "https://memecook.fun/socials/whitepaper.png",
-      url: "https://whitepaper.com",
-      alt: "Whitepaper",
     },
   ].filter((link) => link.icon && link.url);
 
@@ -69,10 +36,10 @@ export const About = () => {
         <div className="relative flex justify-center mb-12">
           <div className="relative">
             <h2 className="text-4xl md:text-5xl lg:text-7xl text-white font-bold relative z-10 [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
-              ABOUT
+              {templateData.aboutTitle}
             </h2>
             <h2 className="text-4xl md:text-5xl lg:text-7xl text-black font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]">
-              ABOUT
+              {templateData.aboutTitle}
             </h2>
           </div>
         </div>
@@ -81,9 +48,9 @@ export const About = () => {
           {/* Left side - Image */}
           <div className="rounded-xl p-6">
             <DynamicImage
-              src="https://memecook.fun/assets/upload_image.jpeg"
+              src={templateData.aboutImage}
               file={undefined}
-              fallbackSrc="https://memecook.fun/assets/upload_image.jpeg"
+              fallbackSrc={`${process.env.NEXT_PUBLIC_API_URL}/assets/upload_image.jpeg`}
               alt="About Image"
               width={500}
               height={500}
@@ -93,8 +60,8 @@ export const About = () => {
 
           {/* Right side - Text */}
           <div className="rounded-xl p-6 flex items-center justify-center">
-            <p className="font-bold text-lg text-center">
-              long description of yout project here
+            <p className="font-bold text-lg break-words w-full max-w-full overflow-hidden">
+              {templateData.aboutContent}
             </p>
           </div>
         </div>

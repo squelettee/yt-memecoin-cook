@@ -103,20 +103,11 @@ const formConfigByTemplate: Record<
         section: "Appearance",
       },
     ],
-    Media: [
-      { id: "logoFile", label: "Logo", type: "file", section: "Media" },
-      {
-        id: "backgroundFile",
-        label: "Background",
-        type: "file",
-        section: "Media",
-      },
-      {
-        id: "imagePreviewFile",
-        label: "Image Preview",
-        type: "file",
-        section: "Media",
-      },
+
+    About: [
+      { id: "aboutTitle", label: "Title", type: "text", section: "About" },
+      { id: "aboutContent", label: "Content", type: "text", section: "About" },
+      { id: "aboutImage", label: "Image", type: "file", section: "About" },
     ],
     Roadmap: [
       { id: "roadmapEnable", label: "Enable Roadmap", type: "checkbox", section: "Roadmap" },

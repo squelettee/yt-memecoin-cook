@@ -22,7 +22,7 @@ const Template1 = ({ templateData }: { templateData: TemplateFormData }) => {
       <div className="flex flex-col items-center w-full">
         <Navbar templateData={templateData} />
         <Hero templateData={templateData} />
-        <About />
+        <About templateData={templateData} />
         <Roadmap templateData={templateData} />
         <HowToBuy templateData={templateData} />
         <Faq templateData={templateData} />
