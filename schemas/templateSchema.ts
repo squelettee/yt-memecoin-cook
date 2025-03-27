@@ -85,9 +85,9 @@ export const templateSchema: TemplateSchemaType = z.object({
   footerText: z.string().optional().or(z.literal("")),
 
   // File URLs (stockées en base de données)
-  logo: z.string().nullable().optional(),
-  background: z.string().nullable().optional(),
-  imagePreview: z.string().nullable().optional(),
+  logo: z.any().optional(),
+  background: z.any().optional(),
+  imagePreview: z.any().optional(),
 
   // Relations (maintenant optionnelles)
   domain: z

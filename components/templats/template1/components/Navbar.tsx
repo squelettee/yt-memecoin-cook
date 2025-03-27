@@ -6,8 +6,10 @@ import { DynamicImage } from "@/components/ui/dynamic-image";
 
 export const Navbar = ({
   templateData,
+  file,
 }: {
   templateData: TemplateFormData;
+  file?: File | null;
 }) => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -29,8 +31,7 @@ export const Navbar = ({
           <div className="flex items-center gap-8">
             <div className="h-10 w-10 rounded-full overflow-hidden flex items-center justify-center border border-black border-solid">
               <DynamicImage
-                src={templateData.logo}
-                file={templateData.logoFile}
+                src={file ? URL.createObjectURL(file) : templateData.logo}
                 fallbackSrc="https://memecook.fun/assets/upload_image.jpeg"
                 alt="Logo"
                 width={100}

@@ -9,7 +9,11 @@ export async function createTemplate(
   templateData: TemplateFormData,
   subdomain: string,
   address: string,
-  files?: { logo?: File; background?: File; preview?: File },
+  files?: {
+    logo?: File | null;
+    background?: File | null;
+    preview?: File | null;
+  },
 ) {
   console.log("📥 createTemplate called with:", {
     templateData,

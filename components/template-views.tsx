@@ -74,9 +74,15 @@ interface FontClassNames {
 export const TemplateViews = ({
   type,
   templateData,
+  files,
 }: {
   type: TemplateType;
   templateData: TemplateFormData;
+  files?: {
+    logoFile: File | null;
+    backgroundFile: File | null;
+    previewImage: File | null;
+  };
 }) => {
   const Template = templates[type];
 
@@ -98,7 +104,7 @@ export const TemplateViews = ({
 
   return (
     <div className={`w-full h-screen overflow-y-auto`}>
-      <Template templateData={templateData} fonts={fonts} />
+      <Template templateData={templateData} fonts={fonts} files={files} />
     </div>
   );
 };

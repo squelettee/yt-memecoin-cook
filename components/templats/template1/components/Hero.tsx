@@ -5,7 +5,13 @@ import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { DynamicImage } from "@/components/ui/dynamic-image";
 import { ShadowButton } from "@/components/ui/shadow-button";
-export const Hero = ({ templateData }: { templateData: TemplateFormData }) => {
+export const Hero = ({
+  templateData,
+  file,
+}: {
+  templateData: TemplateFormData;
+  file?: File | null;
+}) => {
   const { ticker } = templateData;
   const [copied, setCopied] = useState(false);
 
@@ -90,12 +96,10 @@ export const Hero = ({ templateData }: { templateData: TemplateFormData }) => {
         <div className="w-full lg:w-1/2 h-full flex items-center justify-center">
           <div className="relative w-full aspect-square flex items-center justify-center">
             <DynamicImage
-              src={templateData.previewImage}
-              file={templateData.previewImageFile}
+              src={file ? URL.createObjectURL(file) : templateData.previewImage}
               alt="Project Logo"
               fallbackSrc="https://memecook.fun/assets/upload_image.jpeg"
-              width={300}
-              height={300}
+              fill
               className="object-contain rounded-xl"
               priority
             />

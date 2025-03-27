@@ -5,7 +5,13 @@ import { ShadowButton } from "@/components/ui/shadow-button";
 import Link from "next/link";
 import { TemplateFormData } from "@/schemas/templateSchema";
 
-export const About = ({ templateData }: { templateData: TemplateFormData }) => {
+export const About = ({
+  templateData,
+  file,
+}: {
+  templateData: TemplateFormData;
+  file?: File | null;
+}) => {
   const socialLinks = [
     {
       icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/twitter.png`,
@@ -65,8 +71,7 @@ export const About = ({ templateData }: { templateData: TemplateFormData }) => {
           {/* Left side - Image */}
           <div className="rounded-xl p-6">
             <DynamicImage
-              src={templateData.aboutImage}
-              file={undefined}
+              src={file ? URL.createObjectURL(file) : templateData.aboutImage}
               fallbackSrc={"https://memecook.fun/assets/upload_image.jpeg"}
               alt="About Image"
               width={500}

@@ -24,9 +24,15 @@ interface FontClassNames {
 const Template1 = ({
   templateData,
   fonts,
+  files,
 }: {
   templateData: TemplateFormData;
   fonts: FontClassNames;
+  files?: {
+    logoFile: File | null;
+    backgroundFile: File | null;
+    previewImage: File | null;
+  };
 }) => {
   return (
     <main
@@ -56,9 +62,9 @@ const Template1 = ({
       })()}`}
     >
       <div className="flex flex-col items-center w-full">
-        <Navbar templateData={templateData} />
-        <Hero templateData={templateData} />
-        <About templateData={templateData} />
+        <Navbar templateData={templateData} file={files?.logoFile} />
+        <Hero templateData={templateData} file={files?.previewImage} />
+        <About templateData={templateData} file={files?.backgroundFile} />
         <Roadmap templateData={templateData} />
         <HowToBuy templateData={templateData} />
         <Faq templateData={templateData} />

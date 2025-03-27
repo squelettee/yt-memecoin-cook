@@ -4,7 +4,7 @@ import Image, { ImageProps } from "next/image";
 import { useEffect, useState } from "react";
 
 type DynamicImageProps = Omit<ImageProps, "src"> & {
-  src?: string;
+  src?: string | File;
   file?: File;
   fallbackSrc: string;
 };
@@ -20,7 +20,7 @@ export const DynamicImage = ({
 
   useEffect(() => {
     if (src) {
-      setImageUrl(src);
+      setImageUrl(src as string);
     } else if (file) {
       const url = URL.createObjectURL(file);
       setImageUrl(url);

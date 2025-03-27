@@ -1,11 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TemplateForm } from "@/components/forms/template-form";
 import { TemplateViews } from "@/components/template-views";
 import { TemplateFormData } from "@/schemas/templateSchema";
 
 export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
+  const [files, setFiles] = useState<{
+    logoFile: File | null;
+    backgroundFile: File | null;
+    previewImage: File | null;
+  }>({
+    logoFile: null,
+    backgroundFile: null,
+    previewImage: null,
+  });
+
   const [templateData, setTemplateData] = useState<TemplateFormData>({
     type: "template1",
     projectName: "",
@@ -86,14 +96,24 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
     imagePreview: null,
   });
 
+  useEffect(() => {
+    console.log(files);
+  }, [files]);
+
   return (
     <>
       <TemplateForm
         onUpdate={(data: TemplateFormData) => setTemplateData(data)}
         templateData={templateData}
         subdomain={subdomain}
+        files={files}
+        setFiles={setFiles}
       />
-      <TemplateViews type={templateData.type} templateData={templateData} />
+      <TemplateViews
+        type={templateData.type}
+        templateData={templateData}
+        files={files}
+      />
     </>
   );
 }

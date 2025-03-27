@@ -47,6 +47,18 @@ interface TemplateFormProps {
   onUpdate: (data: TemplateFormData) => void;
   templateData: TemplateFormData;
   subdomain: string;
+  files: {
+    logoFile: File | null;
+    backgroundFile: File | null;
+    previewImage: File | null;
+  };
+  setFiles: React.Dispatch<
+    React.SetStateAction<{
+      logoFile: File | null;
+      backgroundFile: File | null;
+      previewImage: File | null;
+    }>
+  >;
 }
 
 // Types
@@ -163,6 +175,7 @@ const formConfigByTemplate: Record<
         section: "Styling",
       },
     ],
+    Navbar: [{ id: "logo", label: "Logo", type: "file", section: "Navbar" }],
     Hero: [
       { id: "ticker", label: "Ticker", type: "text", section: "Hero" },
       {
@@ -286,9 +299,11 @@ const defaultFormConfig: Record<string, FormFieldConfig[]> = {
 const FormFieldRenderer = ({
   field,
   formField,
+  setFiles,
 }: {
   field: FormFieldConfig;
   formField: ControllerRenderProps<TemplateFormData, Path<TemplateFormData>>;
+  setFiles: TemplateFormProps["setFiles"];
 }) => {
   // 📁 File Input
   if (field.type === "file") {
@@ -300,6 +315,15 @@ const FormFieldRenderer = ({
           onChange={(e) => {
             const file = e.target.files?.[0] || null;
             formField.onChange(file);
+
+            // Update files state based on field ID
+            if (field.id === "previewImage") {
+              setFiles((prev) => ({ ...prev, previewImage: file }));
+            } else if (field.id === "aboutImage") {
+              setFiles((prev) => ({ ...prev, backgroundFile: file }));
+            } else if (field.id === "logo") {
+              setFiles((prev) => ({ ...prev, logoFile: file }));
+            }
           }}
         />
       </div>
@@ -387,6 +411,8 @@ export function TemplateForm({
   onUpdate,
   templateData,
   subdomain,
+  files,
+  setFiles,
 }: TemplateFormProps) {
   const [selectedTemplate, setSelectedTemplate] = useState<string>(
     templateData.type || "template1",
@@ -422,7 +448,7 @@ export function TemplateForm({
     setActiveTab("edits");
   };
 
-  const onSubmit = (values: TemplateFormData) => {
+  const onSubmit = async (data: TemplateFormData) => {
     setError(null);
 
     startTransition(async () => {
@@ -431,15 +457,30 @@ export function TemplateForm({
           throw new Error("Wallet not connected");
         }
 
+        // Utilisez directement les fichiers du state
+        const fileData = {
+          logo: files.logoFile,
+          background: files.backgroundFile,
+          preview: files.previewImage,
+        };
+
+        // Supprimer les références aux fichiers des données du formulaire
+        const formData = {
+          ...data,
+          // Assurez-vous que ces champs sont des chaînes ou null, pas des objets File
+          logo: typeof data.logo === "string" ? data.logo : null,
+          background:
+            typeof data.background === "string" ? data.background : null,
+          imagePreview:
+            typeof data.imagePreview === "string" ? data.imagePreview : null,
+        };
+
+        // Envoyer les données du formulaire et les fichiers séparément
         const response = await createTemplate(
-          values,
+          formData,
           subdomain,
           publicKey.toBase58(),
-          {
-            logo: values.logo,
-            background: values.background,
-            preview: values.preview,
-          },
+          fileData,
         );
 
         if (!response.success) {
@@ -510,10 +551,11 @@ export function TemplateForm({
                               ? "default"
                               : "outline"
                           }
-                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-200 ${selectedTemplate === template.id
-                            ? "bg-blue-600 hover:bg-blue-700 text-white"
-                            : "hover:border-blue-400 hover:bg-blue-50"
-                            }`}
+                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-200 ${
+                            selectedTemplate === template.id
+                              ? "bg-blue-600 hover:bg-blue-700 text-white"
+                              : "hover:border-blue-400 hover:bg-blue-50"
+                          }`}
                         >
                           <span className="text-lg font-bold">
                             {template.name}
@@ -561,6 +603,7 @@ export function TemplateForm({
                                       <FormFieldRenderer
                                         field={field}
                                         formField={formField}
+                                        setFiles={setFiles}
                                       />
                                     </FormControl>
 
