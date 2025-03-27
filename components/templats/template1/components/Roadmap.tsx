@@ -20,14 +20,14 @@ export const Roadmap = ({ templateData }: { templateData: TemplateFormData }) =>
   ].filter((phase) => phase.text);
 
   return (
-    <section id="roadmap" className="w-full px-4 py-12 bg-cyan-300">
+    <section id="roadmap" className={`w-full px-4 py-12`} style={{ backgroundColor: templateData.primaryColor }}>
       <div className="max-w-7xl mx-auto">
         <div className="relative flex justify-center mb-12">
           <div className="relative">
-            <h2 className="text-4xl md:text-5xl lg:text-7xl text-white font-bold relative z-10 [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold relative z-10" style={{ color: templateData.headingColor, textShadow: `-1px -1px 0 ${templateData.textBorderColor}, 1px -1px 0 ${templateData.textBorderColor}, -1px 1px 0 ${templateData.textBorderColor}, 1px 1px 0 ${templateData.textBorderColor}` }}>
               {templateData.roadmapTitle}
             </h2>
-            <h2 className="text-4xl md:text-5xl lg:text-7xl text-black font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]">
+            <h2 className="text-4xl md:text-5xl lg:text-7xl  font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]" style={{ color: templateData.borderColor }}>
               {templateData.roadmapTitle}
             </h2>
           </div>
@@ -37,12 +37,12 @@ export const Roadmap = ({ templateData }: { templateData: TemplateFormData }) =>
           {roadmapPhases.map((phase) => (
             <div key={phase.phase} className="relative group">
               {/* Shadow effect */}
-              <div className="absolute bg-black py-7 rounded-xl w-full h-full top-[5px] right-[-5px]" />
+              <div className="absolute rounded-xl w-full h-full top-[5px] right-[-5px]" style={{ backgroundColor: templateData.borderColor }} />
 
               {/* Phase card */}
-              <div className="bg-white rounded-xl py-5 border border-black border-solid relative z-10 h-full">
+              <div className="bg-white rounded-xl py-5 border border-solid relative z-10 h-full" style={{ borderColor: templateData.borderColor }}>
                 <div className="px-6 py-4 flex flex-col items-center gap-3 h-full">
-                  <span className="flex items-center justify-center w-auto px-4 h-8 rounded-full bg-yellow-500 text-white font-bold">
+                  <span className="flex items-center justify-center w-auto px-4 h-8 rounded-full text-white font-bold" style={{ backgroundColor: templateData.accentColor, color: templateData.headingColor }}>
                     Phase {phase.phase}
                   </span>
                   <span className="font-bold text-lg text-center">

@@ -31,10 +31,10 @@ export const Footer = ({
   ].filter((link) => link.icon && link.url);
 
   return (
-    <footer className="w-full bg-cyan-300 py-10">
+    <footer className="w-full py-10" style={{ backgroundColor: templateData.primaryColor }}>
       <div className="container mx-auto flex flex-col items-center gap-6 px-4 py-8">
-        <h2 className="text-5xl font-bold text-center">
-          {templateData.footerText || "Join our community"}
+        <h2 className="text-5xl font-bold text-center" style={{ color: templateData.headingColor }}>
+          {templateData.footerText}
         </h2>
         <div className="flex flex-col items-center gap-6">
           {socialLinks.length > 0 && (

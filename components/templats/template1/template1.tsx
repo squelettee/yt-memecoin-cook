@@ -9,15 +9,31 @@ import { HowToBuy } from "./components/HowToBuy";
 import { Roadmap } from "./components/Roadmap";
 import { About } from "./components/About";
 
-const Template1 = ({ templateData }: { templateData: TemplateFormData }) => {
+interface FontClassNames {
+  dynapuffClass: string;
+  cherryBombClass: string;
+}
+
+const Template1 = ({
+  templateData,
+  fonts
+}: {
+  templateData: TemplateFormData;
+  fonts: FontClassNames
+}) => {
   return (
     <main
-      className="w-full min-h-screen relative font-bold"
-      style={{
-        fontFamily: templateData.bodyFont
-          ? `var(--font-${templateData.bodyFont.toLowerCase()})`
-          : "inherit",
-      }}
+      className={`w-full min-h-screen relative font-bold ${(() => {
+        switch (templateData.bodyFont) {
+          case 'dynapuff':
+            return fonts.dynapuffClass;
+          case 'cherry-bomb':
+            return fonts.cherryBombClass;
+          default:
+            return fonts.dynapuffClass;
+        }
+      })()
+        }`}
     >
       <div className="flex flex-col items-center w-full">
         <Navbar templateData={templateData} />

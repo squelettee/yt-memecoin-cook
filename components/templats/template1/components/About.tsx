@@ -31,14 +31,14 @@ export const About = ({ templateData }: { templateData: TemplateFormData }) => {
   ].filter((link) => link.icon && link.url);
 
   return (
-    <section id="about" className="w-full px-4 py-12 bg-slate-50">
+    <section id="about" className={`w-full px-4 py-12`} style={{ backgroundColor: templateData.secondaryColor }}>
       <div className="max-w-7xl mx-auto">
         <div className="relative flex justify-center mb-12">
           <div className="relative">
-            <h2 className="text-4xl md:text-5xl lg:text-7xl text-white font-bold relative z-10 [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold relative z-10" style={{ color: templateData.headingColor, textShadow: `-1px -1px 0 ${templateData.textBorderColor}, 1px -1px 0 ${templateData.textBorderColor}, -1px 1px 0 ${templateData.textBorderColor}, 1px 1px 0 ${templateData.textBorderColor}` }}>
               {templateData.aboutTitle}
             </h2>
-            <h2 className="text-4xl md:text-5xl lg:text-7xl text-black font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]">
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold absolute top-[2px] md:top-[3px] lg:top-[4px] right-[-2px] md:right-[-3px] lg:right-[-4px]" style={{ color: templateData.borderColor }}>
               {templateData.aboutTitle}
             </h2>
           </div>
@@ -50,7 +50,7 @@ export const About = ({ templateData }: { templateData: TemplateFormData }) => {
             <DynamicImage
               src={templateData.aboutImage}
               file={undefined}
-              fallbackSrc={`${process.env.NEXT_PUBLIC_API_URL}/assets/upload_image.jpeg`}
+              fallbackSrc={"https://memecook.fun/assets/upload_image.jpeg"}
               alt="About Image"
               width={500}
               height={500}

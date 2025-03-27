@@ -28,6 +28,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import dynamic from "next/dynamic";
 import { templates } from "@/config/templates";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 const WalletMultiButtonDynamic = dynamic(
   async () =>
     (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
@@ -60,50 +61,81 @@ const formConfigByTemplate: Record<
 > = {
   // Configuration pour template1
   template1: {
-    "Project Info": [
+    Styling: [
       {
-        id: "projectName",
-        label: "Project Name",
-        type: "text",
-        section: "Project Info",
-        placeholder: "Enter project name",
+        id: "headingFont",
+        label: "Heading Font",
+        type: "select",
+        section: "Styling",
+        options: [
+          { label: "dynapuff", value: "dynapuff" },
+          { label: "cherry-bomb", value: "cherry-bomb" }
+        ]
       },
       {
-        id: "ticker",
-        label: "Ticker",
-        type: "text",
-        section: "Project Info",
-        placeholder: "Enter ticker",
+        id: "bodyFont",
+        label: "Body Font",
+        type: "select",
+        section: "Styling",
+        options: [
+          { label: "dynapuff", value: "dynapuff" },
+          { label: "cherry-bomb", value: "cherry-bomb" }
+        ]
       },
-      {
-        id: "description",
-        label: "Description",
-        type: "text",
-        section: "Project Info",
-        placeholder: "Enter description",
-      },
-    ],
-    Appearance: [
       {
         id: "headingColor",
         label: "Heading Color",
         type: "color",
-        section: "Appearance",
+        section: "Styling"
       },
       {
         id: "backgroundColor",
         label: "Background Color",
         type: "color",
-        section: "Appearance",
+        section: "Styling"
       },
       {
         id: "primaryColor",
         label: "Primary Color",
         type: "color",
-        section: "Appearance",
+        section: "Styling"
       },
+      {
+        id: "secondaryColor",
+        label: "Secondary Color",
+        type: "color",
+        section: "Styling"
+      },
+      {
+        id: "accentColor",
+        label: "Accent Color",
+        type: "color",
+        section: "Styling"
+      },
+      {
+        id: "textColor",
+        label: "Text Color",
+        type: "color",
+        section: "Styling"
+      },
+      {
+        id: "borderColor",
+        label: "Border Color",
+        type: "color",
+        section: "Styling"
+      },
+      {
+        id: "textBorderColor",
+        label: "Text Border Color",
+        type: "color",
+        section: "Styling"
+      }
     ],
-
+    Hero: [
+      { id: "ticker", label: "Ticker", type: "text", section: "Hero" },
+      { id: "contractAddress", label: "Contract Address", type: "text", section: "Hero" },
+      { id: "previewImage", label: "Preview Image", type: "file", section: "Hero" },
+    ],
     About: [
       { id: "aboutTitle", label: "Title", type: "text", section: "About" },
       { id: "aboutContent", label: "Content", type: "text", section: "About" },
@@ -195,16 +227,46 @@ const FormFieldRenderer = ({
     );
   }
 
+  if (field.type === "select") {
+    return (
+      <Select
+        value={formField.value}
+        onValueChange={(value) => formField.onChange(value)}
+      >
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder={field.placeholder} />
+        </SelectTrigger>
+        <SelectContent>
+          {field.options?.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    );
+  }
+
   if (field.type === "color") {
     return (
-      <Input
-        {...formField}
-        type="color"
-        className="h-10 w-full cursor-pointer"
-        onChange={(e) => {
-          formField.onChange(e.target.value);
-        }}
-      />
+      <div className="flex items-center gap-2">
+        <Input
+          {...formField}
+          type="color"
+          className="h-10 w-20 cursor-pointer rounded-md border border-input"
+          onChange={(e) => {
+            formField.onChange(e.target.value);
+          }}
+        />
+        <Input
+          value={formField.value}
+          type="text"
+          className="h-10 w-28 uppercase"
+          onChange={(e) => {
+            formField.onChange(e.target.value);
+          }}
+        />
+      </div>
     );
   }
 

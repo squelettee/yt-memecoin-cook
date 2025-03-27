@@ -51,8 +51,8 @@ model Template {
   twitter        String?  @db.VarChar(255)
 
   // Styling configuration
-  headingFont     String   @default("outfit") @db.VarChar(255)
-  bodyFont        String   @default("outfit") @db.VarChar(255)
+  headingFont     String   @default("dynapuff") @db.VarChar(255)
+  bodyFont        String   @default("dynapuff") @db.VarChar(255)
   headingColor    String   @default("#ffffff") @db.VarChar(255)
   backgroundColor String   @default("#000000") @db.VarChar(255)
   primaryColor    String   @default("#75caff") @db.VarChar(255)

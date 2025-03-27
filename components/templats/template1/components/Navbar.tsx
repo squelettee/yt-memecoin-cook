@@ -4,8 +4,10 @@ import { TemplateFormData } from "@/schemas/templateSchema";
 import { ShadowButton } from "@/components/ui/shadow-button";
 import { DynamicImage } from "@/components/ui/dynamic-image";
 
+
 export const Navbar = ({
   templateData,
+
 }: {
   templateData: TemplateFormData;
 }) => {
@@ -15,7 +17,7 @@ export const Navbar = ({
   };
 
   return (
-    <div className="w-full py-8 px-4 bg-cyan-300">
+    <div className="w-full py-8 px-4" style={{ backgroundColor: templateData.primaryColor }}>
       <nav className="max-w-7xl mx-auto relative">
         {/* Black shadow div positioned behind and offset */}
         <div className="absolute bg-black rounded-full w-full h-full top-[5px] right-[-5px]"></div>
@@ -43,24 +45,24 @@ export const Navbar = ({
               >
                 ABOUT
               </button>
-              <button
+              {templateData.roadmapEnable && <button
                 onClick={() => scrollToSection("roadmap")}
                 className="font-bold text-black hover:text-gray-700 transition-colors"
               >
                 ROADMAP
-              </button>
+              </button>}
               <button
                 onClick={() => scrollToSection("how-to-buy")}
                 className="font-bold text-black hover:text-gray-700 transition-colors"
               >
                 HOW TO BUY
               </button>
-              <button
+              {templateData.faqEnable && <button
                 onClick={() => scrollToSection("faq")}
                 className="font-bold text-black hover:text-gray-700 transition-colors"
               >
                 FAQ
-              </button>
+              </button>}
             </nav>
           </div>
 
@@ -81,7 +83,11 @@ export const Navbar = ({
             <ShadowButton
               variant="text"
               size="md"
-              className="text-white bg-pink-500 hover:bg-pink-600"
+              className="hover:opacity-90 transition-colors"
+              style={{
+                backgroundColor: templateData.accentColor,
+                color: templateData.headingColor
+              }}
               onClick={() => scrollToSection("buy")}
             >
               BUY NOW

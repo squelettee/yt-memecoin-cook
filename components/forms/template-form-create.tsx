@@ -11,7 +11,7 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
     projectName: "",
     ticker: "$SOL",
     description: "",
-    contractAddress: "",
+    contractAddress: "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
 
     // Links
     whitepaper: "",
@@ -29,13 +29,13 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
     pumpFun: "",
 
     // Styling configuration
-    headingFont: "outfit",
-    bodyFont: "outfit",
+    headingFont: "dynapuff",
+    bodyFont: "dynapuff",
     headingColor: "#ffffff",
     backgroundColor: "#000000",
     primaryColor: "#75caff",
     secondaryColor: "#f5f5f5",
-    accentColor: "#2284ec",
+    accentColor: "#ec4899",
     textColor: "#000000",
     borderColor: "#2284ec",
     textBorderColor: "#000000",
