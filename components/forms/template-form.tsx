@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, ControllerRenderProps, Path } from "react-hook-form";
-import { templateSchema, TemplateFormData } from "@/schemas/templateSchema";
+import { useForm } from "react-hook-form";
+import { templateSchema, TemplateFormData, FormFieldConfig } from "@/schemas/templateSchema";
 import { createTemplate } from "@/actions/template/create-template";
 import {
   Form,
@@ -12,7 +12,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -27,14 +26,9 @@ import { useState, useTransition, useMemo, useEffect } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import dynamic from "next/dynamic";
 import { templates } from "@/config/templates";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { FormFieldRenderer } from "./form-field-render";
+import { formConfigByTemplate } from "./form-config-by-template";
+
 const WalletMultiButtonDynamic = dynamic(
   async () =>
     (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
@@ -61,223 +55,10 @@ interface TemplateFormProps {
   >;
 }
 
-// Types
-interface FormFieldConfig {
-  id: string;
-  label: string;
-  type: "text" | "color" | "file" | "checkbox" | "select";
-  section: string;
-  placeholder?: string;
-  options?: { label: string; value: string }[];
-  showForTemplates?: string[]; // Types de templates pour lesquels ce champ est visible
-}
+
 
 // Configuration des champs du formulaire par type de template
-const formConfigByTemplate: Record<
-  string,
-  Record<string, FormFieldConfig[]>
-> = {
-  // Configuration pour template1
-  template1: {
-    Links: [
-      { id: "twitter", label: "Twitter", type: "text", section: "Links" },
-      { id: "telegram", label: "Telegram", type: "text", section: "Links" },
-      { id: "pumpFun", label: "PumpFun", type: "text", section: "Links" },
-      { id: "jupiter", label: "Jupiter", type: "text", section: "Links" },
-      {
-        id: "dexscreener",
-        label: "Dexscreener",
-        type: "text",
-        section: "Links",
-      },
-    ],
-    Styling: [
-      {
-        id: "headingFont",
-        label: "Heading Font",
-        type: "select",
-        section: "Styling",
-        options: [
-          { label: "dynapuff", value: "dynapuff" },
-          { label: "cherry-bomb", value: "cherry-bomb" },
-          { label: "space-grotesk", value: "space-grotesk" },
-          { label: "gravitas-one", value: "gravitas-one" },
-          { label: "rubik-bubble", value: "rubik-bubble" },
-          { label: "rammetto-one", value: "rammetto-one" },
-          { label: "bagel-font-one", value: "bagel-font-one" },
-        ],
-      },
-      {
-        id: "bodyFont",
-        label: "Body Font",
-        type: "select",
-        section: "Styling",
-        options: [
-          { label: "dynapuff", value: "dynapuff" },
-          { label: "cherry-bomb", value: "cherry-bomb" },
-          { label: "space-grotesk", value: "space-grotesk" },
-          { label: "gravitas-one", value: "gravitas-one" },
-          { label: "rubik-bubble", value: "rubik-bubble" },
-          { label: "rammetto-one", value: "rammetto-one" },
-          { label: "bagel-font-one", value: "bagel-font-one" },
-        ],
-      },
-      {
-        id: "headingColor",
-        label: "Heading Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "backgroundColor",
-        label: "Background Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "primaryColor",
-        label: "Primary Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "secondaryColor",
-        label: "Secondary Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "accentColor",
-        label: "Accent Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "textColor",
-        label: "Text Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "borderColor",
-        label: "Border Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "textBorderColor",
-        label: "Text Border Color",
-        type: "color",
-        section: "Styling",
-      },
-    ],
-    Navbar: [{ id: "logo", label: "Logo", type: "file", section: "Navbar" }],
-    Hero: [
-      { id: "ticker", label: "Ticker", type: "text", section: "Hero" },
-      {
-        id: "contractAddress",
-        label: "Contract Address",
-        type: "text",
-        section: "Hero",
-      },
-      {
-        id: "previewImage",
-        label: "Preview Image",
-        type: "file",
-        section: "Hero",
-      },
-    ],
-    About: [
-      { id: "aboutTitle", label: "Title", type: "text", section: "About" },
-      { id: "aboutContent", label: "Content", type: "text", section: "About" },
-      { id: "aboutImage", label: "Image", type: "file", section: "About" },
-    ],
-    Roadmap: [
-      {
-        id: "roadmapEnable",
-        label: "Enable Roadmap",
-        type: "checkbox",
-        section: "Roadmap",
-      },
-      { id: "roadmapTitle", label: "Title", type: "text", section: "Roadmap" },
-      {
-        id: "roadmapPhase1",
-        label: "Phase 1",
-        type: "text",
-        section: "Roadmap",
-      },
-      {
-        id: "roadmapPhase2",
-        label: "Phase 2",
-        type: "text",
-        section: "Roadmap",
-      },
-      {
-        id: "roadmapPhase3",
-        label: "Phase 3",
-        type: "text",
-        section: "Roadmap",
-      },
-    ],
-    HowToBuy: [
-      {
-        id: "howtobuyTitle",
-        label: "Title",
-        type: "text",
-        section: "HowToBuy",
-      },
-      {
-        id: "howtobuyStep1",
-        label: "Question 1",
-        type: "text",
-        section: "HowToBuy",
-      },
-      {
-        id: "howtobuyStep2",
-        label: "Question 1",
-        type: "text",
-        section: "HowToBuy",
-      },
-      {
-        id: "howtobuyStep3",
-        label: "Question 1",
-        type: "text",
-        section: "HowToBuy",
-      },
-      {
-        id: "howtobuyStep4",
-        label: "Question 1",
-        type: "text",
-        section: "HowToBuy",
-      },
-    ],
-    FAQ: [
-      {
-        id: "faqEnable",
-        label: "Enable FAQ",
-        type: "checkbox",
-        section: "FAQ",
-      },
-      { id: "faqTitle", label: "Title", type: "text", section: "FAQ" },
-      { id: "faqQuestion1", label: "Question 1", type: "text", section: "FAQ" },
-      { id: "faqAnswer1", label: "Answer 1", type: "text", section: "FAQ" },
-      { id: "faqQuestion2", label: "Question 2", type: "text", section: "FAQ" },
-      { id: "faqAnswer2", label: "Answer 2", type: "text", section: "FAQ" },
-      { id: "faqQuestion3", label: "Question 3", type: "text", section: "FAQ" },
-      { id: "faqAnswer3", label: "Answer 3", type: "text", section: "FAQ" },
-      { id: "faqQuestion4", label: "Question 4", type: "text", section: "FAQ" },
-      { id: "faqAnswer4", label: "Answer 4", type: "text", section: "FAQ" },
-    ],
-    Footer: [
-      {
-        id: "footerText",
-        label: "Footer Text",
-        type: "text",
-        section: "Footer",
-      },
-    ],
-  },
-};
+
 
 // Configuration par défaut (utilisée si le type de template n'est pas trouvé)
 const defaultFormConfig: Record<string, FormFieldConfig[]> = {
@@ -290,117 +71,6 @@ const defaultFormConfig: Record<string, FormFieldConfig[]> = {
       placeholder: "Enter project name",
     },
   ],
-};
-
-const FormFieldRenderer = ({
-  field,
-  formField,
-  setFiles,
-}: {
-  field: FormFieldConfig;
-  formField: ControllerRenderProps<TemplateFormData, Path<TemplateFormData>>;
-  setFiles: TemplateFormProps["setFiles"];
-}) => {
-  // 📁 File Input
-  if (field.type === "file") {
-    return (
-      <div className="w-full">
-        <Input
-          type="file"
-          className="file:mr-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
-          onChange={(e) => {
-            const file = e.target.files?.[0] || null;
-            formField.onChange(file);
-
-            // Update files state based on field ID
-            if (field.id === "previewImage") {
-              setFiles((prev) => ({ ...prev, previewImage: file }));
-            } else if (field.id === "aboutImage") {
-              setFiles((prev) => ({ ...prev, backgroundFile: file }));
-            } else if (field.id === "logo") {
-              setFiles((prev) => ({ ...prev, logoFile: file }));
-            }
-          }}
-        />
-      </div>
-    );
-  }
-
-  if (field.type === "checkbox") {
-    return (
-      <div className="flex items-center space-x-2">
-        <Checkbox
-          {...formField}
-          checked={formField.value}
-          onCheckedChange={(checked) => {
-            formField.onChange(checked);
-          }}
-          className="data-[state=checked]:bg-violet-700"
-        />
-        <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-          {field.label}
-        </label>
-      </div>
-    );
-  }
-
-  if (field.type === "select") {
-    return (
-      <Select
-        value={formField.value}
-        onValueChange={(value) => formField.onChange(value)}
-      >
-        <SelectTrigger className="w-full bg-white/5 backdrop-blur-sm border-violet-200 focus:ring-violet-400">
-          <SelectValue placeholder={field.placeholder} />
-        </SelectTrigger>
-        <SelectContent className="bg-white/95 backdrop-blur-lg border-violet-200">
-          {field.options?.map((option) => (
-            <SelectItem
-              key={option.value}
-              value={option.value}
-              className="hover:bg-violet-50 focus:bg-violet-50"
-            >
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    );
-  }
-
-  if (field.type === "color") {
-    return (
-      <div className="flex items-center gap-3">
-        <Input
-          {...formField}
-          type="color"
-          className="h-12 w-24 cursor-pointer rounded-lg border-2 border-violet-200 hover:border-violet-300 transition-colors p-1"
-          onChange={(e) => {
-            formField.onChange(e.target.value);
-          }}
-        />
-        <Input
-          value={formField.value}
-          type="text"
-          className="h-12 w-32 uppercase rounded-lg border-violet-200 focus:border-violet-400 focus:ring-violet-400 font-mono"
-          onChange={(e) => {
-            formField.onChange(e.target.value);
-          }}
-        />
-      </div>
-    );
-  }
-
-  return (
-    <Input
-      {...formField}
-      type={field.type}
-      placeholder={field.placeholder}
-      onChange={(e) => {
-        formField.onChange(e.target.value);
-      }}
-    />
-  );
 };
 
 export function TemplateForm({
@@ -538,11 +208,10 @@ export function TemplateForm({
                               ? "default"
                               : "outline"
                           }
-                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-200 ${
-                            selectedTemplate === template.id
+                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-200 ${selectedTemplate === template.id
                               ? "bg-blue-600 hover:bg-blue-700 text-white"
                               : "hover:border-blue-400 hover:bg-blue-50"
-                          }`}
+                            }`}
                         >
                           <span className="text-lg font-bold">
                             {template.name}

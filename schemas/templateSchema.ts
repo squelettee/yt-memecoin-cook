@@ -129,3 +129,13 @@ export const userSchema: UserSchemaType = z.object({
 export type TemplateType = z.infer<typeof templateSchema>;
 export type DomainType = z.infer<typeof domainSchema>;
 export type UserType = z.infer<typeof userSchema>;
+
+export interface FormFieldConfig {
+  id: string;
+  label: string;
+  type: "text" | "color" | "file" | "checkbox" | "select";
+  section: string;
+  placeholder?: string;
+  options?: { label: string; value: string }[];
+  showForTemplates?: string[];
+}
