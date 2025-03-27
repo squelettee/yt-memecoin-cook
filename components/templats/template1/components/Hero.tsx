@@ -26,7 +26,7 @@ export const Hero = ({
       className="w-full h-full flex-1 flex flex-col items-center justify-center p-4"
       style={{ backgroundColor: templateData.primaryColor }}
     >
-      <div className="max-w-7xl w-full h-full mx-auto relative flex flex-col lg:flex-row justify-around items-center gap-8">
+      <div className="max-w-4xl w-full h-full mx-auto relative flex flex-col lg:flex-row justify-around items-center gap-8">
         {/* Left Side */}
         <div className="w-full lg:w-1/2 h-full flex flex-col items-center justify-center">
           <div className="flex justify-center flex-col items-center gap-y-8 w-full">

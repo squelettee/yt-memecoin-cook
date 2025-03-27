@@ -18,10 +18,10 @@ export const Navbar = ({
 
   return (
     <div
-      className="w-full py-8 px-4"
+      className="py-8 px-4 w-full"
       style={{ backgroundColor: templateData.primaryColor }}
     >
-      <nav className="max-w-7xl mx-auto relative">
+      <nav className="max-w-4xl mx-auto relative">
         {/* Black shadow div positioned behind and offset */}
         <div className="absolute bg-black rounded-full w-full h-full top-[5px] right-[-5px]"></div>
 

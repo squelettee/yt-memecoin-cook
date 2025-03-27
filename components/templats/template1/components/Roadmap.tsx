@@ -28,7 +28,7 @@ export const Roadmap = ({
       className={`w-full px-4 py-12`}
       style={{ backgroundColor: templateData.primaryColor }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <div className="relative flex justify-center mb-12">
           <div className="relative">
             <h2

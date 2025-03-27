@@ -571,7 +571,7 @@ export function TemplateForm({
                       >
                         {/* Section header */}
                         <AccordionTrigger className="px-4 py-2 hover:bg-violet-50 text-md font-bold">
-                          {section}
+                          {section} {section === "Roadmap" || section === "FAQ" ? "(optional)" : ""}
                         </AccordionTrigger>
 
                         {/* Section content */}
