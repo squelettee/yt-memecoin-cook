@@ -61,6 +61,13 @@ const formConfigByTemplate: Record<
 > = {
   // Configuration pour template1
   template1: {
+    Links: [
+      { id: "twitter", label: "Twitter", type: "text", section: "Links" },
+      { id: "telegram", label: "Telegram", type: "text", section: "Links" },
+      { id: "pumpfun", label: "PumpFun", type: "text", section: "Links" },
+      { id: "jupiter", label: "Jupiter", type: "text", section: "Links" },
+      { id: "dexscreener", label: "Dexscreener", type: "text", section: "Links" },
+    ],
     Styling: [
       {
         id: "headingFont",
@@ -233,7 +240,6 @@ const FormFieldRenderer = ({
     );
   }
 
-  // ✓ Checkbox Input 
   if (field.type === "checkbox") {
     return (
       <div className="flex items-center space-x-2">
@@ -252,7 +258,6 @@ const FormFieldRenderer = ({
     );
   }
 
-  // 🔽 Select Input
   if (field.type === "select") {
     return (
       <Select
@@ -277,7 +282,6 @@ const FormFieldRenderer = ({
     );
   }
 
-  // 🎨 Color Input
   if (field.type === "color") {
     return (
       <div className="flex items-center gap-3">

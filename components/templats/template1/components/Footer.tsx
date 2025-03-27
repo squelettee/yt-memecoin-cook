@@ -25,8 +25,13 @@ export const Footer = ({
     },
     {
       icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/pump.jpeg`,
-      url: templateData.pumpFun,
+      url: templateData.pumpfun,
       alt: "PumpFun",
+    },
+    {
+      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/jup.png`,
+      url: templateData.jupiter,
+      alt: "Jupiter",
     },
   ].filter((link) => link.icon && link.url);
 

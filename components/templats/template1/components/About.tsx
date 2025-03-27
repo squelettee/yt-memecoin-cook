@@ -25,8 +25,13 @@ export const About = ({ templateData }: { templateData: TemplateFormData }) => {
     },
     {
       icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/pump.jpeg`,
-      url: templateData.pumpFun,
+      url: templateData.pumpfun,
       alt: "PumpFun",
+    },
+    {
+      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/jup.png`,
+      url: templateData.jupiter,
+      alt: "Jupiter",
     },
   ].filter((link) => link.icon && link.url);
 
@@ -80,7 +85,7 @@ export const About = ({ templateData }: { templateData: TemplateFormData }) => {
                   <ShadowButton
                     icon={link.icon}
                     iconAlt={link.alt}
-                    size="5xl"
+                    size="2xl"
                   />
                 </Link>
               ))}
