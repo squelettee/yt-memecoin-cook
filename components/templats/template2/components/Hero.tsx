@@ -94,7 +94,7 @@ export const Hero = ({
             <ShadowButton
               variant="text"
               size="lg"
-              className="transform hover:scale-110 transition-transform duration-300 hover:-rotate-2"
+              className={`transform hover:scale-110 transition-transform duration-300 hover:-rotate-2 ${headingFontClass}`}
               style={{
                 backgroundColor: templateData.accentColor,
                 color: templateData.headingColor,
