@@ -21,7 +21,7 @@ model Template {
   id              Int      @id @default(autoincrement())
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  type            String   @default("beta") @db.VarChar(255)
+  type            String   @default("template1") @db.VarChar(255)
 
   // Media fields
   background      String?  @db.VarChar(255)
