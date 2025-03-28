@@ -43,7 +43,6 @@ model Template {
   dextools       String?  @db.VarChar(255)
   pumpFun        String?  @db.VarChar(255)
   jupiter        String?  @db.VarChar(255)
-  charlink       String?  @db.VarChar(255)
   whitepaper     String?  @db.VarChar(255)
   instagram      String?  @db.VarChar(255)
   telegram       String?  @db.VarChar(255)
