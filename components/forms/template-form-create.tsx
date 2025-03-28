@@ -18,10 +18,11 @@ export function CreateTemplateForm({ subdomain }: { subdomain: string }) {
 
   const [templateData, setTemplateData] = useState<TemplateFormData>({
     type: "template1",
-    projectName: "",
+    projectName: "project name",
     ticker: "$SOL",
-    description: "",
+    description: "short description of the project",
     contractAddress: "63LfDmNb3MQ8mw9MtZ2To9bEA2M71kZUUGq5tiJxcqj9",
+    buyNowLink: "https://jup.ag/swap/",
 
     // Links
     whitepaper: "",

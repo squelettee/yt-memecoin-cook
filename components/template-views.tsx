@@ -44,8 +44,17 @@ const Template1 = dynamic(
   },
 );
 
+const Template2 = dynamic(
+  () => import("@/components/templats/template2/template2"),
+  {
+    ssr: true,
+    loading: () => <div>Loading...</div>,
+  },
+);
+
 const templates = {
   template1: Template1,
+  template2: Template2,
 } as const;
 
 type TemplateType = keyof typeof templates;

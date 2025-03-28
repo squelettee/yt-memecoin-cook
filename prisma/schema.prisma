@@ -34,6 +34,7 @@ model Template {
   ticker          String?  @db.VarChar(255)
   description     String?  @db.VarChar(255)
   contractAddress String?  @db.VarChar(255)
+  buyNowLink      String?  @db.VarChar(255)
 
   // Links
   birdeye        String?  @db.VarChar(255)

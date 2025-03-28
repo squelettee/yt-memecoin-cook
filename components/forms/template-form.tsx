@@ -93,7 +93,6 @@ export function TemplateForm({
     form.setValue("type", templateId);
     const currentValues = form.getValues();
     onUpdate({ ...currentValues, type: templateId });
-    setActiveTab("edits");
   };
 
   const onSubmit = async (data: TemplateFormData) => {
@@ -186,27 +185,18 @@ export function TemplateForm({
                               ? "default"
                               : "outline"
                           }
-                          className={`w-full h-40 flex flex-col items-center justify-center gap-3 transition-all duration-300 rounded-xl border-2 ${
+                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-300 rounded-xl border-2 ${
                             selectedTemplate === template.id
                               ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
                               : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
                           }`}
                         >
-                          <span className="text-xl font-bold">
+                          <span className="text-lg font-bold">
                             {template.name}
                           </span>
 
-                          <div className="flex flex-col items-center gap-1 mt-2">
-                            <span className="text-sm font-medium">
-                              ✨ Professional Design
-                            </span>
-                            <span className="text-sm font-medium">
-                              🚀 Launch in Minutes
-                            </span>
-                          </div>
-
-                          <span className="text-sm mt-2 font-medium px-4 py-1 rounded-full bg-blue-100 text-blue-800">
-                            Select Template 0.2 SOL
+                          <span className="text-sm font-medium px-4 py-1 rounded-full bg-blue-100 text-blue-800">
+                            0.2 SOL
                           </span>
                         </Button>
                       </div>

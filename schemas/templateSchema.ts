@@ -19,6 +19,7 @@ export const templateSchema: TemplateSchemaType = z.object({
   ticker: z.string().optional().or(z.literal("")),
   description: z.string().optional().or(z.literal("")),
   contractAddress: z.string().max(255).optional().or(z.literal("")),
+  buyNowLink: z.string().max(255).optional().or(z.literal("")),
 
   // Links
   whitepaper: z.string().max(255).optional().or(z.literal("")),
