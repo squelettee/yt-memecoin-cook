@@ -31,7 +31,6 @@ export const templateSchema: TemplateSchemaType = z.object({
   dextools: z.string().max(255).optional().or(z.literal("")),
   dexscreener: z.string().max(255).optional().or(z.literal("")),
   birdeye: z.string().max(255).optional().or(z.literal("")),
-  charlink: z.string().max(255).optional().or(z.literal("")),
   pumpFun: z.string().max(255).optional().or(z.literal("")),
 
   // Fields with defaults
