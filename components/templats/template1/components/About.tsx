@@ -16,27 +16,27 @@ export const About = ({
 }) => {
   const socialLinks = [
     {
-      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/twitter.png`,
+      icon: `https://memecook.fun/socials/twitter.png`,
       url: templateData.twitter,
       alt: "Twitter",
     },
     {
-      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/telegram.webp`,
+      icon: `https://memecook.fun/socials/telegram.webp`,
       url: templateData.telegram,
       alt: "Telegram",
     },
     {
-      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/dex.jpeg`,
+      icon: `https://memecook.fun/socials/dex.jpeg`,
       url: templateData.dexscreener,
       alt: "DexScreener",
     },
     {
-      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/pump.jpeg`,
+      icon: `https://memecook.fun/socials/pump.jpeg`,
       url: templateData.pumpFun,
       alt: "PumpFun",
     },
     {
-      icon: `${process.env.NEXT_PUBLIC_API_URL}/socials/jup.png`,
+      icon: `https://memecook.fun/socials/jup.png`,
       url: templateData.jupiter,
       alt: "Jupiter",
     },

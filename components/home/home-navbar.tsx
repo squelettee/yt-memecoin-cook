@@ -3,8 +3,9 @@
 import React from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { Rocket } from "lucide-react";
+import localFont from "next/font/local";
+
 const WalletMultiButtonDynamic = dynamic(
   async () =>
     (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
@@ -13,13 +14,17 @@ const WalletMultiButtonDynamic = dynamic(
   },
 );
 
+const dynapuff = localFont({
+  src: "../../public/fonts/DynaPuff/DynaPuff-VariableFont_wdth,wght.ttf",
+  weight: "800",
+});
+
 export function HomeNavbar() {
   return (
     <nav className="w-full h-[10vh] px-4 sm:px-8 md:px-12 lg:px-20 flex justify-between items-center bg-sidebar-accent">
-      <Link href={process.env.NEXT_PUBLIC_API_URL!}>
-        <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold flex items-center gap-2">
-          Memecook{" "}
-          <Image src="/assets/beta.png" alt="beta" width={50} height={50} />
+      <Link href={process.env.NEXT_PUBLIC_BASE_URL!}>
+        <span className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold flex items-center gap-2 ${dynapuff.className}`}>
+          Memecook 🍳
         </span>
       </Link>
       <div className="flex gap-4 sm:gap-6 items-center">

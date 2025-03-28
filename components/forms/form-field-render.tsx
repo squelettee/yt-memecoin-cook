@@ -106,15 +106,7 @@ export const FormFieldRenderer = ({
         <Input
           {...formField}
           type="color"
-          className="h-12 w-24 cursor-pointer rounded-lg border-2 border-violet-200 hover:border-violet-300 transition-colors p-1"
-          onChange={(e) => {
-            formField.onChange(e.target.value);
-          }}
-        />
-        <Input
-          value={formField.value}
-          type="text"
-          className="h-12 w-32 uppercase rounded-lg border-violet-200 focus:border-violet-400 focus:ring-violet-400 font-mono"
+          className="h-12 w-24 cursor-pointer rounded-lg  transition-colors p-1"
           onChange={(e) => {
             formField.onChange(e.target.value);
           }}

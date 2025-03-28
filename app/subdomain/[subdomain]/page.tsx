@@ -14,14 +14,14 @@ interface SubdomainPageProps {
 export default async function SubdomainPage({ params }: SubdomainPageProps) {
   const { subdomain } = await params;
 
-  if (!process.env.NEXT_PUBLIC_API_URL) {
-    throw new Error("NEXT_PUBLIC_API_URL is not defined");
+  if (!process.env.NEXT_PUBLIC_BASE_URL) {
+    throw new Error("NEXT_PUBLIC_BASE_URL is not defined");
   }
 
   const template = await getTemplate(subdomain);
 
   if (!template) {
-    redirect(process.env.NEXT_PUBLIC_API_URL);
+    redirect(process.env.NEXT_PUBLIC_BASE_URL);
   }
 
   return (
@@ -37,8 +37,8 @@ export async function generateMetadata({
 }: SubdomainPageProps): Promise<Metadata> {
   const { subdomain } = await params;
 
-  if (!process.env.NEXT_PUBLIC_API_URL) {
-    throw new Error("NEXT_PUBLIC_API_URL is not defined");
+  if (!process.env.NEXT_PUBLIC_BASE_URL) {
+    throw new Error("NEXT_PUBLIC_BASE_URL is not defined");
   }
 
   const template = await getTemplate(subdomain);
@@ -60,20 +60,20 @@ export async function generateMetadata({
         template.description || `Trading template for ${template.ticker}`,
       images: template.logo
         ? [
-            {
-              url: template.logo,
-              width: 1200,
-              height: 630,
-              alt: `${template.ticker} logo`,
-            },
-          ]
+          {
+            url: template.logo,
+            width: 1200,
+            height: 630,
+            alt: `${template.ticker} logo`,
+          },
+        ]
         : [],
     },
     icons: template.logo
       ? {
-          icon: template.logo,
-          apple: template.logo,
-        }
+        icon: template.logo,
+        apple: template.logo,
+      }
       : undefined,
   };
 }

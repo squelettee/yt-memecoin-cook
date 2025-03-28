@@ -4,9 +4,9 @@ import { format } from "timeago.js";
 import { TemplateType } from "@/schemas/templateSchema";
 import { useRouter } from "next/navigation";
 import { Table, TableRow, TableBody, TableCell } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { InfoIcon, LinkIcon } from "lucide-react";
+import { InfoIcon } from "lucide-react";
 import Image from "next/image";
+import { ShadowButton } from "@/components/ui/shadow-button";
 
 export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
   const router = useRouter();
@@ -38,7 +38,7 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
             >
               <TableCell className="flex items-center justify-center">
                 <Image
-                  src={template.logo || "/assets/upload_image.jpeg"}
+                  src={template.logo || `${process.env.NEXT_PUBLIC_BASE_URL}/assets/upload_image.jpeg`}
                   alt={`${template.domain?.name} logo`}
                   width={48}
                   height={48}
@@ -49,58 +49,41 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
 
               <TableCell>
                 <div className="flex flex-col">
-                  <span className="font-medium line-clamp-1">
-                    {template.projectName || "Unnamed Project"}
-                  </span>
                   <span className="text-sm text-muted-foreground line-clamp-1">
                     {template.domain?.name}.memecook.fun
                   </span>
                 </div>
               </TableCell>
 
-              <TableCell className="hidden md:table-cell">
+              <TableCell className="table-cell">
                 <span className="font-mono bg-muted px-2 py-1 rounded-md text-sm">
                   {template.ticker || "N/A"}
                 </span>
               </TableCell>
 
-              <TableCell className="hidden md:table-cell md:text-right">
+              <TableCell className="table-cell">
                 <div className="flex gap-1 md:gap-2 justify-end">
                   {template.twitter && (
-                    <Button
-                      asChild
-                      variant="outline"
+                    <ShadowButton
+                      icon="/socials/twitter.png"
+                      iconAlt="Twitter"
                       size="sm"
-                      className="md:h-auto md:w-auto md:px-3 md:py-1"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <a
-                        href={template.twitter}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <LinkIcon className="h-4 w-4" />
-                        <span className="ml-2">Twitter</span>
-                      </a>
-                    </Button>
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(template.twitter, '_blank');
+                      }}
+                    />
                   )}
                   {template.telegram && (
-                    <Button
-                      asChild
-                      variant="outline"
+                    <ShadowButton
+                      icon="/socials/telegram.webp"
+                      iconAlt="Telegram"
                       size="sm"
-                      className="md:h-auto md:w-auto md:px-3 md:py-1"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <a
-                        href={template.telegram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <LinkIcon className="h-4 w-4" />
-                        <span className="ml-2">Telegram</span>
-                      </a>
-                    </Button>
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(template.telegram, '_blank');
+                      }}
+                    />
                   )}
                 </div>
               </TableCell>

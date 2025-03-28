@@ -13,10 +13,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "lucide-react";
-
+import localFont from "next/font/local";
 interface SubdomainFormProps {
   onSubmit: (data: SubdomainFormData) => Promise<void>;
 }
+
+const dynapuff = localFont({
+  src: "../../public/fonts/DynaPuff/DynaPuff-VariableFont_wdth,wght.ttf",
+  weight: "800",
+});
 
 export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
   const form = useForm<SubdomainFormData>({
@@ -67,9 +72,9 @@ export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
         />
         <Button
           type="submit"
-          className="w-full h-12 bg-violet-800 hover:bg-black text-primary-foreground font-bold text-lg"
+          className={`w-full h-12 bg-violet-800 hover:bg-black text-primary-foreground font-bold text-lg ${dynapuff.className}`}
         >
-          I Deploy
+          Let Me Cook
           <ArrowRightIcon className="w-5 h-5 ml-2" />
         </Button>
       </form>

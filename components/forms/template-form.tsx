@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { templateSchema, TemplateFormData, FormFieldConfig } from "@/schemas/templateSchema";
+import { templateSchema, TemplateFormData } from "@/schemas/templateSchema";
 import { createTemplate } from "@/actions/template/create-template";
 import {
   Form,
@@ -28,6 +28,8 @@ import dynamic from "next/dynamic";
 import { templates } from "@/config/templates";
 import { FormFieldRenderer } from "./form-field-render";
 import { formConfigByTemplate } from "./form-config-by-template";
+import localFont from "next/font/local";
+import { ArrowRightIcon } from "lucide-react";
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -55,23 +57,11 @@ interface TemplateFormProps {
   >;
 }
 
+const dynapuff = localFont({
+  src: "../../public/fonts/DynaPuff/DynaPuff-VariableFont_wdth,wght.ttf",
+  weight: "800",
+});
 
-
-// Configuration des champs du formulaire par type de template
-
-
-// Configuration par défaut (utilisée si le type de template n'est pas trouvé)
-const defaultFormConfig: Record<string, FormFieldConfig[]> = {
-  "Project Info": [
-    {
-      id: "projectName",
-      label: "Project Name",
-      type: "text",
-      section: "Project Info",
-      placeholder: "Enter project name",
-    },
-  ],
-};
 
 export function TemplateForm({
   onUpdate,
@@ -95,22 +85,15 @@ export function TemplateForm({
     mode: "onSubmit",
   });
 
-  // Obtenir la configuration des champs en fonction du template sélectionné
   const formConfig = useMemo(() => {
-    return formConfigByTemplate[selectedTemplate] || defaultFormConfig;
+    return formConfigByTemplate[selectedTemplate]
   }, [selectedTemplate]);
 
   const handleTemplateChange = (templateId: string) => {
     setSelectedTemplate(templateId);
     form.setValue("type", templateId);
-
-    // Récupérer toutes les valeurs actuelles du formulaire
     const currentValues = form.getValues();
-
-    // Mettre à jour le state parent
     onUpdate({ ...currentValues, type: templateId });
-
-    // Passer à l'onglet d'édition
     setActiveTab("edits");
   };
 
@@ -123,21 +106,15 @@ export function TemplateForm({
           throw new Error("Wallet not connected");
         }
 
-        // Utilisez directement les fichiers du state
-        const fileData = {
-          logo: files.logoFile,
-          background: files.backgroundFile,
-          preview: files.previewImage,
-        };
-
-        // Supprimer les références aux fichiers des données du formulaire
-
-        // Envoyer les données du formulaire et les fichiers séparément
         const response = await createTemplate(
           data,
           subdomain,
           publicKey.toBase58(),
-          fileData,
+          {
+            logo: files.logoFile,
+            background: files.backgroundFile,
+            preview: files.previewImage,
+          },
         );
 
         if (!response.success) {
@@ -173,8 +150,8 @@ export function TemplateForm({
       >
         {/* Header */}
         <div className="px-4 bg-background w-full">
-          <h1 className="font-bold text-center pt-5 text-lg font-mysteryquest">
-            <Link href={process.env.NEXT_PUBLIC_API_URL!}>Memecook</Link>
+          <h1 className={`font-bold text-center pt-5 text-3xl ${dynapuff.className}`}>
+            <Link href={process.env.NEXT_PUBLIC_BASE_URL!}>Memecook 🍳</Link>
           </h1>
           <Separator className="my-4" />
           <TabsList className="grid w-full grid-cols-2 mb-4">
@@ -243,10 +220,21 @@ export function TemplateForm({
                       <AccordionItem
                         key={section}
                         value={section}
-                        className="border rounded-lg "
+                        className=""
                       >
                         {/* Section header */}
                         <AccordionTrigger className="px-4 py-2 hover:bg-violet-50 text-md font-bold">
+                          {section === "General" && "🥘 "}
+                          {section === "Hero" && "🍖 "}
+                          {section === "About" && "🥑 "}
+                          {section === "Features" && "🥪 "}
+                          {section === "Roadmap" && "🥨 "}
+                          {section === "FAQ" && "🥐 "}
+                          {section === "Footer" && "🥯 "}
+                          {section === "Links" && "🥞 "}
+                          {section === "Navbar" && "🥓 "}
+                          {section === "Styling" && "🥖 "}
+                          {section === "HowToBuy" && "🥗 "}
                           {section}{" "}
                           {section === "Roadmap" || section === "FAQ"
                             ? "(optional)"
@@ -307,15 +295,18 @@ export function TemplateForm({
                   <div className="flex flex-col items-center gap-4 p-4">
                     <Button
                       type="submit"
-                      className="w-full max-w-md py-6 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-lg font-bold shadow-lg transition-colors"
+                      className={`w-full max-w-md py-6 rounded-lg bg-violet-800 hover:bg-black text-primary-foreground font-bold text-lg ${dynapuff.className}`}
                       disabled={isPending || !isWalletConnected}
                     >
                       {isPending ? (
-                        <span className="flex items-center gap-2">
-                          <span className="animate-spin">⚡</span> Creating...
+                        <span className={`flex items-center gap-2 ${dynapuff.className}`}>
+                          <span className="animate-spin">🍳</span> Creating...
                         </span>
                       ) : (
-                        "Create my Memesite"
+                        <>
+                          I&apos;m done cooking
+                          <ArrowRightIcon className="w-5 h-5 ml-2" />
+                        </>
                       )}
                     </Button>
                     {error && (
