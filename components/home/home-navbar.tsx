@@ -23,7 +23,9 @@ export function HomeNavbar() {
   return (
     <nav className="w-full h-[10vh] px-4 sm:px-8 md:px-12 lg:px-20 flex justify-between items-center bg-sidebar-accent">
       <Link href={process.env.NEXT_PUBLIC_BASE_URL!}>
-        <span className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold flex items-center gap-2 ${dynapuff.className}`}>
+        <span
+          className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold flex items-center gap-2 ${dynapuff.className}`}
+        >
           Memecook 🍳
         </span>
       </Link>

@@ -13,7 +13,9 @@ export function HomeFooter() {
   return (
     <footer className="w-full min-h-[8vh] px-4 sm:px-8 md:px-12 lg:px-20 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 py-4 sm:py-0 bg-sidebar-accent">
       <Link href={process.env.NEXT_PUBLIC_BASE_URL!}>
-        <span className={`text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold flex items-center gap-2 ${dynapuff.className}`}>
+        <span
+          className={`text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold flex items-center gap-2 ${dynapuff.className}`}
+        >
           Memecook 🍳
         </span>
       </Link>

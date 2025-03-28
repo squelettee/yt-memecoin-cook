@@ -62,7 +62,6 @@ const dynapuff = localFont({
   weight: "800",
 });
 
-
 export function TemplateForm({
   onUpdate,
   templateData,
@@ -86,7 +85,7 @@ export function TemplateForm({
   });
 
   const formConfig = useMemo(() => {
-    return formConfigByTemplate[selectedTemplate]
+    return formConfigByTemplate[selectedTemplate];
   }, [selectedTemplate]);
 
   const handleTemplateChange = (templateId: string) => {
@@ -150,7 +149,9 @@ export function TemplateForm({
       >
         {/* Header */}
         <div className="px-4 bg-background w-full">
-          <h1 className={`font-bold text-center pt-5 text-3xl ${dynapuff.className}`}>
+          <h1
+            className={`font-bold text-center pt-5 text-3xl ${dynapuff.className}`}
+          >
             <Link href={process.env.NEXT_PUBLIC_BASE_URL!}>Memecook 🍳</Link>
           </h1>
           <Separator className="my-4" />
@@ -185,10 +186,11 @@ export function TemplateForm({
                               ? "default"
                               : "outline"
                           }
-                          className={`w-full h-40 flex flex-col items-center justify-center gap-3 transition-all duration-300 rounded-xl border-2 ${selectedTemplate === template.id
-                            ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
-                            : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
-                            }`}
+                          className={`w-full h-40 flex flex-col items-center justify-center gap-3 transition-all duration-300 rounded-xl border-2 ${
+                            selectedTemplate === template.id
+                              ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
+                              : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
+                          }`}
                         >
                           <span className="text-xl font-bold">
                             {template.name}
@@ -217,11 +219,7 @@ export function TemplateForm({
                   <Accordion type="single" collapsible>
                     {/* Map through each section of form fields */}
                     {Object.entries(formConfig).map(([section, fields]) => (
-                      <AccordionItem
-                        key={section}
-                        value={section}
-                        className=""
-                      >
+                      <AccordionItem key={section} value={section} className="">
                         {/* Section header */}
                         <AccordionTrigger className="px-4 py-2 hover:bg-violet-50 text-md font-bold">
                           {section === "General" && "🥘 "}
@@ -299,7 +297,9 @@ export function TemplateForm({
                       disabled={isPending || !isWalletConnected}
                     >
                       {isPending ? (
-                        <span className={`flex items-center gap-2 ${dynapuff.className}`}>
+                        <span
+                          className={`flex items-center gap-2 ${dynapuff.className}`}
+                        >
                           <span className="animate-spin">🍳</span> Creating...
                         </span>
                       ) : (

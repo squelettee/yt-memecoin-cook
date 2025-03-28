@@ -38,7 +38,10 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
             >
               <TableCell className="flex items-center justify-center">
                 <Image
-                  src={template.logo || `${process.env.NEXT_PUBLIC_BASE_URL}/assets/upload_image.jpeg`}
+                  src={
+                    template.logo ||
+                    `${process.env.NEXT_PUBLIC_BASE_URL}/assets/upload_image.jpeg`
+                  }
                   alt={`${template.domain?.name} logo`}
                   width={48}
                   height={48}
@@ -70,7 +73,7 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
                       size="sm"
                       onClick={(e) => {
                         e.stopPropagation();
-                        window.open(template.twitter, '_blank');
+                        window.open(template.twitter, "_blank");
                       }}
                     />
                   )}
@@ -81,7 +84,7 @@ export function TemplatesTable({ templates }: { templates: TemplateType[] }) {
                       size="sm"
                       onClick={(e) => {
                         e.stopPropagation();
-                        window.open(template.telegram, '_blank');
+                        window.open(template.telegram, "_blank");
                       }}
                     />
                   )}

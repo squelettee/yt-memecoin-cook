@@ -4,7 +4,13 @@ import { ControllerRenderProps } from "react-hook-form";
 import { TemplateFormData } from "@/schemas/templateSchema";
 import { Path } from "react-hook-form";
 import { Checkbox } from "../ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 interface TemplateFormProps {
   onUpdate: (data: TemplateFormData) => void;

@@ -1,6 +1,5 @@
 import { FormFieldConfig } from "@/schemas/templateSchema";
 
-
 export const formConfigByTemplate: Record<
   string,
   Record<string, FormFieldConfig[]>
