@@ -3,6 +3,9 @@
 import { prisma } from "@/lib/prisma";
 
 export async function subscribeToNewsletter(email: string) {
+  if (!email) {
+    return { success: true };
+  }
   try {
     await prisma.newsletter.create({
       data: {
