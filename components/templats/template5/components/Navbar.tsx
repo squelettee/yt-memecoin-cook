@@ -18,9 +18,9 @@ export const Navbar = ({
     <div className="w-full border-b border-[#ACA899] mb-4">
       <nav className="max-w-4xl mx-auto relative">
         {/* Main navbar */}
-        <div className="px-6 py-3 flex items-center justify-between relative z-10">
+        <div className="px-3 md:px-6 py-3 flex flex-col md:flex-row items-center gap-4 md:justify-between relative z-10">
           {/* Left side - Logo and Project Name */}
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
             <div className="h-16 w-16 overflow-hidden flex items-center justify-center relative border-2 border-[#ACA899] bg-white p-1">
               <DynamicImage
                 src={file ? URL.createObjectURL(file) : templateData.logo}
@@ -31,9 +31,9 @@ export const Navbar = ({
                 className="h-full w-full object-contain"
               />
             </div>
-            <div>
+            <div className="text-center md:text-left">
               <span
-                className={`text-2xl font-bold ${headingFontClass} block text-[#0055EA]`}
+                className={`text-xl md:text-2xl font-bold ${headingFontClass} block text-[#0055EA]`}
               >
                 {templateData.projectName}
               </span>
@@ -44,7 +44,7 @@ export const Navbar = ({
           </div>
 
           {/* Right side - Social Links */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full md:w-auto justify-center md:justify-end">
             <Link
               href={templateData.twitter || "#"}
               target="_blank"

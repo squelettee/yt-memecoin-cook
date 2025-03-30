@@ -208,43 +208,6 @@ export const formConfigByTemplate: Record<
   template2: {
     Styling: [
       {
-        id: "headingColor",
-        label: "Heading Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "backgroundColor",
-        label: "Background Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "primaryColor",
-        label: "Primary Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "accentColor",
-        label: "Accent Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "textColor",
-        label: "Text Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "borderColor",
-        label: "Border Color",
-        type: "color",
-        section: "Styling",
-      },
-
-      {
         id: "bodyFont",
         label: "Body Font",
         type: "select",
@@ -278,6 +241,42 @@ export const formConfigByTemplate: Record<
         id: "previewImage",
         label: "Preview Image",
         type: "file",
+        section: "Styling",
+      },
+      {
+        id: "headingColor",
+        label: "Heading Color",
+        type: "color",
+        section: "Styling",
+      },
+      {
+        id: "backgroundColor",
+        label: "Background Color",
+        type: "color",
+        section: "Styling",
+      },
+      {
+        id: "primaryColor",
+        label: "Primary Color",
+        type: "color",
+        section: "Styling",
+      },
+      {
+        id: "accentColor",
+        label: "Accent Color",
+        type: "color",
+        section: "Styling",
+      },
+      {
+        id: "textColor",
+        label: "Text Color",
+        type: "color",
+        section: "Styling",
+      },
+      {
+        id: "borderColor",
+        label: "Border Color",
+        type: "color",
         section: "Styling",
       },
     ],
@@ -507,122 +506,6 @@ export const formConfigByTemplate: Record<
       },
     ],
   },
-  template4: {
-    Styling: [
-      {
-        id: "headingColor",
-        label: "Heading Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "backgroundColor",
-        label: "Background Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "primaryColor",
-        label: "Primary Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "accentColor",
-        label: "Accent Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "textColor",
-        label: "Text Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "borderColor",
-        label: "Border Color",
-        type: "color",
-        section: "Styling",
-      },
-
-      {
-        id: "bodyFont",
-        label: "Body Font",
-        type: "select",
-        section: "Styling",
-        options: [
-          { label: "dynapuff", value: "dynapuff" },
-          { label: "cherry-bomb", value: "cherry-bomb" },
-          { label: "space-grotesk", value: "space-grotesk" },
-          { label: "gravitas-one", value: "gravitas-one" },
-          { label: "rubik-bubble", value: "rubik-bubble" },
-          { label: "rammetto-one", value: "rammetto-one" },
-          { label: "bagel-font-one", value: "bagel-font-one" },
-        ],
-      },
-      {
-        id: "headingFont",
-        label: "Heading Font",
-        type: "select",
-        section: "Styling",
-        options: [
-          { label: "dynapuff", value: "dynapuff" },
-          { label: "cherry-bomb", value: "cherry-bomb" },
-          { label: "space-grotesk", value: "space-grotesk" },
-          { label: "gravitas-one", value: "gravitas-one" },
-          { label: "rubik-bubble", value: "rubik-bubble" },
-          { label: "rammetto-one", value: "rammetto-one" },
-          { label: "bagel-font-one", value: "bagel-font-one" },
-        ],
-      },
-    ],
-    Hero: [
-      {
-        id: "projectName",
-        label: "Project Name",
-        type: "text",
-        section: "Hero",
-      },
-      {
-        id: "description",
-        label: "Description",
-        type: "text",
-        section: "Hero",
-      },
-      { id: "ticker", label: "Ticker", type: "text", section: "Hero" },
-      {
-        id: "contractAddress",
-        label: "Contract Address",
-        type: "text",
-        section: "Hero",
-      },
-      {
-        id: "logo",
-        label: "Logo",
-        type: "file",
-        section: "Hero",
-      },
-      {
-        id: "previewImage",
-        label: "Preview Image",
-        type: "file",
-        section: "Hero",
-      },
-    ],
-    Links: [
-      { id: "twitter", label: "Twitter", type: "text", section: "Links" },
-      { id: "telegram", label: "Telegram", type: "text", section: "Links" },
-      { id: "pumpFun", label: "PumpFun", type: "text", section: "Links" },
-      { id: "jupiter", label: "Jupiter", type: "text", section: "Links" },
-      {
-        id: "dexscreener",
-        label: "Dexscreener",
-        type: "text",
-        section: "Links",
-      },
-    ],
-  },
   template5: {
     Styling: [
       {
@@ -665,13 +548,14 @@ export const formConfigByTemplate: Record<
       },
     ],
 
-    Navbar: [{ id: "logo", label: "Logo", type: "file", section: "Navbar" },
-    {
-      id: "projectName",
-      label: "Project Name",
-      type: "text",
-      section: "Navbar",
-    },
+    Navbar: [
+      { id: "logo", label: "Logo", type: "file", section: "Navbar" },
+      {
+        id: "projectName",
+        label: "Project Name",
+        type: "text",
+        section: "Navbar",
+      },
     ],
     Hero: [
       {

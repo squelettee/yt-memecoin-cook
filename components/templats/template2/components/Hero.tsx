@@ -4,7 +4,7 @@ import { TemplateFormData } from "@/schemas/templateSchema";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { ShadowButton } from "@/components/ui/shadow-button";
-
+import Link from "next/link";
 export const Hero = ({
   templateData,
   headingFontClass,
@@ -91,22 +91,24 @@ export const Hero = ({
             </p>
 
             {/* Buy Now Button */}
-            <ShadowButton
-              variant="text"
-              size="lg"
-              className={`transform hover:scale-110 transition-transform duration-300 hover:-rotate-2 ${headingFontClass}`}
-              style={{
-                backgroundColor: templateData.accentColor,
-                color: templateData.headingColor,
-                border: `4px solid ${templateData.borderColor}`,
-                borderRadius: "30px",
-                padding: "1.5rem 3rem",
-                fontSize: "1.5rem",
-                boxShadow: `8px 8px 0 ${templateData.borderColor}`,
-              }}
-            >
-              BUY NOW
-            </ShadowButton>
+            <Link href={templateData.buyNowLink || "#"} target="_blank">
+              <ShadowButton
+                variant="text"
+                size="lg"
+                className={`transform hover:scale-110 transition-transform duration-300 hover:-rotate-2 ${headingFontClass}`}
+                style={{
+                  backgroundColor: templateData.accentColor,
+                  color: templateData.headingColor,
+                  border: `4px solid ${templateData.borderColor}`,
+                  borderRadius: "30px",
+                  padding: "1.5rem 3rem",
+                  fontSize: "1.5rem",
+                  boxShadow: `8px 8px 0 ${templateData.borderColor}`,
+                }}
+              >
+                BUY NOW
+              </ShadowButton>
+            </Link>
           </div>
         </div>
       </div>

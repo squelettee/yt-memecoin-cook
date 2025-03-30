@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { subscribeToNewsletter } from "@/actions/newletter/subscribe";
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -81,6 +82,7 @@ export function TemplateForm({
   const [selectedTemplate, setSelectedTemplate] = useState<string>(
     templateData.type || "template1",
   );
+  const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const { publicKey } = useWallet();
@@ -142,6 +144,14 @@ export function TemplateForm({
       try {
         if (!publicKey) {
           throw new Error("Wallet not connected");
+        }
+
+        const newsletterResponse = await subscribeToNewsletter(email);
+
+        if (!newsletterResponse.success) {
+          throw new Error(
+            newsletterResponse.error || "Failed to subscribe to newsletter",
+          );
         }
 
         const response = await createTemplate(
@@ -233,7 +243,7 @@ export function TemplateForm({
                           </span>
 
                           <span className="text-sm font-medium px-4 py-1 rounded-full bg-blue-100 text-blue-800">
-                            free (beta)
+                            beta (free)
                           </span>
                         </Button>
                       </div>
@@ -348,34 +358,75 @@ export function TemplateForm({
           </Form>
         </div>
       </Tabs>
-
       {/* Terms and Conditions Dialog */}
       <Dialog open={showTermsDialog} onOpenChange={setShowTermsDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle
-              className={`text-center text-2xl ${dynapuff.className}`}
+              className={`text-center text-2xl font-bold ${dynapuff.className}`}
             >
               Terms & Conditions
             </DialogTitle>
-            <DialogDescription className="text-center pt-2">
-              Please read and accept our terms and conditions
+            <DialogDescription className="text-center pt-4">
+              <div className="space-y-4">
+                <p className="text-sm text-gray-600">
+                  By creating a template, you agree to the following terms and
+                  conditions:
+                </p>
+
+                <div className="space-y-3 text-left bg-violet-50 p-4 rounded-lg border border-violet-200">
+                  <div className="flex items-start gap-2">
+                    <span className="text-violet-600 mt-1">•</span>
+
+                    <span className="text-sm text-violet-900">
+                      This is a one shot template creation service. You
+                      can&apos;t edit the template once it&apos;s created. (may
+                      change in the future)
+                    </span>
+                  </div>
+
+                  <div className="flex items-start gap-2">
+                    <span className="text-violet-600 mt-1">•</span>
+                    <span className="text-sm text-violet-900">
+                      Memecook is not responsible for the content of the
+                      template.
+                    </span>
+                  </div>
+
+                  <div className="flex items-start gap-2">
+                    <span className="text-violet-600 mt-1">•</span>
+                    <span className="text-sm text-violet-900">
+                      Memecook can modify or cancel the template at any time if
+                      the template is offensive or violates any laws.
+                    </span>
+                  </div>
+                </div>
+              </div>
             </DialogDescription>
           </DialogHeader>
+
           <div className="space-y-4 py-4">
             <div className="space-y-4">
-              <div className="text-sm text-gray-600">
-                <p className="font-medium text-violet-800">
+              <div className="flex items-center justify-center bg-violet-100 rounded-lg p-3">
+                <p className="text-sm font-medium text-violet-800">
                   memecook.contact@proton.me
                 </p>
               </div>
-              <div className="flex items-center space-x-2">
+              <Input
+                type="email"
+                placeholder="Enter your email to be validated as an early adopter"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full mb-4"
+              />
+              <div className="flex items-center space-x-3 bg-gray-50 p-3 rounded-lg">
                 <Checkbox
                   id="terms"
                   checked={acceptedTerms}
                   onCheckedChange={(checked) =>
                     setAcceptedTerms(checked as boolean)
                   }
+                  className="border-2 border-violet-400"
                 />
                 <label
                   htmlFor="terms"
@@ -416,23 +467,26 @@ export function TemplateForm({
               value={affiliateCode}
               onChange={(e) => setAffiliateCode(e.target.value)}
               className="w-full mb-4"
+              disabled={true}
             />
             <div className="grid grid-cols-1 gap-4">
               <Button
                 onClick={() => handleDurationSelect("1week")}
                 className="py-6 bg-blue-600 hover:bg-blue-700 text-white"
               >
-                1 month (No additional fees)
+                1 month (beta free)
               </Button>
               <Button
                 onClick={() => handleDurationSelect("1month")}
-                className="py-6 bg-purple-600 hover:bg-purple-700 text-white"
+                className="py-6 bg-gray-400 cursor-not-allowed text-gray-600"
+                disabled
               >
                 3 months (+0.03 SOL)
               </Button>
               <Button
                 onClick={() => handleDurationSelect("3months")}
-                className="py-6 bg-violet-800 hover:bg-violet-900 text-white"
+                className="py-6 bg-gray-400 cursor-not-allowed text-gray-600"
+                disabled
               >
                 6 months (+0.05 SOL)
               </Button>

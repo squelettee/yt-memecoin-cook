@@ -10,9 +10,8 @@ export default async function HomePage() {
   return (
     <>
       <HomeNavbar />
-      <main className="w-full flex items-center justify-center flex-col relative">
-        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" />
-        <div className="relative w-full flex items-center justify-center flex-col bg-background/80 backdrop-blur-sm">
+      <main className="w-full flex items-center justify-center flex-col relative max-h-[82vh]">
+        <div className="relative w-full flex items-center justify-center flex-col">
           <HomeTitle />
           <HomeContent templates={templates} />
         </div>

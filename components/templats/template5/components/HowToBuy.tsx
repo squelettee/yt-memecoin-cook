@@ -10,17 +10,14 @@ export const HowToBuy = ({
     {
       text: templateData.howtobuyStep1,
       image: "https://memecook.fun/assets/phantom-how-to-buy.jpeg",
-      icon: "/assets/winxp-step1.png",
     },
     {
       text: templateData.howtobuyStep2,
       image: "https://memecook.fun/assets/solana-how-to-buy.jpeg",
-      icon: "/assets/winxp-step2.png",
     },
     {
       text: templateData.howtobuyStep3,
       image: "https://memecook.fun/socials/pump.jpeg",
-      icon: "/assets/winxp-step3.png",
     },
   ].filter((item) => item.text);
 
@@ -31,13 +28,6 @@ export const HowToBuy = ({
         <div className="border border-[#0055EA] rounded bg-[#ECE9D8] shadow-md overflow-hidden mb-8">
           <div className="bg-gradient-to-r from-[#0A246A] via-[#3A6EA5] to-[#0A246A] text-white p-1">
             <div className="flex items-center gap-2">
-              <Image
-                src="/assets/winxp-help.png"
-                alt="Help"
-                width={16}
-                height={16}
-                className="w-4 h-4"
-              />
               <span className="text-sm font-semibold">
                 {templateData.howtobuyTitle}
               </span>
@@ -54,7 +44,7 @@ export const HowToBuy = ({
                   <div className="flex items-start gap-3">
                     <div className="shrink-0">
                       <Image
-                        src={item.icon}
+                        src={item.image}
                         alt={`Step ${index + 1}`}
                         width={24}
                         height={24}

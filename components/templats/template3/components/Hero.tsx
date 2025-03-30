@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ShadowButton } from "@/components/ui/shadow-button";
 import Image from "next/image";
 import { DynamicImage } from "@/components/ui/dynamic-image";
+import Link from "next/link";
 
 export const Hero = ({
   templateData,
@@ -165,24 +166,25 @@ export const Hero = ({
                 >
                   GET {ticker} NOW!
                 </h3>
-
-                <ShadowButton
-                  variant="text"
-                  size="lg"
-                  className={`w-full transform hover:scale-105 transition-transform duration-300 ${headingFontClass} flex items-center justify-center gap-2`}
-                  style={{
-                    backgroundColor: templateData.accentColor,
-                    color: templateData.headingColor,
-                    border: `4px solid ${templateData.borderColor}`,
-                    borderRadius: "16px",
-                    padding: "1.25rem",
-                    fontSize: "1.5rem",
-                    boxShadow: `6px 6px 0 ${templateData.borderColor}`,
-                  }}
-                >
-                  <Rocket className="w-6 h-6" />
-                  BUY NOW
-                </ShadowButton>
+                <Link href={templateData.buyNowLink || "#"} target="_blank">
+                  <ShadowButton
+                    variant="text"
+                    size="lg"
+                    className={`w-full transform hover:scale-105 transition-transform duration-300 ${headingFontClass} flex items-center justify-center gap-2`}
+                    style={{
+                      backgroundColor: templateData.accentColor,
+                      color: templateData.headingColor,
+                      border: `4px solid ${templateData.borderColor}`,
+                      borderRadius: "16px",
+                      padding: "1.25rem",
+                      fontSize: "1.5rem",
+                      boxShadow: `6px 6px 0 ${templateData.borderColor}`,
+                    }}
+                  >
+                    <Rocket className="w-6 h-6" />
+                    BUY NOW
+                  </ShadowButton>
+                </Link>
 
                 <div className="flex items-center justify-center w-full mt-2">
                   <ArrowDown

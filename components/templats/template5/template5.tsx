@@ -104,13 +104,6 @@ const Template5 = ({
             {/* Window Title Bar */}
             <div className="bg-gradient-to-r from-[#0A246A] via-[#3A6EA5] to-[#0A246A] text-white p-1 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Image
-                  src="/assets/winxp-ie.png"
-                  alt="Internet Explorer"
-                  width={16}
-                  height={16}
-                  className="w-4 h-4"
-                />
                 <span className="text-sm font-semibold">
                   {templateData.ticker || "Token"} - Internet Explorer
                 </span>
@@ -148,7 +141,7 @@ const Template5 = ({
             onClick={() => setShowStartMenu(!showStartMenu)}
           >
             <Image
-              src="/assets/winxp-start.png"
+              src="/socials/xp.png"
               alt="Start"
               width={20}
               height={20}
@@ -196,16 +189,6 @@ const Template5 = ({
             <div className="p-2 flex flex-col">
               <div className="flex items-center gap-2 p-1 hover:bg-[#316AC5] hover:text-white cursor-pointer">
                 <Image
-                  src="/assets/winxp-ie.png"
-                  alt="Internet Explorer"
-                  width={24}
-                  height={24}
-                  className="w-6 h-6"
-                />
-                <span>Internet Explorer</span>
-              </div>
-              <div className="flex items-center gap-2 p-1 hover:bg-[#316AC5] hover:text-white cursor-pointer">
-                <Image
                   src="/socials/telegram.webp"
                   alt="Telegram"
                   width={24}
@@ -228,18 +211,6 @@ const Template5 = ({
           </div>
         )}
       </div>
-
-      {/* Windows XP Cursor */}
-      <style jsx global>{`
-        body {
-          cursor: url("/assets/winxp-cursor.png"), auto;
-        }
-        a,
-        button,
-        .cursor-pointer {
-          cursor: url("/assets/winxp-hand.png"), pointer;
-        }
-      `}</style>
     </main>
   );
 };

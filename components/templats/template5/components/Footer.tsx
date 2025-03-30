@@ -49,13 +49,6 @@ export const Footer = ({
         <div className="border border-[#0055EA] rounded bg-[#ECE9D8] shadow-md overflow-hidden">
           <div className="bg-gradient-to-r from-[#0A246A] via-[#3A6EA5] to-[#0A246A] text-white p-1">
             <div className="flex items-center gap-2">
-              <Image
-                src="/assets/winxp-internet.png"
-                alt="Internet"
-                width={16}
-                height={16}
-                className="w-4 h-4"
-              />
               <span className="text-sm font-semibold">
                 {templateData.footerText}
               </span>

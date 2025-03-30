@@ -5,7 +5,7 @@ import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { DynamicImage } from "@/components/ui/dynamic-image";
 import { ShadowButton } from "@/components/ui/shadow-button";
-
+import Link from "next/link";
 export const Hero = ({
   templateData,
   file,
@@ -93,17 +93,19 @@ export const Hero = ({
             </div>
 
             {/* Buy Now Button */}
-            <ShadowButton
-              variant="text"
-              size="lg"
-              className="hover:opacity-90"
-              style={{
-                backgroundColor: templateData.accentColor,
-                color: templateData.headingColor,
-              }}
-            >
-              BUY NOW
-            </ShadowButton>
+            <Link href={templateData.buyNowLink || "#"} target="_blank">
+              <ShadowButton
+                variant="text"
+                size="lg"
+                className="hover:opacity-90"
+                style={{
+                  backgroundColor: templateData.accentColor,
+                  color: templateData.headingColor,
+                }}
+              >
+                BUY NOW
+              </ShadowButton>
+            </Link>
           </div>
         </div>
 

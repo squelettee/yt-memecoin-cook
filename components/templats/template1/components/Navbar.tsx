@@ -3,6 +3,7 @@
 import { TemplateFormData } from "@/schemas/templateSchema";
 import { ShadowButton } from "@/components/ui/shadow-button";
 import { DynamicImage } from "@/components/ui/dynamic-image";
+import Link from "next/link";
 
 export const Navbar = ({
   templateData,
@@ -101,18 +102,19 @@ export const Navbar = ({
               size="md"
               className="hidden md:flex"
             />
-            <ShadowButton
-              variant="text"
-              size="md"
-              className="hover:opacity-90 transition-colors"
-              style={{
-                backgroundColor: templateData.accentColor,
-                color: templateData.headingColor,
-              }}
-              onClick={() => scrollToSection("buy")}
-            >
-              BUY NOW
-            </ShadowButton>
+            <Link href={templateData.buyNowLink || "#"} target="_blank">
+              <ShadowButton
+                variant="text"
+                size="md"
+                className="hover:opacity-90 transition-colors"
+                style={{
+                  backgroundColor: templateData.accentColor,
+                  color: templateData.headingColor,
+                }}
+              >
+                BUY NOW
+              </ShadowButton>
+            </Link>
           </div>
         </div>
       </nav>
