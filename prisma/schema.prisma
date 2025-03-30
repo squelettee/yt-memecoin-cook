@@ -21,6 +21,7 @@ model Template {
   id              Int      @id @default(autoincrement())
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  deletedAt       DateTime?
   type            String   @default("template1") @db.VarChar(255)
 
   // Media fields
@@ -55,11 +56,11 @@ model Template {
   bodyFont        String   @default("dynapuff") @db.VarChar(255)
   headingColor    String   @default("#ffffff") @db.VarChar(255)
   backgroundColor String   @default("#000000") @db.VarChar(255)
-  primaryColor    String   @default("#75caff") @db.VarChar(255)
+  primaryColor    String   @default("#ff75ca") @db.VarChar(255)
   secondaryColor  String   @default("#f5f5f5") @db.VarChar(255)
-  accentColor     String   @default("#2284ec") @db.VarChar(255)
+  accentColor     String   @default("#0066ff") @db.VarChar(255)
   textColor       String   @default("#000000") @db.VarChar(255)
-  borderColor     String   @default("#2284ec") @db.VarChar(255)
+  borderColor     String   @default("#ec2284") @db.VarChar(255)
   textBorderColor String   @default("#000000") @db.VarChar(255)
 
   // about us

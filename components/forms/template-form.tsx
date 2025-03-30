@@ -233,7 +233,7 @@ export function TemplateForm({
                           </span>
 
                           <span className="text-sm font-medium px-4 py-1 rounded-full bg-blue-100 text-blue-800">
-                            0.2 SOL
+                            free (beta)
                           </span>
                         </Button>
                       </div>
