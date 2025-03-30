@@ -30,6 +30,9 @@ import { FormFieldRenderer } from "./form-field-render";
 import { formConfigByTemplate } from "./form-config-by-template";
 import localFont from "next/font/local";
 import { ArrowRightIcon } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -77,6 +80,11 @@ export function TemplateForm({
   const { publicKey } = useWallet();
   const isWalletConnected = !!publicKey;
   const [activeTab, setActiveTab] = useState<string>("template");
+  const [showTermsDialog, setShowTermsDialog] = useState(false);
+  const [showDurationDialog, setShowDurationDialog] = useState(false);
+  const [affiliateCode, setAffiliateCode] = useState<string>("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [selectedDuration, setSelectedDuration] = useState<string | null>(null);
 
   const form = useForm<TemplateFormData>({
     resolver: zodResolver(templateSchema),
@@ -95,7 +103,28 @@ export function TemplateForm({
     onUpdate({ ...currentValues, type: templateId });
   };
 
-  const onSubmit = async (data: TemplateFormData) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    form.handleSubmit(() => {
+      setShowTermsDialog(true);
+    })();
+  };
+
+  const handleTermsAccept = async () => {
+    if (!acceptedTerms) return;
+
+    setShowTermsDialog(false);
+    setShowDurationDialog(true);
+  };
+
+  const handleDurationSelect = (duration: string) => {
+    setSelectedDuration(duration);
+    const formData = form.getValues();
+    onSubmit({ ...formData, affiliateCode, deploymentDuration: duration });
+    setShowDurationDialog(false);
+  };
+
+  const onSubmit = async (data: TemplateFormData & { affiliateCode?: string, deploymentDuration?: string }) => {
     setError(null);
 
     startTransition(async () => {
@@ -164,9 +193,7 @@ export function TemplateForm({
         <div className="flex-1 overflow-y-auto">
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit((data) => {
-                onSubmit(data);
-              })}
+              onSubmit={handleSubmit}
             >
               <TabsContent value="template" className="mt-4 px-4">
                 <div className="grid gap-4">
@@ -185,11 +212,10 @@ export function TemplateForm({
                               ? "default"
                               : "outline"
                           }
-                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-300 rounded-xl border-2 ${
-                            selectedTemplate === template.id
-                              ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
-                              : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
-                          }`}
+                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-300 rounded-xl border-2 ${selectedTemplate === template.id
+                            ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
+                            : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
+                            }`}
                         >
                           <span className="text-lg font-bold">
                             {template.name}
@@ -311,6 +337,86 @@ export function TemplateForm({
           </Form>
         </div>
       </Tabs>
+
+      {/* Terms and Conditions Dialog */}
+      <Dialog open={showTermsDialog} onOpenChange={setShowTermsDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className={`text-center text-2xl ${dynapuff.className}`}>Terms & Conditions</DialogTitle>
+            <DialogDescription className="text-center pt-2">
+              Please read and accept our terms and conditions
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-4">
+              <div className="text-sm text-gray-600">
+                <p className="font-medium text-violet-800">memecook.contact@proton.me</p>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="terms"
+                  checked={acceptedTerms}
+                  onCheckedChange={(checked) => setAcceptedTerms(checked as boolean)}
+                />
+                <label
+                  htmlFor="terms"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  I accept the terms and conditions
+                </label>
+              </div>
+            </div>
+            <Button
+              onClick={handleTermsAccept}
+              disabled={!acceptedTerms}
+              className="w-full py-6 bg-violet-800 hover:bg-violet-900 text-white"
+            >
+              Accept and Continue
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Duration Selection Dialog */}
+      <Dialog open={showDurationDialog} onOpenChange={setShowDurationDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className={`text-center text-2xl ${dynapuff.className}`}>Choose Deployment Option</DialogTitle>
+            <DialogDescription className="text-center pt-2">
+              Select your deployment option
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <Input
+              type="text"
+              placeholder="Enter promo code for discount"
+              value={affiliateCode}
+              onChange={(e) => setAffiliateCode(e.target.value)}
+              className="w-full mb-4"
+            />
+            <div className="grid grid-cols-1 gap-4">
+              <Button
+                onClick={() => handleDurationSelect("1week")}
+                className="py-6 bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                1 month (No additional fees)
+              </Button>
+              <Button
+                onClick={() => handleDurationSelect("1month")}
+                className="py-6 bg-purple-600 hover:bg-purple-700 text-white"
+              >
+                3 months (+0.03 SOL)
+              </Button>
+              <Button
+                onClick={() => handleDurationSelect("3months")}
+                className="py-6 bg-violet-800 hover:bg-violet-900 text-white"
+              >
+                6 months (+0.05 SOL)
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

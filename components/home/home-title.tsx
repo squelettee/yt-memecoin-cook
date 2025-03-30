@@ -1,7 +1,7 @@
 export function HomeTitle() {
   return (
     <div className="w-full flex flex-col items-center gap-8 pb-10 pt-16 sm:pt-28 sm:pb-16">
-      <h1 className="text-balance text-center text-5xl font-semibold leading-none tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl">
+      <h1 className="text-balance text-center text-4xl font-semibold leading-none tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
         Cook beautiful memesites <br /> in{" "}
         <span className="text-violet-500">no</span> time
       </h1>
