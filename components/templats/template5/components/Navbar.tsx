@@ -38,7 +38,7 @@ export const Navbar = ({
                 {templateData.projectName}
               </span>
               <span className="text-sm text-[#666]">
-                Welcome to {templateData.ticker} - The future of meme coins
+                Welcome to {templateData.ticker}
               </span>
             </div>
           </div>

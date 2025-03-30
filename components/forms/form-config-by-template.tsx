@@ -626,43 +626,6 @@ export const formConfigByTemplate: Record<
   template5: {
     Styling: [
       {
-        id: "headingColor",
-        label: "Heading Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "backgroundColor",
-        label: "Background Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "primaryColor",
-        label: "Primary Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "accentColor",
-        label: "Accent Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "textColor",
-        label: "Text Color",
-        type: "color",
-        section: "Styling",
-      },
-      {
-        id: "borderColor",
-        label: "Border Color",
-        type: "color",
-        section: "Styling",
-      },
-
-      {
         id: "bodyFont",
         label: "Body Font",
         type: "select",
@@ -675,6 +638,7 @@ export const formConfigByTemplate: Record<
           { label: "rubik-bubble", value: "rubik-bubble" },
           { label: "rammetto-one", value: "rammetto-one" },
           { label: "bagel-font-one", value: "bagel-font-one" },
+          { label: "noto-sans", value: "noto-sans" },
         ],
       },
       {
@@ -690,6 +654,7 @@ export const formConfigByTemplate: Record<
           { label: "rubik-bubble", value: "rubik-bubble" },
           { label: "rammetto-one", value: "rammetto-one" },
           { label: "bagel-font-one", value: "bagel-font-one" },
+          { label: "noto-sans", value: "noto-sans" },
         ],
       },
       {
@@ -699,14 +664,16 @@ export const formConfigByTemplate: Record<
         section: "Styling",
       },
     ],
-    Navbar: [{ id: "logo", label: "Logo", type: "file", section: "Navbar" }],
+
+    Navbar: [{ id: "logo", label: "Logo", type: "file", section: "Navbar" },
+    {
+      id: "projectName",
+      label: "Project Name",
+      type: "text",
+      section: "Navbar",
+    },
+    ],
     Hero: [
-      {
-        id: "projectName",
-        label: "Project Name",
-        type: "text",
-        section: "Hero",
-      },
       {
         id: "description",
         label: "Description",
@@ -748,19 +715,19 @@ export const formConfigByTemplate: Record<
       },
       {
         id: "howtobuyStep1",
-        label: "Question 1",
+        label: "Step 1",
         type: "text",
         section: "HowToBuy",
       },
       {
         id: "howtobuyStep2",
-        label: "Question 2",
+        label: "Step 2",
         type: "text",
         section: "HowToBuy",
       },
       {
         id: "howtobuyStep3",
-        label: "Question 3",
+        label: "Step 3",
         type: "text",
         section: "HowToBuy",
       },

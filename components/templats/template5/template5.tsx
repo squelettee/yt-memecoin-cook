@@ -17,6 +17,7 @@ interface FontClassNames {
   rubikBubbleClass: string;
   rammettoOneClass: string;
   bagelFontOneClass: string;
+  notoSansClass: string;
 }
 
 const Template5 = ({
@@ -60,6 +61,8 @@ const Template5 = ({
         return fonts.rammettoOneClass;
       case "bagel-font-one":
         return fonts.bagelFontOneClass;
+      case "noto-sans":
+        return fonts.notoSansClass;
       default:
         return fonts.dynapuffClass;
     }
@@ -82,6 +85,8 @@ const Template5 = ({
         return fonts.rammettoOneClass;
       case "bagel-font-one":
         return fonts.bagelFontOneClass;
+      case "noto-sans":
+        return fonts.notoSansClass;
       default:
         return fonts.dynapuffClass;
     }

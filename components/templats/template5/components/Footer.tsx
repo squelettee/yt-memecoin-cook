@@ -57,7 +57,7 @@ export const Footer = ({
                 className="w-4 h-4"
               />
               <span className="text-sm font-semibold">
-                Connect with {templateData.ticker}
+                {templateData.footerText}
               </span>
             </div>
           </div>

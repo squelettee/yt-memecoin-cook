@@ -33,11 +33,11 @@ export const Hero = ({
             <Image
               src="/assets/winxp-info.png"
               alt="Info"
-              width={16}
-              height={16}
-              className="w-4 h-4 mr-2"
+              width={24}
+              height={24}
+              className="w-8 h-8 mr-2"
             />
-            <span className="text-sm font-semibold">Welcome to {ticker}!</span>
+            <span className="text-sm font-semibold">DESCRIPTION</span>
           </div>
           <div className="p-4">
             <p className="text-sm">
@@ -47,7 +47,7 @@ export const Hero = ({
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-1 gap-6">
           {/* Left side - Token Info - Simplified */}
           <div className="border border-[#ACA899] rounded bg-white p-4">
             <h2
@@ -96,24 +96,6 @@ export const Hero = ({
             </div>
           </div>
 
-          {/* Right side - Buy Now - Simplified */}
-          <div className="border border-[#ACA899] rounded bg-white p-4">
-            <h2
-              className={`text-xl font-bold ${headingFontClass} text-[#0055EA] mb-4`}
-            >
-              Buy {ticker} Now
-            </h2>
-
-            <div className="flex flex-col gap-4">
-              <button className="w-full py-2 bg-gradient-to-b from-[#3C8F3C] to-[#216F21] text-white font-bold border border-[#2D802D] hover:from-[#44A344] hover:to-[#2D802D] rounded">
-                Buy on Jupiter
-              </button>
-
-              <button className="w-full py-2 bg-gradient-to-b from-[#E5B13A] to-[#C69320] text-white font-bold border border-[#C69320] hover:from-[#F5C14A] hover:to-[#D6A330] rounded">
-                Buy on Pump.fun
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </section>

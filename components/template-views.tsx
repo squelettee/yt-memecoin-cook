@@ -36,6 +36,11 @@ const bagel_font_one = localFont({
   weight: "400",
 });
 
+const noto_sans = localFont({
+  src: "../public/fonts/Noto_Sans/NotoSans-VariableFont_wdth,wght.ttf",
+  weight: "400",
+});
+
 const Template1 = dynamic(
   () => import("@/components/templats/template1/template1"),
   {
@@ -76,6 +81,7 @@ const Template5 = dynamic(
   },
 );
 
+
 const templates = {
   template1: Template1,
   template2: Template2,
@@ -94,6 +100,7 @@ interface FontClassNames {
   rubikBubbleClass: string;
   rammettoOneClass: string;
   bagelFontOneClass: string;
+  notoSansClass: string;
 }
 
 export const TemplateViews = ({
@@ -121,6 +128,7 @@ export const TemplateViews = ({
     rubikBubbleClass: rubik_bubble.className,
     rammettoOneClass: rammetto_one.className,
     bagelFontOneClass: bagel_font_one.className,
+    notoSansClass: noto_sans.className,
   };
 
   if (!Template) {

@@ -39,7 +39,7 @@ export const HowToBuy = ({
                 className="w-4 h-4"
               />
               <span className="text-sm font-semibold">
-                How to Buy {templateData.ticker}
+                {templateData.howtobuyTitle}
               </span>
             </div>
           </div>
