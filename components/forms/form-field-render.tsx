@@ -43,23 +43,43 @@ export const FormFieldRenderer = ({
   if (field.type === "file") {
     return (
       <div className="w-full">
-        <Input
-          type="file"
-          className="file:mr-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
-          onChange={(e) => {
-            const file = e.target.files?.[0] || null;
-            formField.onChange(file);
+        <div className="flex gap-2 items-center">
+          <Input
+            type="file"
+            className="file:mr-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
+            onChange={(e) => {
+              const file = e.target.files?.[0] || null;
+              formField.onChange(file);
 
-            // Update files state based on field ID
-            if (field.id === "previewImage") {
-              setFiles((prev) => ({ ...prev, previewImage: file }));
-            } else if (field.id === "aboutImage") {
-              setFiles((prev) => ({ ...prev, backgroundFile: file }));
-            } else if (field.id === "logo") {
-              setFiles((prev) => ({ ...prev, logoFile: file }));
-            }
-          }}
-        />
+              // Update files state based on field ID
+              if (field.id === "previewImage") {
+                setFiles((prev) => ({ ...prev, previewImage: file }));
+              } else if (field.id === "aboutImage") {
+                setFiles((prev) => ({ ...prev, backgroundFile: file }));
+              } else if (field.id === "logo") {
+                setFiles((prev) => ({ ...prev, logoFile: file }));
+              }
+            }}
+          />
+          {formField.value && (
+            <button
+              type="button"
+              className="px-2 py-1 text-sm text-red-600 hover:text-red-700 rounded-md hover:bg-red-50"
+              onClick={() => {
+                formField.onChange(null);
+                if (field.id === "previewImage") {
+                  setFiles((prev) => ({ ...prev, previewImage: null }));
+                } else if (field.id === "aboutImage") {
+                  setFiles((prev) => ({ ...prev, backgroundFile: null }));
+                } else if (field.id === "logo") {
+                  setFiles((prev) => ({ ...prev, logoFile: null }));
+                }
+              }}
+            >
+              Delete
+            </button>
+          )}
+        </div>
       </div>
     );
   }
