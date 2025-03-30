@@ -9,6 +9,7 @@ export async function createTemplate(
   templateData: TemplateFormData,
   subdomain: string,
   address: string,
+  selectedDuration: string,
   files?: {
     logo?: File | null;
     background?: File | null;
@@ -30,6 +31,10 @@ export async function createTemplate(
     const existingDomain = await prisma.domain.findUnique({
       where: { name: subdomain.toLowerCase() },
     });
+
+    if (selectedDuration === "1month") {
+      console.log("salut");
+    }
 
     if (existingDomain) {
       return { error: "Ce nom de domaine existe déjà" };

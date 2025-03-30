@@ -30,7 +30,13 @@ import { FormFieldRenderer } from "./form-field-render";
 import { formConfigByTemplate } from "./form-config-by-template";
 import localFont from "next/font/local";
 import { ArrowRightIcon } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -124,7 +130,12 @@ export function TemplateForm({
     setShowDurationDialog(false);
   };
 
-  const onSubmit = async (data: TemplateFormData & { affiliateCode?: string, deploymentDuration?: string }) => {
+  const onSubmit = async (
+    data: TemplateFormData & {
+      affiliateCode?: string;
+      deploymentDuration?: string;
+    },
+  ) => {
     setError(null);
 
     startTransition(async () => {
@@ -137,6 +148,7 @@ export function TemplateForm({
           data,
           subdomain,
           publicKey.toBase58(),
+          selectedDuration || "1month",
           {
             logo: files.logoFile,
             background: files.backgroundFile,
@@ -192,9 +204,7 @@ export function TemplateForm({
         {/* Content */}
         <div className="flex-1 overflow-y-auto">
           <Form {...form}>
-            <form
-              onSubmit={handleSubmit}
-            >
+            <form onSubmit={handleSubmit}>
               <TabsContent value="template" className="mt-4 px-4">
                 <div className="grid gap-4">
                   {templates
@@ -212,10 +222,11 @@ export function TemplateForm({
                               ? "default"
                               : "outline"
                           }
-                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-300 rounded-xl border-2 ${selectedTemplate === template.id
-                            ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
-                            : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
-                            }`}
+                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-300 rounded-xl border-2 ${
+                            selectedTemplate === template.id
+                              ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
+                              : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
+                          }`}
                         >
                           <span className="text-lg font-bold">
                             {template.name}
@@ -342,7 +353,11 @@ export function TemplateForm({
       <Dialog open={showTermsDialog} onOpenChange={setShowTermsDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className={`text-center text-2xl ${dynapuff.className}`}>Terms & Conditions</DialogTitle>
+            <DialogTitle
+              className={`text-center text-2xl ${dynapuff.className}`}
+            >
+              Terms & Conditions
+            </DialogTitle>
             <DialogDescription className="text-center pt-2">
               Please read and accept our terms and conditions
             </DialogDescription>
@@ -350,13 +365,17 @@ export function TemplateForm({
           <div className="space-y-4 py-4">
             <div className="space-y-4">
               <div className="text-sm text-gray-600">
-                <p className="font-medium text-violet-800">memecook.contact@proton.me</p>
+                <p className="font-medium text-violet-800">
+                  memecook.contact@proton.me
+                </p>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="terms"
                   checked={acceptedTerms}
-                  onCheckedChange={(checked) => setAcceptedTerms(checked as boolean)}
+                  onCheckedChange={(checked) =>
+                    setAcceptedTerms(checked as boolean)
+                  }
                 />
                 <label
                   htmlFor="terms"
@@ -381,7 +400,11 @@ export function TemplateForm({
       <Dialog open={showDurationDialog} onOpenChange={setShowDurationDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className={`text-center text-2xl ${dynapuff.className}`}>Choose Deployment Option</DialogTitle>
+            <DialogTitle
+              className={`text-center text-2xl ${dynapuff.className}`}
+            >
+              Choose Deployment Option
+            </DialogTitle>
             <DialogDescription className="text-center pt-2">
               Select your deployment option
             </DialogDescription>
