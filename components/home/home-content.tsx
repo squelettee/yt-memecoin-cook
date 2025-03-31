@@ -4,10 +4,8 @@ import { useRouter } from "next/navigation";
 import { SubdomainForm } from "@/components/forms/subdomain-form";
 import { Badge } from "@/components/ui/badge";
 import { checkSubdomainAvailability } from "@/actions/domain/check-subdomain-avaibility";
-// import { TemplatesTable } from "../templates-table";
-import { TemplateType } from "@/schemas/templateSchema";
 
-export function HomeContent({ templates }: { templates: TemplateType[] }) {
+export function HomeContent() {
   const router = useRouter();
 
   const handleSubmit = async (data: { subdomain: string }) => {
@@ -22,10 +20,7 @@ export function HomeContent({ templates }: { templates: TemplateType[] }) {
   return (
     <>
       <div className="mb-12 flex  h-full flex-col items-center justify-center gap-4">
-        <SubdomainForm
-          onSubmit={handleSubmit}
-          disabled={templates?.length >= 40}
-        />
+        <SubdomainForm onSubmit={handleSubmit} />
         <div className="my-16 w-full flex items-center justify-center gap-4 flex-wrap">
           <Badge
             variant="outline"
@@ -53,10 +48,6 @@ export function HomeContent({ templates }: { templates: TemplateType[] }) {
           </Badge>
         </div>
       </div>
-      {/* <div className="my-16 w-full">
-        <h2 className="text-2xl font-semibold text-center mb-8">🍳 Latest Cooked Templates</h2>
-        <TemplatesTable templates={templates} />
-      </div> */}
     </>
   );
 }

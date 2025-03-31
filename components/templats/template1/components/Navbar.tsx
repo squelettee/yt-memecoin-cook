@@ -90,18 +90,22 @@ export const Navbar = ({
 
           {/* Right side - Social and Buy Button */}
           <div className="flex items-center gap-3">
-            <ShadowButton
-              icon="https://memecook.fun/socials/twitter.png"
-              iconAlt="Twitter"
-              size="md"
-              className="hidden md:flex"
-            />
-            <ShadowButton
-              icon="https://memecook.fun/socials/telegram.webp"
-              iconAlt="Telegram"
-              size="md"
-              className="hidden md:flex"
-            />
+            <Link href={templateData.twitter || "#"} target="_blank">
+              <ShadowButton
+                icon="https://memecook.fun/socials/twitter.png"
+                iconAlt="Twitter"
+                size="md"
+                className="hidden md:flex"
+              />
+            </Link>
+            <Link href={templateData.telegram || "#"} target="_blank">
+              <ShadowButton
+                icon="https://memecook.fun/socials/telegram.webp"
+                iconAlt="Telegram"
+                size="md"
+                className="hidden md:flex"
+              />
+            </Link>
             <Link href={templateData.buyNowLink || "#"} target="_blank">
               <ShadowButton
                 variant="text"

@@ -57,14 +57,6 @@ const Template2 = dynamic(
   },
 );
 
-const Template3 = dynamic(
-  () => import("@/components/templats/template3/template3"),
-  {
-    ssr: true,
-    loading: () => <div>Loading...</div>,
-  },
-);
-
 const Template5 = dynamic(
   () => import("@/components/templats/template5/template5"),
   {
@@ -76,7 +68,6 @@ const Template5 = dynamic(
 const templates = {
   template1: Template1,
   template2: Template2,
-  template3: Template3,
   template5: Template5,
 } as const;
 

@@ -51,7 +51,7 @@ export const Navbar = ({
           {/* Right side - Social Links */}
           <div className="flex items-center gap-4">
             <Link
-              href="#"
+              href={templateData.twitter || "#"}
               className="h-16 w-16 rounded-full overflow-hidden flex items-center justify-center hover:opacity-90 transition-all duration-200 transform hover:scale-110 relative"
               style={{
                 border: `4px solid ${templateData.borderColor}`,
@@ -67,7 +67,7 @@ export const Navbar = ({
               />
             </Link>
             <Link
-              href="#"
+              href={templateData.telegram || "#"}
               className="h-16 w-16 rounded-full overflow-hidden flex items-center justify-center hover:opacity-90 transition-all duration-200 transform hover:scale-110 relative"
               style={{
                 border: `4px solid ${templateData.borderColor}`,

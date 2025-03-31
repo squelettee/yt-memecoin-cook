@@ -75,10 +75,16 @@ export const Footer = ({
         </div>
       </div>
       <div className="px-6 flex flex-col justify-center items-center">
-        <span className="font-bold text-sm text-gray-500 mr-2">
+        <span
+          className="font-bold text-sm"
+          style={{ color: templateData.textColor }}
+        >
           © 2025 {subdomain}.memecook.fun. All rights reserved.
         </span>
-        <span className="font-bold mt-2 text-sm text-gray-500">
+        <span
+          className="font-bold mt-2 text-sm"
+          style={{ color: templateData.textColor }}
+        >
           Made with{" "}
           <Link
             href="https://memecook.fun"

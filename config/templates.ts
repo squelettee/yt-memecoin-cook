@@ -10,18 +10,9 @@ export const templates = [
     enabled: true,
   },
   {
-    id: "template3",
-    name: "Template 3",
-    enabled: false,
-  },
-  {
     id: "template5",
     name: "Window XP",
     enabled: true,
   },
 ];
-export type TemplateType =
-  | "template1"
-  | "template2"
-  | "template3"
-  | "template5";
+export type TemplateType = "template1" | "template2" | "template5";

@@ -34,8 +34,8 @@ export function HomeTitle() {
       <h1
         className={`text-balance text-center text-4xl font-semibold leading-none tracking-wide sm:text-5xl md:text-6xl lg:text-7xl ${dynapuff.className}`}
       >
-        Cook beautiful memesites <br /> in{" "}
-        <span className="text-violet-500">no</span> time
+        Cook beautiful memesites
+        <br /> in <span className="text-violet-600">no</span> time
       </h1>
       <p className="max-w-[64rem] text-center text-balance text-sm tracking-tight text-muted-foreground md:text-xl">
         Create your <strong>memecoin website</strong> in{" "}
