@@ -41,6 +41,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { subscribeToNewsletter } from "@/actions/newletter/subscribe";
 import { updateTemplate } from "@/actions/template/update-template";
+import bs58 from "bs58";
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -88,7 +89,7 @@ export function TemplateForm({
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const { publicKey } = useWallet();
+  const { publicKey, wallet, signMessage } = useWallet();
   const isWalletConnected = !!publicKey;
   const [activeTab, setActiveTab] = useState<string>(
     isEditing ? "edits" : "template",
@@ -157,29 +158,54 @@ export function TemplateForm({
         }
 
         if (isEditing) {
-          const response = await updateTemplate(
-            {
-              ...data,
-              subdomain: subdomain,
-            },
-            {
-              logo: files.logoFile,
-              background: files.backgroundFile,
-              preview: files.previewImage,
-            },
-          );
+          try {
+            if (!wallet || !publicKey) {
+              throw new Error("Wallet not connected or not initialized");
+            }
 
-          if (!response.success) {
-            throw new Error(response.error || "Failed to update template");
+            // Créer un message à signer
+            const message = `Update template: ${subdomain} at ${new Date().toISOString()}`;
+
+            // Demander à l'utilisateur de signer le message
+            const encodedMessage = new TextEncoder().encode(message);
+
+            // Use the signMessage from the wallet context
+            const signatureBytes = await signMessage!(encodedMessage);
+            const signature = bs58.encode(signatureBytes);
+
+            // Envoyer la signature avec les données du formulaire
+            const response = await updateTemplate(
+              {
+                ...data,
+                subdomain: subdomain,
+                signature: signature,
+                message: message,
+                publicKey: publicKey.toBase58(),
+              },
+              {
+                logo: files.logoFile,
+                background: files.backgroundFile,
+                preview: files.previewImage,
+              }
+            );
+
+            if (!response.success) {
+              throw new Error(response.error || "Failed to update template");
+            }
+
+            alert("Template updated successfully!");
+
+            const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
+            if (baseDomain && subdomain) {
+              window.location.href = `http://${subdomain}.${baseDomain}`;
+            }
+          } catch (error) {
+            if (error instanceof Error && error.message.includes("User rejected")) {
+              setError("Signature rejected. You must sign the message to update your template.");
+            } else {
+              setError(error instanceof Error ? error.message : "An error occurred during signature");
+            }
           }
-
-          alert("Template updated successfully!");
-
-          const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
-          if (baseDomain && subdomain) {
-            window.location.href = `http://${subdomain}.${baseDomain}`;
-          }
-
           return;
         }
 
@@ -269,11 +295,10 @@ export function TemplateForm({
                               ? "default"
                               : "outline"
                           }
-                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-300 rounded-xl border-2 ${
-                            selectedTemplate === template.id
-                              ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
-                              : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
-                          }`}
+                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-300 rounded-xl border-2 ${selectedTemplate === template.id
+                            ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
+                            : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
+                            }`}
                           disabled={isEditing}
                         >
                           <span className="text-lg font-bold">

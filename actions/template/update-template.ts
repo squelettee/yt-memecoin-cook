@@ -4,9 +4,17 @@ import { prisma } from "@/lib/prisma";
 import { TemplateFormData } from "@/schemas/templateSchema";
 import { revalidatePath } from "next/cache";
 import { uploadToS3 } from "@/lib/s3";
+import { PublicKey } from "@solana/web3.js";
+import bs58 from "bs58";
+import nacl from "tweetnacl";
 
 export async function updateTemplate(
-  data: TemplateFormData & { subdomain?: string },
+  data: TemplateFormData & {
+    subdomain?: string;
+    signature?: string;
+    message?: string;
+    publicKey?: string;
+  },
   files?: {
     logo?: File | null;
     background?: File | null;
@@ -14,13 +22,25 @@ export async function updateTemplate(
   },
 ) {
   try {
+    // Vérifier que la signature, le message et la clé publique sont fournis
+    if (!data.signature || !data.message || !data.publicKey) {
+      return {
+        success: false,
+        error: "Signature verification failed: missing data",
+      };
+    }
+
     // Récupérer l'ID du template à partir du nom de domaine
     const domain = await prisma.domain.findUnique({
       where: {
         name: data.subdomain || "",
       },
       include: {
-        template: true,
+        template: {
+          include: {
+            user: true,
+          },
+        },
       },
     });
 
@@ -28,6 +48,40 @@ export async function updateTemplate(
       return {
         success: false,
         error: "Template not found",
+      };
+    }
+
+    // Vérifier que l'utilisateur est le propriétaire du template
+    if (domain.template.user?.address !== data.publicKey) {
+      return {
+        success: false,
+        error: "You are not authorized to update this template",
+      };
+    }
+
+    // Vérifier la signature
+    try {
+      const messageBytes = new TextEncoder().encode(data.message);
+      const publicKeyBytes = new PublicKey(data.publicKey).toBytes();
+      const signatureBytes = bs58.decode(data.signature);
+
+      const isValid = nacl.sign.detached.verify(
+        messageBytes,
+        signatureBytes,
+        publicKeyBytes
+      );
+
+      if (!isValid) {
+        return {
+          success: false,
+          error: "Invalid signature",
+        };
+      }
+    } catch (error) {
+      console.error("Signature verification error:", error);
+      return {
+        success: false,
+        error: "Signature verification failed",
       };
     }
 
