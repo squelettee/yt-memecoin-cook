@@ -3,7 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { TemplateFormData, templateSchema } from "@/schemas/templateSchema";
 import { getOrCreateUser } from "../user/get-or-create-user";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { uploadToS3 } from "@/lib/s3";
 
 export async function createTemplate(
   templateData: TemplateFormData,
@@ -45,60 +45,34 @@ export async function createTemplate(
       return user;
     }
 
-    const s3Client = new S3Client({
-      region: process.env.AWS_S3_REGION,
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-      },
-    });
-
     if (files?.logo) {
-      const logoBuffer = await files.logo.arrayBuffer();
-      const logoKey = `templates/${user.id}/${Date.now()}-logo-${files.logo.name}`;
-
-      await s3Client.send(
-        new PutObjectCommand({
-          Bucket: process.env.AWS_BUCKET,
-          Key: logoKey,
-          Body: Buffer.from(logoBuffer),
-          ContentType: files.logo.type,
-        }),
+      const logoUploadResult = await uploadToS3(
+        files.logo,
+        `templates/${user.id}/logo`,
       );
-
-      validatedData.logo = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${logoKey}`;
+      if (logoUploadResult.success) {
+        validatedData.logo = logoUploadResult.url;
+      }
     }
 
     if (files?.background) {
-      const backgroundBuffer = await files.background.arrayBuffer();
-      const backgroundKey = `templates/${user.id}/${Date.now()}-background-${files.background.name}`;
-
-      await s3Client.send(
-        new PutObjectCommand({
-          Bucket: process.env.AWS_BUCKET,
-          Key: backgroundKey,
-          Body: Buffer.from(backgroundBuffer),
-          ContentType: files.background.type,
-        }),
+      const backgroundUploadResult = await uploadToS3(
+        files.background,
+        `templates/${user.id}/background`,
       );
-
-      validatedData.backgroundImage = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${backgroundKey}`;
+      if (backgroundUploadResult.success) {
+        validatedData.backgroundImage = backgroundUploadResult.url;
+      }
     }
 
     if (files?.preview) {
-      const imagePreviewBuffer = await files.preview.arrayBuffer();
-      const imagePreviewKey = `templates/${user.id}/${Date.now()}-image-preview-${files.preview.name}`;
-
-      await s3Client.send(
-        new PutObjectCommand({
-          Bucket: process.env.AWS_BUCKET,
-          Key: imagePreviewKey,
-          Body: Buffer.from(imagePreviewBuffer),
-          ContentType: files.preview.type,
-        }),
+      const previewUploadResult = await uploadToS3(
+        files.preview,
+        `templates/${user.id}/preview`,
       );
-
-      validatedData.imagePreview = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${imagePreviewKey}`;
+      if (previewUploadResult.success) {
+        validatedData.imagePreview = previewUploadResult.url;
+      }
     }
 
     const template = await prisma.template.create({

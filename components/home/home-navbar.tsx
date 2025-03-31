@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import localFont from "next/font/local";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -21,6 +22,15 @@ const dynapuff = localFont({
 
 export function HomeNavbar() {
   const { publicKey } = useWallet();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Rediriger vers la page d'accueil si l'utilisateur est déconnecté et sur une page protégée
+  useEffect(() => {
+    if (!publicKey && pathname.includes("/profile")) {
+      router.push(process.env.NEXT_PUBLIC_BASE_URL || "/");
+    }
+  }, [publicKey, pathname, router]);
 
   return (
     <nav className="w-full h-[10vh] px-4 sm:px-8 md:px-12 lg:px-20 flex justify-between items-center bg-sidebar-accent">
@@ -34,7 +44,7 @@ export function HomeNavbar() {
       <div className="flex gap-4 sm:gap-6 items-center">
         {publicKey && (
           <Link
-            href={`/projects/${publicKey}`}
+            href={`/profile/${publicKey}`}
             className={`text-sm sm:text-base font-semibold  ${dynapuff.className}`}
           >
             My Templates

@@ -6,8 +6,11 @@ import { Edit, ExternalLink, Plus } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Template } from "@/interfaces/template";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import localFont from "next/font/local";
+import { CreateTemplateForm } from "@/components/forms/template-form-create";
+
 const dynapuff = localFont({
   src: "../public/fonts/DynaPuff/DynaPuff-VariableFont_wdth,wght.ttf",
   weight: "800",
@@ -19,26 +22,52 @@ interface ProjectsEditsProps {
 
 export function ProjectsEdits({ templates }: ProjectsEditsProps) {
   const [editTemplate, setEditTemplate] = useState<Template | null>(null);
-
+  const { publicKey } = useWallet();
   const router = useRouter();
+
+  // Rediriger vers la page d'accueil si l'utilisateur est déconnecté
+  useEffect(() => {
+    if (!publicKey) {
+      router.push(process.env.NEXT_PUBLIC_BASE_URL || "/");
+    }
+  }, [publicKey, router]);
+
   const handleEdit = (subdomain: string, template: Template) => {
     setEditTemplate(template);
   };
 
+  // Si l'utilisateur n'est pas connecté, ne pas afficher le contenu
+  if (!publicKey) {
+    return null;
+  }
+
   return (
-    <div className="container py-8 mx-auto ">
+    <div className="container py-8 mx-auto">
       {editTemplate ? (
         <div>
-          <h1 className="text-2xl font-bold mb-6">
-            Edit Project: {editTemplate.projectName}
-          </h1>
-          <Button
-            variant="outline"
-            onClick={() => setEditTemplate(null)}
-            className="mb-4"
-          >
-            Back to Projects
-          </Button>
+          <div className="mb-6 flex justify-between items-center">
+            <h1 className={`text-3xl ${dynapuff.className} text-pink-600`}>
+              ✏️ Edit Project: {editTemplate.projectName}
+            </h1>
+            <Button
+              variant="outline"
+              onClick={() => setEditTemplate(null)}
+              className="hover:bg-pink-50 border-pink-200"
+            >
+              ← Back to Projects
+            </Button>
+          </div>
+
+          {/* Utiliser le composant CreateTemplateForm avec le template existant */}
+          <div className="bg-white rounded-lg border border-pink-100 shadow-sm overflow-hidden">
+            {editTemplate.domain?.name && (
+              <CreateTemplateForm
+                subdomain={editTemplate.domain.name}
+                existingTemplate={editTemplate}
+                isEditing={true}
+              />
+            )}
+          </div>
         </div>
       ) : (
         <>
@@ -48,7 +77,7 @@ export function ProjectsEdits({ templates }: ProjectsEditsProps) {
             <h1 className="text-2xl font-bold">My Projects</h1>
             <Button
               onClick={() => router.push("/")}
-              className={`h-12 bg-violet-800 hover:bg-black text-primary-foreground font-bold text-lg ${dynapuff.className}`}
+              className={`h-12 bg-pink-600 hover:bg-black text-primary-foreground font-bold text-lg ${dynapuff.className}`}
             >
               Create New Project
               <Plus className="w-5 h-5 ml-2" />
@@ -72,7 +101,7 @@ export function ProjectsEdits({ templates }: ProjectsEditsProps) {
               {templates.map((template) => (
                 <div
                   key={template.id}
-                  className="p-4 border rounded-lg bg-white"
+                  className="p-4 border rounded-lg bg-white hover:shadow-md transition-all duration-200"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     {template.logo ? (
@@ -103,8 +132,7 @@ export function ProjectsEdits({ templates }: ProjectsEditsProps) {
                       onClick={() =>
                         handleEdit(template.domain?.name || "", template)
                       }
-                      className="w-full"
-                      disabled
+                      className="w-full hover:bg-pink-50 hover:border-pink-300 transition-colors"
                     >
                       <Edit className="h-4 w-4 mr-2" />
                       Edit Project
@@ -115,7 +143,10 @@ export function ProjectsEdits({ templates }: ProjectsEditsProps) {
                       target="_blank"
                       className="w-full"
                     >
-                      <Button variant="ghost" className="w-full">
+                      <Button
+                        variant="ghost"
+                        className="w-full hover:bg-gray-50"
+                      >
                         <ExternalLink className="h-4 w-4 mr-2" />
                         Visit Site
                       </Button>
