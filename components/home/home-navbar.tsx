@@ -47,7 +47,7 @@ export function HomeNavbar() {
             href={`/profile/${publicKey}`}
             className={`text-sm sm:text-base font-semibold  ${dynapuff.className}`}
           >
-            My Templates
+            My Projects
           </Link>
         )}
         <div className="scale-[0.85] sm:scale-90 md:scale-100 [&_.wallet-adapter-button]:whitespace-nowrap [&_.wallet-adapter-button]:overflow-hidden [&_.wallet-adapter-button]:text-ellipsis z-10">

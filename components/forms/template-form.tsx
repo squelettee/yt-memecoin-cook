@@ -139,7 +139,12 @@ export function TemplateForm({
   const handleDurationSelect = (duration: string) => {
     setSelectedDuration(duration);
     const formData = form.getValues();
-    onSubmit({ ...formData, affiliateCode, deploymentDuration: duration });
+
+    onSubmit({
+      ...formData,
+      affiliateCode,
+      deploymentDuration: duration,
+    });
     setShowDurationDialog(false);
   };
 
@@ -147,6 +152,7 @@ export function TemplateForm({
     data: TemplateFormData & {
       affiliateCode?: string;
       deploymentDuration?: string;
+      price?: number;
     },
   ) => {
     setError(null);
@@ -186,24 +192,26 @@ export function TemplateForm({
                 logo: files.logoFile,
                 background: files.backgroundFile,
                 preview: files.previewImage,
-              }
+              },
             );
 
             if (!response.success) {
               throw new Error(response.error || "Failed to update template");
             }
-
-            alert("Template updated successfully!");
-
-            const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
-            if (baseDomain && subdomain) {
-              window.location.href = `http://${subdomain}.${baseDomain}`;
-            }
           } catch (error) {
-            if (error instanceof Error && error.message.includes("User rejected")) {
-              setError("Signature rejected. You must sign the message to update your template.");
+            if (
+              error instanceof Error &&
+              error.message.includes("User rejected")
+            ) {
+              setError(
+                "Signature rejected. You must sign the message to update your template.",
+              );
             } else {
-              setError(error instanceof Error ? error.message : "An error occurred during signature");
+              setError(
+                error instanceof Error
+                  ? error.message
+                  : "An error occurred during signature",
+              );
             }
           }
           return;
@@ -217,6 +225,7 @@ export function TemplateForm({
           );
         }
 
+        // Include the price in the template creation request
         const response = await createTemplate(
           data,
           subdomain,
@@ -295,10 +304,11 @@ export function TemplateForm({
                               ? "default"
                               : "outline"
                           }
-                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-300 rounded-xl border-2 ${selectedTemplate === template.id
-                            ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
-                            : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
-                            }`}
+                          className={`w-full h-24 flex flex-col items-center justify-center gap-2 transition-all duration-300 rounded-xl border-2 ${
+                            selectedTemplate === template.id
+                              ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
+                              : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
+                          }`}
                           disabled={isEditing}
                         >
                           <span className="text-lg font-bold">
@@ -306,7 +316,7 @@ export function TemplateForm({
                           </span>
 
                           <span className="text-sm font-medium px-4 py-1 rounded-full bg-blue-100 text-blue-800">
-                            beta (free)
+                            {template.price} SOL
                           </span>
                         </Button>
                         {isEditing && selectedTemplate === template.id && (
@@ -546,26 +556,36 @@ export function TemplateForm({
                 disabled={true}
               />
               <div className="grid grid-cols-1 gap-4">
-                <Button
-                  onClick={() => handleDurationSelect("1week")}
-                  className="py-6 bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  1 month (beta free)
-                </Button>
-                <Button
-                  onClick={() => handleDurationSelect("1month")}
-                  className="py-6 bg-gray-400 cursor-not-allowed text-gray-600"
-                  disabled
-                >
-                  3 months (+0.03 SOL)
-                </Button>
-                <Button
-                  onClick={() => handleDurationSelect("3months")}
-                  className="py-6 bg-gray-400 cursor-not-allowed text-gray-600"
-                  disabled
-                >
-                  6 months (+0.05 SOL)
-                </Button>
+                {/* Get the template price from the templates configuration */}
+                {(() => {
+                  const templatePrice =
+                    templates.find((t) => t.id === selectedTemplate)?.price ||
+                    0;
+                  return (
+                    <>
+                      <Button
+                        onClick={() => handleDurationSelect("1week")}
+                        className="py-6 bg-blue-600 hover:bg-blue-700 text-white"
+                      >
+                        1 month ({templatePrice} SOL)
+                      </Button>
+                      <Button
+                        onClick={() => handleDurationSelect("1month")}
+                        className="py-6 bg-gray-400 cursor-not-allowed text-gray-600"
+                        disabled
+                      >
+                        3 months ({(templatePrice + 0.03).toFixed(2)} SOL)
+                      </Button>
+                      <Button
+                        onClick={() => handleDurationSelect("3months")}
+                        className="py-6 bg-gray-400 cursor-not-allowed text-gray-600"
+                        disabled
+                      >
+                        6 months ({(templatePrice + 0.05).toFixed(2)} SOL)
+                      </Button>
+                    </>
+                  );
+                })()}
               </div>
             </div>
           </DialogContent>

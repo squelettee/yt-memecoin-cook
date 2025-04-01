@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Edit, ExternalLink, Plus } from "lucide-react";
+import { Edit, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Template } from "@/interfaces/template";
@@ -47,7 +47,7 @@ export function ProjectsEdits({ templates }: ProjectsEditsProps) {
         <div>
           <div className="mb-6 flex justify-between items-center">
             <h1 className={`text-3xl ${dynapuff.className} text-pink-600`}>
-              ✏️ Edit Project: {editTemplate.projectName}
+              ✏️ Edit Mode
             </h1>
             <Button
               variant="outline"
@@ -71,19 +71,6 @@ export function ProjectsEdits({ templates }: ProjectsEditsProps) {
         </div>
       ) : (
         <>
-          <div
-            className={`flex justify-between items-center mb-6 ${dynapuff.className}`}
-          >
-            <h1 className="text-2xl font-bold">My Projects</h1>
-            <Button
-              onClick={() => router.push("/")}
-              className={`h-12 bg-pink-600 hover:bg-black text-primary-foreground font-bold text-lg ${dynapuff.className}`}
-            >
-              Create New Project
-              <Plus className="w-5 h-5 ml-2" />
-            </Button>
-          </div>
-
           {templates.length === 0 ? (
             <div className="text-center py-12 bg-gray-50 rounded-lg border border-gray-200">
               <h3 className="text-lg font-medium text-gray-900 mb-2">

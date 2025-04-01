@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { TemplateFormData, templateSchema } from "@/schemas/templateSchema";
 import { getOrCreateUser } from "../user/get-or-create-user";
 import { uploadToS3 } from "@/lib/s3";
+import { templates } from "@/config/templates";
 
 export async function createTemplate(
   templateData: TemplateFormData,
@@ -16,6 +17,9 @@ export async function createTemplate(
     preview?: File | null;
   },
 ) {
+  const templatePrice = templates.find((t) => t.id === templateData)?.price;
+  if (!templatePrice) return { error: "Template price not found" };
+
   try {
     const validationResult = templateSchema.safeParse(templateData);
 

@@ -33,7 +33,7 @@ export async function updateTemplate(
     // Récupérer l'ID du template à partir du nom de domaine
     const domain = await prisma.domain.findUnique({
       where: {
-        name: data.subdomain || "",
+        name: data.subdomain,
       },
       include: {
         template: {
@@ -68,13 +68,13 @@ export async function updateTemplate(
       const isValid = nacl.sign.detached.verify(
         messageBytes,
         signatureBytes,
-        publicKeyBytes
+        publicKeyBytes,
       );
 
       if (!isValid) {
         return {
           success: false,
-          error: "Invalid signature",
+          error: "Invalid signature, are you trying to hack memecook bro ?",
         };
       }
     } catch (error) {
