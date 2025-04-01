@@ -58,13 +58,13 @@ export interface TemplateFormProps {
   files: {
     logoFile: File | null;
     backgroundFile: File | null;
-    previewImage: File | null;
+    imagePreviewFile: File | null;
   };
   setFiles: React.Dispatch<
     React.SetStateAction<{
       logoFile: File | null;
       backgroundFile: File | null;
-      previewImage: File | null;
+      imagePreviewFile: File | null;
     }>
   >;
   isEditing?: boolean;
@@ -183,7 +183,7 @@ export function TemplateForm({
               {
                 logo: files.logoFile,
                 background: files.backgroundFile,
-                preview: files.previewImage,
+                imagePreview: files.imagePreviewFile,
               },
             );
 
@@ -232,7 +232,7 @@ export function TemplateForm({
           {
             logo: files.logoFile,
             background: files.backgroundFile,
-            preview: files.previewImage,
+            imagePreview: files.imagePreviewFile,
           },
         );
 

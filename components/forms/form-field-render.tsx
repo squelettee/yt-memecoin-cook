@@ -19,13 +19,13 @@ interface TemplateFormProps {
   files: {
     logoFile: File | null;
     backgroundFile: File | null;
-    previewImage: File | null;
+    imagePreviewFile: File | null;
   };
   setFiles: React.Dispatch<
     React.SetStateAction<{
       logoFile: File | null;
       backgroundFile: File | null;
-      previewImage: File | null;
+      imagePreviewFile: File | null;
     }>
   >;
 }
@@ -52,9 +52,9 @@ export const FormFieldRenderer = ({
               formField.onChange(file);
 
               // Update files state based on field ID
-              if (field.id === "previewImage") {
-                setFiles((prev) => ({ ...prev, previewImage: file }));
-              } else if (field.id === "aboutImage") {
+              if (field.id === "imagePreview") {
+                setFiles((prev) => ({ ...prev, imagePreviewFile: file }));
+              } else if (field.id === "background") {
                 setFiles((prev) => ({ ...prev, backgroundFile: file }));
               } else if (field.id === "logo") {
                 setFiles((prev) => ({ ...prev, logoFile: file }));
@@ -67,9 +67,9 @@ export const FormFieldRenderer = ({
               className="px-2 py-1 text-sm text-red-600 hover:text-red-700 rounded-md hover:bg-red-50"
               onClick={() => {
                 formField.onChange(null);
-                if (field.id === "previewImage") {
-                  setFiles((prev) => ({ ...prev, previewImage: null }));
-                } else if (field.id === "aboutImage") {
+                if (field.id === "imagePreview") {
+                  setFiles((prev) => ({ ...prev, imagePreviewFile: null }));
+                } else if (field.id === "background") {
                   setFiles((prev) => ({ ...prev, backgroundFile: null }));
                 } else if (field.id === "logo") {
                   setFiles((prev) => ({ ...prev, logoFile: null }));

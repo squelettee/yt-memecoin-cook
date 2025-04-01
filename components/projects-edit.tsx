@@ -2,7 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { ArrowRightIcon, Edit, ExternalLink, Copy, Check, BarChart } from "lucide-react";
+import {
+  ArrowRightIcon,
+  Edit,
+  ExternalLink,
+  Copy,
+  Check,
+  BarChart,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Template } from "@/interfaces/template";
@@ -43,7 +50,7 @@ export function ProjectsEdits({ templates }: ProjectsEditsProps) {
       setCopiedId(templateId);
       setTimeout(() => setCopiedId(null), 2000);
     } catch (err) {
-      console.error('Failed to copy:', err);
+      console.error("Failed to copy:", err);
     }
   };
 
@@ -135,13 +142,17 @@ export function ProjectsEdits({ templates }: ProjectsEditsProps) {
                         {template.domain?.name}
                       </h3>
                       {template.expirationDate && (
-                        <span className={`inline-block text-sm px-3 py-1 rounded-full ${getRemainingTime(template.expirationDate) <= 7
-                          ? 'bg-pink-50 text-pink-600 border border-pink-200'
-                          : getRemainingTime(template.expirationDate) <= 30
-                            ? 'bg-amber-50 text-amber-600 border border-amber-200'
-                            : 'bg-emerald-50 text-emerald-600 border border-emerald-200'
-                          }`}>
-                          {getRemainingTime(template.expirationDate)} days remaining
+                        <span
+                          className={`inline-block text-sm px-3 py-1 rounded-full ${
+                            getRemainingTime(template.expirationDate) <= 7
+                              ? "bg-pink-50 text-pink-600 border border-pink-200"
+                              : getRemainingTime(template.expirationDate) <= 30
+                                ? "bg-amber-50 text-amber-600 border border-amber-200"
+                                : "bg-emerald-50 text-emerald-600 border border-emerald-200"
+                          }`}
+                        >
+                          {getRemainingTime(template.expirationDate)} days
+                          remaining
                         </span>
                       )}
                     </div>
@@ -151,7 +162,9 @@ export function ProjectsEdits({ templates }: ProjectsEditsProps) {
                   <div className="mt-auto space-y-3">
                     <Button
                       variant="outline"
-                      onClick={() => handleEdit(template.domain?.name || "", template)}
+                      onClick={() =>
+                        handleEdit(template.domain?.name || "", template)
+                      }
                       className="w-full bg-violet-50 text-violet-600 border-violet-200 hover:bg-violet-100"
                     >
                       <Edit className="h-4 w-4 mr-2" />
@@ -174,7 +187,13 @@ export function ProjectsEdits({ templates }: ProjectsEditsProps) {
 
                     <Button
                       variant="outline"
-                      onClick={() => template.id && handleCopy(`http:/${template.domain?.name}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`, template.id)}
+                      onClick={() =>
+                        template.id &&
+                        handleCopy(
+                          `http:/${template.domain?.name}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`,
+                          template.id,
+                        )
+                      }
                       className="w-full bg-emerald-50 text-emerald-600 border-emerald-200 hover:bg-emerald-100"
                     >
                       {copiedId === template.id ? (

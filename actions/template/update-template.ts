@@ -18,7 +18,7 @@ export async function updateTemplate(
   files?: {
     logo?: File | null;
     background?: File | null;
-    preview?: File | null;
+    imagePreview?: File | null;
   },
 ) {
   try {
@@ -85,6 +85,9 @@ export async function updateTemplate(
       };
     }
 
+    // Use the subdomain for organizing files in S3
+    const fileBasePath = `domains/${data.subdomain}`;
+
     // Gérer les uploads d'images si nécessaire
     let logoUrl: string | null = domain.template.logo;
     let backgroundUrl: string | null = domain.template.background;
@@ -95,7 +98,7 @@ export async function updateTemplate(
       if (files.logo) {
         const logoUploadResult = await uploadToS3(
           files.logo,
-          `templates/${domain.template.id}/logo`,
+          `${fileBasePath}/logo`,
         );
         if (logoUploadResult.success && logoUploadResult.url) {
           logoUrl = logoUploadResult.url;
@@ -106,7 +109,7 @@ export async function updateTemplate(
       if (files.background) {
         const backgroundUploadResult = await uploadToS3(
           files.background,
-          `templates/${domain.template.id}/background`,
+          `${fileBasePath}/background`,
         );
         if (backgroundUploadResult.success && backgroundUploadResult.url) {
           backgroundUrl = backgroundUploadResult.url;
@@ -114,10 +117,10 @@ export async function updateTemplate(
       }
 
       // Upload de l'image de prévisualisation si fournie
-      if (files.preview) {
+      if (files.imagePreview) {
         const previewUploadResult = await uploadToS3(
-          files.preview,
-          `templates/${domain.template.id}/preview`,
+          files.imagePreview,
+          `${fileBasePath}/preview`,
         );
         if (previewUploadResult.success && previewUploadResult.url) {
           previewUrl = previewUploadResult.url;

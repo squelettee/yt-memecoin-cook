@@ -13,7 +13,7 @@ export async function uploadToS3(file: File, key: string) {
     });
 
     const fileBuffer = await file.arrayBuffer();
-    const fileKey = `${key}-${Date.now()}-${file.name}`;
+    const fileKey = `${key}`;
 
     await s3Client.send(
       new PutObjectCommand({

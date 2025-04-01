@@ -20,11 +20,11 @@ export function CreateTemplateForm({
   const [files, setFiles] = useState<{
     logoFile: File | null;
     backgroundFile: File | null;
-    previewImage: File | null;
+    imagePreviewFile: File | null;
   }>({
     logoFile: null,
     backgroundFile: null,
-    previewImage: null,
+    imagePreviewFile: null,
   });
 
   // Initialiser les données du template avec les valeurs existantes si disponibles

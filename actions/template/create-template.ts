@@ -14,7 +14,7 @@ export async function createTemplate(
   files?: {
     logo?: File | null;
     background?: File | null;
-    preview?: File | null;
+    imagePreview?: File | null;
   },
 ) {
   const templatePrice = templates.find(
@@ -64,10 +64,12 @@ export async function createTemplate(
       return user;
     }
 
+    const fileBasePath = `domains/${subdomain.toLowerCase()}`;
+
     if (files?.logo) {
       const logoUploadResult = await uploadToS3(
         files.logo,
-        `templates/${user.id}/logo`,
+        `${fileBasePath}/logo`,
       );
       if (logoUploadResult.success) {
         validatedData.logo = logoUploadResult.url;
@@ -77,17 +79,17 @@ export async function createTemplate(
     if (files?.background) {
       const backgroundUploadResult = await uploadToS3(
         files.background,
-        `templates/${user.id}/background`,
+        `${fileBasePath}/background`,
       );
       if (backgroundUploadResult.success) {
-        validatedData.backgroundImage = backgroundUploadResult.url;
+        validatedData.background = backgroundUploadResult.url;
       }
     }
 
-    if (files?.preview) {
+    if (files?.imagePreview) {
       const previewUploadResult = await uploadToS3(
-        files.preview,
-        `templates/${user.id}/preview`,
+        files.imagePreview,
+        `${fileBasePath}/preview`,
       );
       if (previewUploadResult.success) {
         validatedData.imagePreview = previewUploadResult.url;

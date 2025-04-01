@@ -108,8 +108,8 @@ export const formConfigByTemplate: Record<
         section: "Hero",
       },
       {
-        id: "previewImage",
-        label: "Preview Image",
+        id: "imagePreview",
+        label: "Image preview",
         type: "file",
         section: "Hero",
       },
@@ -117,7 +117,12 @@ export const formConfigByTemplate: Record<
     About: [
       { id: "aboutTitle", label: "Title", type: "text", section: "About" },
       { id: "aboutContent", label: "Content", type: "text", section: "About" },
-      { id: "aboutImage", label: "Image", type: "file", section: "About" },
+      {
+        id: "background",
+        label: "Background Image",
+        type: "file",
+        section: "About",
+      },
     ],
     Roadmap: [
       {
@@ -238,8 +243,8 @@ export const formConfigByTemplate: Record<
         ],
       },
       {
-        id: "previewImage",
-        label: "Preview Image",
+        id: "imagePreview",
+        label: "Image preview",
         type: "file",
         section: "Styling",
       },
@@ -390,8 +395,8 @@ export const formConfigByTemplate: Record<
         ],
       },
       {
-        id: "previewImage",
-        label: "Preview Image",
+        id: "imagePreview",
+        label: "Image preview",
         type: "file",
         section: "Styling",
       },

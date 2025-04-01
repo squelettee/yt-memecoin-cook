@@ -61,7 +61,7 @@ export const Hero = ({
               <div className="w-24 h-24 border border-[#ACA899] bg-[#F1EFE2] p-1">
                 <DynamicImage
                   src={
-                    file ? URL.createObjectURL(file) : templateData.previewImage
+                    file ? URL.createObjectURL(file) : templateData.imagePreview
                   }
                   fallbackSrc="https://memecook.fun/assets/upload_image.jpeg"
                   alt="Token"

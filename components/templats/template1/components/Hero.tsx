@@ -113,7 +113,7 @@ export const Hero = ({
         <div className="w-full lg:w-1/2 h-full flex items-center justify-center">
           <div className="relative w-full aspect-square flex items-center justify-center">
             <DynamicImage
-              src={file ? URL.createObjectURL(file) : templateData.previewImage}
+              src={file ? URL.createObjectURL(file) : templateData.imagePreview}
               alt="Project Logo"
               fallbackSrc="https://memecook.fun/assets/upload_image.jpeg"
               fill
