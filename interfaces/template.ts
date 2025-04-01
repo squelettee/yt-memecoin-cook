@@ -61,4 +61,5 @@ export interface Template {
   footerText?: string | null;
   imagePreview?: string | null;
   userId?: number;
+  expirationDate?: Date;
 }
