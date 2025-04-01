@@ -98,7 +98,6 @@ export function TemplateForm({
   const [showDurationDialog, setShowDurationDialog] = useState(false);
   const [affiliateCode, setAffiliateCode] = useState<string>("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [selectedDuration, setSelectedDuration] = useState<string | null>(null);
 
   const form = useForm<TemplateFormData>({
     resolver: zodResolver(templateSchema),
@@ -136,23 +135,16 @@ export function TemplateForm({
     setShowDurationDialog(true);
   };
 
-  const handleDurationSelect = (duration: string) => {
-    setSelectedDuration(duration);
+  const handleDurationSelect = async (duration: string) => {
     const formData = form.getValues();
-
-    onSubmit({
-      ...formData,
-      affiliateCode,
-      deploymentDuration: duration,
-    });
+    await onSubmit({ ...formData, affiliateCode, duration });
     setShowDurationDialog(false);
   };
 
   const onSubmit = async (
     data: TemplateFormData & {
       affiliateCode?: string;
-      deploymentDuration?: string;
-      price?: number;
+      duration?: string;
     },
   ) => {
     setError(null);
@@ -198,6 +190,13 @@ export function TemplateForm({
             if (!response.success) {
               throw new Error(response.error || "Failed to update template");
             }
+
+            alert("Template updated successfully!");
+
+            const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
+            if (baseDomain && subdomain) {
+              window.location.href = `http://${subdomain}.${baseDomain}`;
+            }
           } catch (error) {
             if (
               error instanceof Error &&
@@ -225,12 +224,11 @@ export function TemplateForm({
           );
         }
 
-        // Include the price in the template creation request
         const response = await createTemplate(
           data,
           subdomain,
           publicKey.toBase58(),
-          selectedDuration || "1month",
+          data.duration,
           {
             logo: files.logoFile,
             background: files.backgroundFile,
@@ -553,39 +551,26 @@ export function TemplateForm({
                 value={affiliateCode}
                 onChange={(e) => setAffiliateCode(e.target.value)}
                 className="w-full mb-4"
-                disabled={true}
               />
               <div className="grid grid-cols-1 gap-4">
-                {/* Get the template price from the templates configuration */}
-                {(() => {
-                  const templatePrice =
-                    templates.find((t) => t.id === selectedTemplate)?.price ||
-                    0;
-                  return (
-                    <>
-                      <Button
-                        onClick={() => handleDurationSelect("1week")}
-                        className="py-6 bg-blue-600 hover:bg-blue-700 text-white"
-                      >
-                        1 month ({templatePrice} SOL)
-                      </Button>
-                      <Button
-                        onClick={() => handleDurationSelect("1month")}
-                        className="py-6 bg-gray-400 cursor-not-allowed text-gray-600"
-                        disabled
-                      >
-                        3 months ({(templatePrice + 0.03).toFixed(2)} SOL)
-                      </Button>
-                      <Button
-                        onClick={() => handleDurationSelect("3months")}
-                        className="py-6 bg-gray-400 cursor-not-allowed text-gray-600"
-                        disabled
-                      >
-                        6 months ({(templatePrice + 0.05).toFixed(2)} SOL)
-                      </Button>
-                    </>
-                  );
-                })()}
+                <Button
+                  onClick={() => handleDurationSelect("1month")}
+                  className="py-6 bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  1 month (beta free)
+                </Button>
+                <Button
+                  onClick={() => handleDurationSelect("3months")}
+                  className="py-6 bg-pink-600 hover:bg-pink-700 text-white"
+                >
+                  3 months (+0.03 SOL)
+                </Button>
+                <Button
+                  onClick={() => handleDurationSelect("6months")}
+                  className="py-6 bg-amber-600 hover:bg-amber-700 text-white"
+                >
+                  6 months (+0.05 SOL)
+                </Button>
               </div>
             </div>
           </DialogContent>

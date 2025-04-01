@@ -21,7 +21,7 @@ model Template {
   id              Int      @id @default(autoincrement())
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  deletedAt       DateTime?
+  expirationDate  DateTime @default(dbgenerated("NOW() + interval '1 month'"))
   type            String   @default("template1") @db.VarChar(255)
 
   // Media fields

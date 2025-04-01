@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Edit, ExternalLink } from "lucide-react";
+import { ArrowRightIcon, Edit, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Template } from "@/interfaces/template";
@@ -79,8 +79,12 @@ export function ProjectsEdits({ templates }: ProjectsEditsProps) {
               <p className="text-gray-500 mb-6">
                 You haven&apos;t created any projects yet.
               </p>
-              <Button onClick={() => router.push("/")}>
+              <Button
+                onClick={() => router.push("/")}
+                className={`h-12 bg-violet-800 hover:bg-black text-primary-foreground font-bold text-lg ${dynapuff.className}`}
+              >
                 Create Your First Project
+                <ArrowRightIcon className="w-5 h-5 ml-2" />
               </Button>
             </div>
           ) : (

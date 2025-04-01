@@ -13,6 +13,7 @@ export const templateSchema: TemplateSchemaType = z.object({
   id: z.number().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
+  expirationDate: z.date().optional(),
 
   // Basic fields
   projectName: z.string().optional().or(z.literal("")),

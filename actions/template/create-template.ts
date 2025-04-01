@@ -10,15 +10,34 @@ export async function createTemplate(
   templateData: TemplateFormData,
   subdomain: string,
   address: string,
-  selectedDuration: string,
+  duration: string,
   files?: {
     logo?: File | null;
     background?: File | null;
     preview?: File | null;
   },
 ) {
-  const templatePrice = templates.find((t) => t.id === templateData)?.price;
+  const templatePrice = templates.find(
+    (t) => t.id === templateData.type,
+  )?.price;
   if (!templatePrice) return { error: "Template price not found" };
+
+  if (!duration) return { error: "Duration not found" };
+
+  const expirationDate = new Date();
+  switch (duration) {
+    case "1month":
+      expirationDate.setMonth(expirationDate.getMonth() + 1);
+      break;
+    case "3months":
+      expirationDate.setMonth(expirationDate.getMonth() + 3);
+      break;
+    case "6months":
+      expirationDate.setMonth(expirationDate.getMonth() + 6);
+      break;
+    default:
+      return { error: "Invalid duration selected" };
+  }
 
   try {
     const validationResult = templateSchema.safeParse(templateData);
@@ -35,10 +54,6 @@ export async function createTemplate(
     const existingDomain = await prisma.domain.findUnique({
       where: { name: subdomain.toLowerCase() },
     });
-
-    if (selectedDuration === "1month") {
-      console.log("salut");
-    }
 
     if (existingDomain) {
       return { error: "Ce nom de domaine existe déjà" };
@@ -82,6 +97,7 @@ export async function createTemplate(
     const template = await prisma.template.create({
       data: {
         ...validatedData,
+        expirationDate,
         domain: {
           create: {
             name: subdomain.toLowerCase(),

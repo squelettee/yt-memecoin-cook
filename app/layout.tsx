@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Wallet } from "@/components/providers/wallet-provider";
 import { Analytics } from "@vercel/analytics/react";
+import { Toaster } from "@/components/ui/toaster";
 import "@/app/globals.css";
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default function RootLayout({
         >
           <Wallet>{children}</Wallet>
         </ThemeProvider>
+        <Toaster />
         <Analytics />
       </body>
     </html>
