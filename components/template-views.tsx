@@ -95,7 +95,7 @@ export const TemplateViews = ({
   files?: {
     logoFile: File | null;
     backgroundFile: File | null;
-    previewImage: File | null;
+    imagePreviewFile: File | null;
   };
   subdomain?: string;
 }) => {

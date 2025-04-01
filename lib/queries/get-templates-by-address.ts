@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "@/lib/prisma";
 
 export const getTemplatesByAddress = async (address: string) => {

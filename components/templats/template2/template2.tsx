@@ -28,7 +28,7 @@ const Template2 = ({
   files?: {
     logoFile: File | null;
     backgroundFile: File | null;
-    previewImage: File | null;
+    imagePreviewFile: File | null;
   };
   subdomain?: string;
 }) => {
@@ -82,10 +82,14 @@ const Template2 = ({
         className="flex flex-col items-center w-full "
         style={{ backgroundColor: templateData.primaryColor }}
       >
-        {files?.previewImage && (
+        {templateData.imagePreview && (
           <DynamicImage
-            src={URL.createObjectURL(files.previewImage)}
-            fallbackSrc={"https://memecook.fun/assets/illustration.avif"}
+            src={
+              files?.imagePreviewFile
+                ? URL.createObjectURL(files.imagePreviewFile)
+                : templateData.imagePreview
+            }
+            fallbackSrc={"/"}
             alt="Preview"
             fill
             className="object-cover"

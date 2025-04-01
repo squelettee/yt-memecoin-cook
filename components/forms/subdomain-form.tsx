@@ -16,7 +16,6 @@ import { ArrowRightIcon } from "lucide-react";
 import localFont from "next/font/local";
 interface SubdomainFormProps {
   onSubmit: (data: SubdomainFormData) => Promise<void>;
-  disabled?: boolean;
 }
 
 const dynapuff = localFont({
@@ -24,7 +23,7 @@ const dynapuff = localFont({
   weight: "800",
 });
 
-export function SubdomainForm({ onSubmit, disabled }: SubdomainFormProps) {
+export function SubdomainForm({ onSubmit }: SubdomainFormProps) {
   const form = useForm<SubdomainFormData>({
     resolver: zodResolver(subdomainSchema),
     defaultValues: {
@@ -74,9 +73,8 @@ export function SubdomainForm({ onSubmit, disabled }: SubdomainFormProps) {
         <Button
           type="submit"
           className={`w-full h-12 bg-violet-800 hover:bg-black text-primary-foreground font-bold text-lg ${dynapuff.className}`}
-          disabled={disabled}
         >
-          {disabled ? "Beta is finished" : "Let Me Cook"}
+          Let Me Cook
           <ArrowRightIcon className="w-5 h-5 ml-2" />
         </Button>
       </form>

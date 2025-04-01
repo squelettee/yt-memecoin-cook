@@ -40,6 +40,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { subscribeToNewsletter } from "@/actions/newletter/subscribe";
+import { updateTemplate } from "@/actions/template/update-template";
+import bs58 from "bs58";
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -49,22 +51,23 @@ const WalletMultiButtonDynamic = dynamic(
   },
 );
 
-interface TemplateFormProps {
+export interface TemplateFormProps {
   onUpdate: (data: TemplateFormData) => void;
   templateData: TemplateFormData;
   subdomain: string;
   files: {
     logoFile: File | null;
     backgroundFile: File | null;
-    previewImage: File | null;
+    imagePreviewFile: File | null;
   };
   setFiles: React.Dispatch<
     React.SetStateAction<{
       logoFile: File | null;
       backgroundFile: File | null;
-      previewImage: File | null;
+      imagePreviewFile: File | null;
     }>
   >;
+  isEditing?: boolean;
 }
 
 const dynapuff = localFont({
@@ -78,6 +81,7 @@ export function TemplateForm({
   subdomain,
   files,
   setFiles,
+  isEditing = false,
 }: TemplateFormProps) {
   const [selectedTemplate, setSelectedTemplate] = useState<string>(
     templateData.type || "template1",
@@ -85,14 +89,15 @@ export function TemplateForm({
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const { publicKey } = useWallet();
+  const { publicKey, wallet, signMessage } = useWallet();
   const isWalletConnected = !!publicKey;
-  const [activeTab, setActiveTab] = useState<string>("template");
+  const [activeTab, setActiveTab] = useState<string>(
+    isEditing ? "edits" : "template",
+  );
   const [showTermsDialog, setShowTermsDialog] = useState(false);
   const [showDurationDialog, setShowDurationDialog] = useState(false);
   const [affiliateCode, setAffiliateCode] = useState<string>("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [selectedDuration, setSelectedDuration] = useState<string | null>(null);
 
   const form = useForm<TemplateFormData>({
     resolver: zodResolver(templateSchema),
@@ -114,7 +119,12 @@ export function TemplateForm({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     form.handleSubmit(() => {
-      setShowTermsDialog(true);
+      if (isEditing) {
+        const formData = form.getValues();
+        onSubmit({ ...formData });
+      } else {
+        setShowTermsDialog(true);
+      }
     })();
   };
 
@@ -125,17 +135,16 @@ export function TemplateForm({
     setShowDurationDialog(true);
   };
 
-  const handleDurationSelect = (duration: string) => {
-    setSelectedDuration(duration);
+  const handleDurationSelect = async (duration: string) => {
     const formData = form.getValues();
-    onSubmit({ ...formData, affiliateCode, deploymentDuration: duration });
+    await onSubmit({ ...formData, affiliateCode, duration });
     setShowDurationDialog(false);
   };
 
   const onSubmit = async (
     data: TemplateFormData & {
       affiliateCode?: string;
-      deploymentDuration?: string;
+      duration?: string;
     },
   ) => {
     setError(null);
@@ -144,6 +153,67 @@ export function TemplateForm({
       try {
         if (!publicKey) {
           throw new Error("Wallet not connected");
+        }
+
+        if (isEditing) {
+          try {
+            if (!wallet || !publicKey) {
+              throw new Error("Wallet not connected or not initialized");
+            }
+
+            // Créer un message à signer
+            const message = `Update template: ${subdomain} at ${new Date().toISOString()}`;
+
+            // Demander à l'utilisateur de signer le message
+            const encodedMessage = new TextEncoder().encode(message);
+
+            // Use the signMessage from the wallet context
+            const signatureBytes = await signMessage!(encodedMessage);
+            const signature = bs58.encode(signatureBytes);
+
+            // Envoyer la signature avec les données du formulaire
+            const response = await updateTemplate(
+              {
+                ...data,
+                subdomain: subdomain,
+                signature: signature,
+                message: message,
+                publicKey: publicKey.toBase58(),
+              },
+              {
+                logo: files.logoFile,
+                background: files.backgroundFile,
+                imagePreview: files.imagePreviewFile,
+              },
+            );
+
+            if (!response.success) {
+              throw new Error(response.error || "Failed to update template");
+            }
+
+            alert("Template updated successfully!");
+
+            const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
+            if (baseDomain && subdomain) {
+              window.location.href = `http://${subdomain}.${baseDomain}`;
+            }
+          } catch (error) {
+            if (
+              error instanceof Error &&
+              error.message.includes("User rejected")
+            ) {
+              setError(
+                "Signature rejected. You must sign the message to update your template.",
+              );
+            } else {
+              setError(
+                error instanceof Error
+                  ? error.message
+                  : "An error occurred during signature",
+              );
+            }
+          }
+          return;
         }
 
         const newsletterResponse = await subscribeToNewsletter(email);
@@ -158,11 +228,11 @@ export function TemplateForm({
           data,
           subdomain,
           publicKey.toBase58(),
-          selectedDuration || "1month",
+          data.duration,
           {
             logo: files.logoFile,
             background: files.backgroundFile,
-            preview: files.previewImage,
+            imagePreview: files.imagePreviewFile,
           },
         );
 
@@ -237,15 +307,25 @@ export function TemplateForm({
                               ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-lg shadow-blue-200"
                               : "hover:border-blue-400 hover:bg-blue-50 border-blue-200"
                           }`}
+                          disabled={isEditing}
                         >
                           <span className="text-lg font-bold">
                             {template.name}
                           </span>
 
                           <span className="text-sm font-medium px-4 py-1 rounded-full bg-blue-100 text-blue-800">
-                            beta (free)
+                            {template.price} SOL
                           </span>
                         </Button>
+                        {isEditing && selectedTemplate === template.id && (
+                          <div className="absolute inset-0 bg-black/10 flex items-center justify-center rounded-xl">
+                            <div className="bg-white px-4 py-2 rounded-md text-sm font-medium text-gray-700 flex items-center gap-2 shadow-sm">
+                              <span>👉</span> Please use the{" "}
+                              <span className="font-bold">Edit Content</span>{" "}
+                              tab
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ))}
                 </div>
@@ -320,8 +400,8 @@ export function TemplateForm({
                         Connect Your Wallet
                       </h3>
                       <p className="text-sm text-violet-700">
-                        To create your template, please connect your wallet
-                        first
+                        To {isEditing ? "update" : "create"} your template,
+                        please connect your wallet first
                       </p>
                     </div>
                     <WalletMultiButtonDynamic className="w-full max-w-md py-3 rounded-lg border-2 border-violet-300 bg-white hover:bg-violet-100 transition-colors shadow-sm" />
@@ -337,11 +417,12 @@ export function TemplateForm({
                         <span
                           className={`flex items-center gap-2 ${dynapuff.className}`}
                         >
-                          <span className="animate-spin">🍳</span> Creating...
+                          <span className="animate-spin">🍳</span>{" "}
+                          {isEditing ? "Updating..." : "Creating..."}
                         </span>
                       ) : (
                         <>
-                          I&apos;m done cooking
+                          {isEditing ? "Update Project" : "I'm done cooking"}
                           <ArrowRightIcon className="w-5 h-5 ml-2" />
                         </>
                       )}
@@ -359,141 +440,142 @@ export function TemplateForm({
         </div>
       </Tabs>
       {/* Terms and Conditions Dialog */}
-      <Dialog open={showTermsDialog} onOpenChange={setShowTermsDialog}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle
-              className={`text-center text-2xl font-bold ${dynapuff.className}`}
-            >
-              Terms & Conditions
-            </DialogTitle>
-            <DialogDescription className="text-center pt-4">
-              <div className="space-y-4">
-                <p className="text-sm text-gray-600">
-                  By creating a template, you agree to the following terms and
-                  conditions:
-                </p>
+      {!isEditing && (
+        <Dialog open={showTermsDialog} onOpenChange={setShowTermsDialog}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle
+                className={`text-center text-2xl font-bold ${dynapuff.className}`}
+              >
+                Terms & Conditions
+              </DialogTitle>
+              <DialogDescription className="text-center pt-4">
+                <div className="space-y-4">
+                  <p className="text-sm text-gray-600">
+                    By creating a template, you agree to the following terms and
+                    conditions:
+                  </p>
 
-                <div className="space-y-3 text-left bg-violet-50 p-4 rounded-lg border border-violet-200">
-                  <div className="flex items-start gap-2">
-                    <span className="text-violet-600 mt-1">•</span>
+                  <div className="space-y-3 text-left bg-violet-50 p-4 rounded-lg border border-violet-200">
+                    <div className="flex items-start gap-2">
+                      <span className="text-violet-600 mt-1">•</span>
 
-                    <span className="text-sm text-violet-900">
-                      This is a one shot template creation service. You
-                      can&apos;t edit the template once it&apos;s created. (may
-                      change in the future)
-                    </span>
-                  </div>
+                      <span className="text-sm text-violet-900">
+                        This is a one shot template creation service. You
+                        can&apos;t edit the template once it&apos;s created.
+                        (may change in the future)
+                      </span>
+                    </div>
 
-                  <div className="flex items-start gap-2">
-                    <span className="text-violet-600 mt-1">•</span>
-                    <span className="text-sm text-violet-900">
-                      Memecook is not responsible for the content of the
-                      template.
-                    </span>
-                  </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-violet-600 mt-1">•</span>
+                      <span className="text-sm text-violet-900">
+                        Memecook is not responsible for the content of the
+                        template.
+                      </span>
+                    </div>
 
-                  <div className="flex items-start gap-2">
-                    <span className="text-violet-600 mt-1">•</span>
-                    <span className="text-sm text-violet-900">
-                      Memecook can modify or cancel the template at any time if
-                      the template is offensive or violates any laws.
-                    </span>
+                    <div className="flex items-start gap-2">
+                      <span className="text-violet-600 mt-1">•</span>
+                      <span className="text-sm text-violet-900">
+                        Memecook can modify or cancel the template at any time
+                        if the template is offensive or violates any laws.
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </DialogDescription>
-          </DialogHeader>
+              </DialogDescription>
+            </DialogHeader>
 
-          <div className="space-y-4 py-4">
-            <div className="space-y-4">
-              <div className="flex items-center justify-center bg-violet-100 rounded-lg p-3">
-                <p className="text-sm font-medium text-violet-800">
-                  memecook.contact@proton.me
-                </p>
-              </div>
-              <Input
-                type="email"
-                placeholder="Enter your email to be validated as an early adopter"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full mb-4"
-              />
-              <div className="flex items-center space-x-3 bg-gray-50 p-3 rounded-lg">
-                <Checkbox
-                  id="terms"
-                  checked={acceptedTerms}
-                  onCheckedChange={(checked) =>
-                    setAcceptedTerms(checked as boolean)
-                  }
-                  className="border-2 border-violet-400"
+            <div className="space-y-4 py-4">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center bg-violet-100 rounded-lg p-3">
+                  <p className="text-sm font-medium text-violet-800">
+                    memecook.contact@proton.me
+                  </p>
+                </div>
+                <Input
+                  type="email"
+                  placeholder="Enter your email to be validated as an early adopter"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full mb-4"
                 />
-                <label
-                  htmlFor="terms"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  I accept the terms and conditions
-                </label>
+                <div className="flex items-center space-x-3 bg-gray-50 p-3 rounded-lg">
+                  <Checkbox
+                    id="terms"
+                    checked={acceptedTerms}
+                    onCheckedChange={(checked) =>
+                      setAcceptedTerms(checked as boolean)
+                    }
+                    className="border-2 border-violet-400"
+                  />
+                  <label
+                    htmlFor="terms"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    I accept the terms and conditions
+                  </label>
+                </div>
               </div>
+              <Button
+                onClick={handleTermsAccept}
+                disabled={!acceptedTerms}
+                className="w-full py-6 bg-violet-800 hover:bg-violet-900 text-white"
+              >
+                Accept and Continue
+              </Button>
             </div>
-            <Button
-              onClick={handleTermsAccept}
-              disabled={!acceptedTerms}
-              className="w-full py-6 bg-violet-800 hover:bg-violet-900 text-white"
-            >
-              Accept and Continue
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+      )}
 
       {/* Duration Selection Dialog */}
-      <Dialog open={showDurationDialog} onOpenChange={setShowDurationDialog}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle
-              className={`text-center text-2xl ${dynapuff.className}`}
-            >
-              Choose Deployment Option
-            </DialogTitle>
-            <DialogDescription className="text-center pt-2">
-              Select your deployment option
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <Input
-              type="text"
-              placeholder="Enter promo code for discount"
-              value={affiliateCode}
-              onChange={(e) => setAffiliateCode(e.target.value)}
-              className="w-full mb-4"
-              disabled={true}
-            />
-            <div className="grid grid-cols-1 gap-4">
-              <Button
-                onClick={() => handleDurationSelect("1week")}
-                className="py-6 bg-blue-600 hover:bg-blue-700 text-white"
+      {!isEditing && (
+        <Dialog open={showDurationDialog} onOpenChange={setShowDurationDialog}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle
+                className={`text-center text-2xl ${dynapuff.className}`}
               >
-                1 month (beta free)
-              </Button>
-              <Button
-                onClick={() => handleDurationSelect("1month")}
-                className="py-6 bg-gray-400 cursor-not-allowed text-gray-600"
-                disabled
-              >
-                3 months (+0.03 SOL)
-              </Button>
-              <Button
-                onClick={() => handleDurationSelect("3months")}
-                className="py-6 bg-gray-400 cursor-not-allowed text-gray-600"
-                disabled
-              >
-                6 months (+0.05 SOL)
-              </Button>
+                Choose Deployment Option
+              </DialogTitle>
+              <DialogDescription className="text-center pt-2">
+                Select your deployment option
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <Input
+                type="text"
+                placeholder="Enter promo code for discount"
+                value={affiliateCode}
+                onChange={(e) => setAffiliateCode(e.target.value)}
+                className="w-full mb-4"
+              />
+              <div className="grid grid-cols-1 gap-4">
+                <Button
+                  onClick={() => handleDurationSelect("1month")}
+                  className="py-6 bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  1 month (beta free)
+                </Button>
+                <Button
+                  onClick={() => handleDurationSelect("3months")}
+                  className="py-6 bg-pink-600 hover:bg-pink-700 text-white"
+                >
+                  3 months (+0.03 SOL)
+                </Button>
+                <Button
+                  onClick={() => handleDurationSelect("6months")}
+                  className="py-6 bg-amber-600 hover:bg-amber-700 text-white"
+                >
+                  6 months (+0.05 SOL)
+                </Button>
+              </div>
             </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }

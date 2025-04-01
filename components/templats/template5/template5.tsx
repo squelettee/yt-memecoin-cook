@@ -31,7 +31,7 @@ const Template5 = ({
   files?: {
     logoFile: File | null;
     backgroundFile: File | null;
-    previewImage: File | null;
+    imagePreviewFile: File | null;
   };
   subdomain?: string;
 }) => {
@@ -125,7 +125,7 @@ const Template5 = ({
               <Hero
                 templateData={templateData}
                 headingFontClass={headingFontClass}
-                file={files?.previewImage}
+                file={files?.imagePreviewFile}
               />
               <HowToBuy templateData={templateData} />
               <Footer templateData={templateData} subdomain={subdomain} />

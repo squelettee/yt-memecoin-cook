@@ -75,7 +75,7 @@ export const About = ({
           {/* Left side - Image */}
           <div className="rounded-xl p-6">
             <DynamicImage
-              src={file ? URL.createObjectURL(file) : templateData.aboutImage}
+              src={file ? URL.createObjectURL(file) : templateData.background}
               fallbackSrc={"https://memecook.fun/assets/upload_image.jpeg"}
               alt="About Image"
               width={500}
