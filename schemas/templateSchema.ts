@@ -14,6 +14,7 @@ export const templateSchema: TemplateSchemaType = z.object({
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
   expirationDate: z.date().optional(),
+  status: z.string().default("pending"),
 
   // Basic fields
   projectName: z.string().optional().or(z.literal("")),

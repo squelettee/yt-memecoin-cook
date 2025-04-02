@@ -55,7 +55,7 @@ export function HomeTitle() {
             </span>
           </DialogHeader>
           <div className="flex gap-4">
-            <Link href="https://twitter.com/@tehdoreiller" target="_blank">
+            <Link href="https://twitter.com/@@MemecookFUN" target="_blank">
               <Image
                 src="/socials/twitter.png"
                 alt="Twitter"

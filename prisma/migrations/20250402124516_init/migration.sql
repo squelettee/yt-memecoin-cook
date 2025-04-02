@@ -16,6 +16,7 @@ CREATE TABLE "Template" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "expirationDate" TIMESTAMP(3) NOT NULL DEFAULT NOW() + interval '1 month',
     "type" VARCHAR(255) NOT NULL DEFAULT 'template1',
+    "status" VARCHAR(255) NOT NULL DEFAULT 'pending',
     "background" VARCHAR(255),
     "logo" VARCHAR(255),
     "imagePreview" VARCHAR(255),

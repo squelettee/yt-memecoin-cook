@@ -62,4 +62,5 @@ export interface Template {
   imagePreview?: string | null;
   userId?: number;
   expirationDate?: Date;
+  status?: "pending" | "active";
 }

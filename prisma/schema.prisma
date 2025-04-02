@@ -23,6 +23,7 @@ model Template {
   updatedAt       DateTime @updatedAt
   expirationDate  DateTime @default(dbgenerated("NOW() + interval '1 month'"))
   type            String   @default("template1") @db.VarChar(255)
+  status          String   @default("pending") @db.VarChar(255)
 
   // Media fields
   background      String?  @db.VarChar(255)

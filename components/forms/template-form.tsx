@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { templateSchema, TemplateFormData } from "@/schemas/templateSchema";
-import { createTemplate } from "@/actions/template/create-template";
 import {
   Form,
   FormControl,
@@ -39,9 +38,12 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { subscribeToNewsletter } from "@/actions/newletter/subscribe";
 import { updateTemplate } from "@/actions/template/update-template";
 import bs58 from "bs58";
+// import * as web3 from "@solana/web3.js";
+import { createTemplate } from "@/actions/template/create-template";
+// import { activateTemplate } from "@/actions/template/activate-template";
+import { deleteTemplate } from "@/actions/template/delete-template";
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -86,7 +88,6 @@ export function TemplateForm({
   const [selectedTemplate, setSelectedTemplate] = useState<string>(
     templateData.type || "template1",
   );
-  const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const { publicKey, wallet, signMessage } = useWallet();
@@ -161,17 +162,13 @@ export function TemplateForm({
               throw new Error("Wallet not connected or not initialized");
             }
 
-            // Créer un message à signer
             const message = `Update template: ${subdomain} at ${new Date().toISOString()}`;
 
-            // Demander à l'utilisateur de signer le message
             const encodedMessage = new TextEncoder().encode(message);
 
-            // Use the signMessage from the wallet context
             const signatureBytes = await signMessage!(encodedMessage);
             const signature = bs58.encode(signatureBytes);
 
-            // Envoyer la signature avec les données du formulaire
             const response = await updateTemplate(
               {
                 ...data,
@@ -190,8 +187,6 @@ export function TemplateForm({
             if (!response.success) {
               throw new Error(response.error || "Failed to update template");
             }
-
-            alert("Template updated successfully!");
 
             const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
             if (baseDomain && subdomain) {
@@ -216,35 +211,104 @@ export function TemplateForm({
           return;
         }
 
-        const newsletterResponse = await subscribeToNewsletter(email);
+        if (!wallet) {
+          throw new Error("Wallet not connected");
+        }
 
-        if (!newsletterResponse.success) {
-          throw new Error(
-            newsletterResponse.error || "Failed to subscribe to newsletter",
+        const payerAddress = process.env.NEXT_PUBLIC_SOLANA_PAYER_ADDRESS;
+        if (!payerAddress) {
+          throw new Error("Payer address not configured");
+        }
+
+        // const connection = new web3.Connection(
+        //   process.env.NEXT_PUBLIC_SOLANA_RPC_URL!,
+        // );
+        const price = templates.find((t) => t.id === data.type)?.price;
+        if (!price) {
+          throw new Error("Price not found");
+        }
+
+        // const durationPrice = data.duration === "1month" ? 0.00 : data.duration === "3months" ? 0.03 : 0.05;
+
+        try {
+          const pendingTemplate = await createTemplate(
+            { ...data, status: "active" }, // pending is the default status
+            subdomain,
+            publicKey.toBase58(),
+            data.duration,
+            {
+              logo: files.logoFile,
+              background: files.backgroundFile,
+              imagePreview: files.imagePreviewFile,
+            },
           );
-        }
 
-        const response = await createTemplate(
-          data,
-          subdomain,
-          publicKey.toBase58(),
-          data.duration,
-          {
-            logo: files.logoFile,
-            background: files.backgroundFile,
-            imagePreview: files.imagePreviewFile,
-          },
-        );
+          if (!pendingTemplate.success || !pendingTemplate.template) {
+            throw new Error(
+              pendingTemplate.error || "Failed to create template",
+            );
+          }
 
-        if (!response.success) {
-          throw new Error(response.error || "Failed to create template");
-        }
+          try {
+            //   const { blockhash, lastValidBlockHeight } =
+            //     await connection.getLatestBlockhash();
+            //   const transaction = new web3.Transaction().add(
+            //     web3.SystemProgram.transfer({
+            //       fromPubkey: publicKey,
+            //       toPubkey: new web3.PublicKey(payerAddress),
+            //       lamports: web3.LAMPORTS_PER_SOL * 0.00 //(price + durationPrice)
+            //     }),
+            //   );
 
-        const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
+            // transaction.recentBlockhash = blockhash;
+            // transaction.lastValidBlockHeight = lastValidBlockHeight;
 
-        if (baseDomain && response.template?.domain?.name) {
-          const redirectUrl = `http://${response.template.domain.name}.${baseDomain}`;
-          window.location.href = redirectUrl;
+            // const signature = await wallet.adapter.sendTransaction(
+            //   transaction,
+            //   connection,
+            // );
+            // const confirmation = await connection.confirmTransaction({
+            //   blockhash: blockhash,
+            //   lastValidBlockHeight: lastValidBlockHeight,
+            //   signature: signature,
+            // });
+
+            // if (confirmation.value.err) {
+            //   throw new Error(`Transaction failed: ${confirmation.value.err}`);
+            // }
+
+            // const activatedTemplate = await activateTemplate(
+            //   pendingTemplate.template.id,
+            // );
+
+            // if (!activatedTemplate) {
+            //   console.error("Failed to activate template after payment");
+            //   throw new Error(
+            //     "Payment successful but template activation failed. Our team will contact you shortly.",
+            //   );
+            // }
+
+            const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
+            if (baseDomain) {
+              const domainName = subdomain;
+              const redirectUrl = `http://${domainName}.${baseDomain}`;
+              window.location.href = redirectUrl;
+            }
+          } catch (error) {
+            await deleteTemplate(pendingTemplate.template.id.toString());
+
+            if (
+              error instanceof Error &&
+              error.message.includes("User rejected")
+            ) {
+              throw new Error(
+                "Payment cancelled: User rejected the transaction",
+              );
+            }
+            throw error;
+          }
+        } catch (err) {
+          setError(err instanceof Error ? err.message : "An error occurred");
         }
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
@@ -314,7 +378,8 @@ export function TemplateForm({
                           </span>
 
                           <span className="text-sm font-medium px-4 py-1 rounded-full bg-blue-100 text-blue-800">
-                            {template.price} SOL
+                            {/* {template.price} SOL */}
+                            free (beta)
                           </span>
                         </Button>
                         {isEditing && selectedTemplate === template.id && (
@@ -494,13 +559,6 @@ export function TemplateForm({
                     memecook.contact@proton.me
                   </p>
                 </div>
-                <Input
-                  type="email"
-                  placeholder="Enter your email to be validated as an early adopter"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full mb-4"
-                />
                 <div className="flex items-center space-x-3 bg-gray-50 p-3 rounded-lg">
                   <Checkbox
                     id="terms"
@@ -557,17 +615,19 @@ export function TemplateForm({
                   onClick={() => handleDurationSelect("1month")}
                   className="py-6 bg-blue-600 hover:bg-blue-700 text-white"
                 >
-                  1 month (beta free)
+                  1 month beta (free)
                 </Button>
                 <Button
                   onClick={() => handleDurationSelect("3months")}
-                  className="py-6 bg-pink-600 hover:bg-pink-700 text-white"
+                  className="py-6 bg-pink-600 hover:bg-pink-700 text-white disabled:opacity-50"
+                  disabled={true}
                 >
                   3 months (+0.03 SOL)
                 </Button>
                 <Button
                   onClick={() => handleDurationSelect("6months")}
-                  className="py-6 bg-amber-600 hover:bg-amber-700 text-white"
+                  className="py-6 bg-amber-600 hover:bg-amber-700 text-white disabled:opacity-50"
+                  disabled={true}
                 >
                   6 months (+0.05 SOL)
                 </Button>

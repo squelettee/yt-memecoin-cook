@@ -24,7 +24,12 @@ export async function uploadToS3(file: File, key: string) {
       }),
     );
 
-    const url = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${fileKey}`;
+    let url;
+
+    if (process.env.NODE_ENV === "development")
+      url = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/prod/${fileKey}`;
+    else
+      url = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/devs/${fileKey}`;
 
     return {
       success: true,
