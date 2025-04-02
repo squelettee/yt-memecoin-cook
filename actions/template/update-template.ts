@@ -86,7 +86,10 @@ export async function updateTemplate(
     }
 
     // Use the subdomain for organizing files in S3
-    const fileBasePath = `domains/${data.subdomain}`;
+    const fileBasePath =
+      process.env.NODE_ENV === "development"
+        ? `devs/${data.subdomain.toLowerCase()}`
+        : `prod/${data.subdomain.toLowerCase()}`;
 
     // Gérer les uploads d'images si nécessaire
     let logoUrl: string | null = domain.template.logo;

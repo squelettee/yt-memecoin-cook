@@ -64,7 +64,10 @@ export async function createTemplate(
       return user;
     }
 
-    const fileBasePath = `domains/${subdomain.toLowerCase()}`;
+    const fileBasePath =
+      process.env.NODE_ENV === "development"
+        ? `devs/${subdomain.toLowerCase()}`
+        : `prod/${subdomain.toLowerCase()}`;
 
     if (files?.logo) {
       const logoUploadResult = await uploadToS3(
