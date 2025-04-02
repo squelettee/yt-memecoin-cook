@@ -524,24 +524,6 @@ export function TemplateForm({
                   <div className="space-y-3 text-left bg-violet-50 p-4 rounded-lg border border-violet-200">
                     <div className="flex items-start gap-2">
                       <span className="text-violet-600 mt-1">•</span>
-
-                      <span className="text-sm text-violet-900">
-                        This is a one shot template creation service. You
-                        can&apos;t edit the template once it&apos;s created.
-                        (may change in the future)
-                      </span>
-                    </div>
-
-                    <div className="flex items-start gap-2">
-                      <span className="text-violet-600 mt-1">•</span>
-                      <span className="text-sm text-violet-900">
-                        Memecook is not responsible for the content of the
-                        template.
-                      </span>
-                    </div>
-
-                    <div className="flex items-start gap-2">
-                      <span className="text-violet-600 mt-1">•</span>
                       <span className="text-sm text-violet-900">
                         Memecook can modify or cancel the template at any time
                         if the template is offensive or violates any laws.
